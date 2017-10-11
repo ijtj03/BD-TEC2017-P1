@@ -1,0 +1,10 @@
+insert Medicamento (Nombre, NecesitaReceta) values ('Acetaminofen',0);
+insert Medicamento (Nombre, NecesitaReceta) values ('Tafil',1);
+insert Medicamento (Nombre, NecesitaReceta) values ('Diasepan',1);
+insert Medicamento (Nombre, NecesitaReceta) values ('Amlodipina',0);
+insert Medicamento (Nombre, NecesitaReceta) values ('Hidrocloritacida',0);
+insert Medicamento (Nombre, NecesitaReceta) values ('Migradorixina',0);
+insert Medicamento (Nombre, NecesitaReceta) values ('Dexametasona',0);
+insert Medicamento (Nombre, NecesitaReceta) values ('Atenodol',0);
+insert Medicamento (Nombre, NecesitaReceta) values ('Doxiciclina',1);
+insert Medicamento (Nombre, NecesitaReceta) values ('Cataflan',0);

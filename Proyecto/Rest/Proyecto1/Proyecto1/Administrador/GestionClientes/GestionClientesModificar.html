@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Gestion de Clientes</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
+    <link rel='stylesheet' href='/mywebsite/css/styles.css'>
+
+    <script src="../Scripts/angular.js"></script>
+    <script src="../Scripts/angular-route.js"></script>
+    <script src="../Scripts - Views/GestionClientes.js"></script>
+
+</head>
+<body>
+    <div id='page'>
+        <header>
+            <div id='logo'><img src="/mywebsite/rsc/imgs/bot.png" alt="picture" width="190" /></div>
+            <nav id='menu'>
+                <ul>
+                    <li><a href='/Administrador/HomeAdministrador.html' title="INICIO">INICIO</a></li>
+                    <li><a href='/Administrador/GestionClientes/GestionClientes.html' title="GESTIONCLIENTES">GESTION CLIENTES</a></li>
+                    <li><a href='/Administrador/GestionDoctores/GestionDoctores.html' title="GESTIONDOCTORES">GESTION DOCTORES</a></li>
+                    <li><a href='/Administrador/GestionMedicamentos/GestionMedicamentos.html' title="GESTIONMEDICAMENTOS">GESTION MEDICAMENTOS</a></li>
+                    <li><a href='/Administrador/GestionRoles/GestionRoles.html' title="GESTIONROLES">GESTION ROLES</a></li>
+                    <li><a href='/Administrador/GestionSucursales/GestionSucursales.html' title="GESTIONSUCURSALES">GESTION SUCURSALES</a></li>
+                    <li><a href='/Administrador/Estadisticas/Estadisticas.html' title="ESTADISTICAS">ESTADISTICAS</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section id='main'>
+
+
+            <div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
+                <center>
+                    <!-- First Photo Grid-->
+                    <div class="w3-row-padding w3-padding-16 w3-center" id="food">
+                        <div class="w3-quarter">
+                            <a href="#" onClick="href='GestionClientesAgregar.html'"><img ng-model="data" src="/mywebsite/rsc/imgs/agregarCliente.png" alt="Agregar" style="width:100%"></a>
+                            <h3>Agregar un nuevo cliente</h3>
+                            <p>En este apartado se podran agregar nuevos clientes para el uso del mismo de la aplicacion web exclusivo para cliente.</p>
+                        </div>
+                        <div class="w3-quarter">
+                            <a href="#" onClick="href='GestionClientesEliminar.html'"> <img src="/mywebsite/rsc/imgs/borrarCliente.png" alt="Borrar" style="width:100%"></a>
+                            <h3>Borrar Cliente</h3>
+                            <p>Se borra un cliente de la base de datos.</p>
+                        </div>
+                        <div class="w3-quarter">
+                            <a href="#" onClick="href='GestionClientesModificar.html'"><img src="/mywebsite/rsc/imgs/modificarCliente.png" alt="Modificar" style="width:100%"></a>
+                            <h3>Modificar cliente</h3>
+                            <p>Se modificara un cliente de la base de datos.</p>
+                        </div>
+                    </div>
+                </center>
+            </div>
+
+
+            <section id='registro'>
+                <form action="" method="update">
+                    <center>
+                        <h2>Agregar</h2>
+                        <input type="number" class='field' value='' placeholder='Cedula' name='txtcedula' ng-model="cedula" required />
+                        <button type="button" class="button button-primary" ng-click="agregar()">Buscar</button>
+                        <br><br>
+                        <input type="text" class='field' value='' placeholder='Nombre' name='txtnombre' ng-model="nombre" required />
+                        <br><br>
+                        <input type="text" class='field' value='' placeholder='Primer Apellido' name='txtapp1' ng-model="apellido1" required />
+                        <br><br>
+                        <input type="text" class='field' value='' placeholder='Segundo Apellido' name='txtapp2' ng-model="apellido2" required />
+                        <br><br>
+                        <input type="number" class='field' value='' placeholder='Telefono' name='txttel' ng-model="telefono" required />
+                        <br><br>
+                        <input type="password" class='field' value='' placeholder='Password' name='txtpass' ng-model="password" required />
+                        <br><br>
+                        <input type="text" class='field' value='' placeholder='Provincia' name='txtprovincia' ng-model="provincia" required />
+                        <br><br>
+                        <input type="text" class='field' value='' placeholder='Canton' name='txtcanton' ng-model="canton" required />
+                        <br><br>
+                        <input type="text" class='field' value='' placeholder='Distrito' name='txtdistrito' ng-model="distrito" required />
+                        <br><br>
+                        <input type="text" class='field' value='' placeholder='Direccion' name='txtdir' ng-model="direccion" required />
+                        <br><br>
+                        <input type="date" class='field' value='' placeholder='Fecha Nacimiento' name='txtFechaNac' ng-model="fecha" required />
+                        <br><br>
+                        <button type="button" class="button button-primary" ng-click="agregar()">Agregar</button>
+                    </center>
+                </form>
+            </section>
+        </section>
+    </div>
+</body>
+</html>

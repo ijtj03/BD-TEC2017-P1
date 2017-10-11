@@ -1,0 +1,338 @@
+html, body {
+margin: 0;
+padding: 0;
+}
+/* selector CSS3 que permite definir nuestras fonts*/
+@font-face {
+font-family: 'Abeakrg'; /*Nombre que le asignamos a la font*/
+src: url('ABEAKRG.ttf'); /* ruta donde está nuestra font*/
+/* es un tipo de letra redondeado*/
+}
+/*Centramos nuestro contenido total*/
+#page{
+position: relative;
+width: 100%;
+height: 1550px;
+margin: auto; /* esta es la clave para centrar contenido*/
+}
+
+body{
+background:url('../rsc/imgs/bg.jpg') no-repeat center;
+overflow-x: hidden; /*ocultamos el scroll horizontal del navegador*/
+font-family: 'Abeakrg'; /*Utilizamos nuestra fuente personalizada*/
+}
+
+header{
+position: fixed; /*esto permite que el elemento que fijo en una posición*/
+/*aunque se haga scroll el elemento se conserva en su ubicación*/
+height: 180px;
+background:#FFF;
+
+transform: rotate(-3deg); /*giramos -3 grados nuestro elemento*/
+top: -100px;
+width: 101%; /*hacemos que el tamaño sea más grande que la pantalla para no ver el
+efecto de giro*/
+left: -5px;
+z-index: 1;
+border:15px solid transparent;
+border-image:url('../rsc/imgs/border.png') 30 30 round; /*ahora podemos definir
+bordes con imágenes*/
+box-shadow: 12px 0px 42px #000; /*sombra para el elemento*/
+/*px hacia abajo, px hacia la derecha, efecto borroso y el color*/
+}
+
+nav ul li{
+display: inline; /*permite que la lista se despliegue horizontalmente*/
+padding: 15px;
+padding-top: 55px;
+background:url('../rsc/imgs/mnubg.png') 0px -110px no-repeat;
+}
+nav ul{
+position: absolute;
+top: 130px;
+right: 30px;
+padding: 5px;
+}
+
+nav a{
+text-decoration: none;
+color: #FFF;
+font-weight: bold;
+color: #888;
+}
+nav li a:hover{
+color: #0783C4;
+}
+
+#logo{
+position: absolute;
+left: 40px;
+width: 200px;
+height: 118px;
+top: 80px;
+}
+#main{
+	position: relative;
+	width: 100%;
+	height: 880px;
+	background: #FFF;
+	top: 500px;
+	/* nuevo efecto de degrado , para este caso es radial*/
+	background: radial-gradient(ellipse at center, #ffffff 57%, #e6e6e6 87%, #ededed 100%);/*W3C*/
+}
+
+#banner {
+    font-size: 112px;
+    position: absolute;
+    top: -275px;
+    right: 20px;
+    color: #000000;
+    text-shadow: 5px 5px 15px #000; /* sombra para el texto , al igual que un dic*/
+    z-index: -1;
+    line-height: 90px;
+}
+h1{
+	text-align: center;
+	font-size: 60px;
+	position: relative;
+	top: 30px;
+	color: #333;
+}
+/* animacion CSS segun porcentaje de progreso */
+@keyframes bgmove{/* le damos nombre a la animacion para asociarla despues*/
+0%{background-position:-0px -100px; }
+50%{background-position: 0px 0px; }
+100%{background-position:-0px -100px; }
+}
+/*daremos movimiento al background del body*/
+body{
+	animation-name:bgmove;/*le asociamos la animacion*/
+	animation-duration:10s;/* el tiempo que tardara en realizarla*/
+	animation-timing-function:ease;/* tipo de animacion(inicio/fin)*/
+	animation-iteration-count:infinite;
+}
+/*animacion para el menu*/
+@keyframes mnuselect{
+	0%{background-position: 0px -80px;}
+	100%{background-position: 0px 90px;}
+}
+
+nav li:hover{
+	animation-name mnuselect;
+	animation-duration:0.6s;
+	animation-timing-function:ease;
+	border-bottom: 2px solid #1CA5D7;
+} 
+
+/*animacion para el logo*/
+@keyframes logoanimate{
+	0%{top:70px;}
+	50%{top: 90px}
+	100%{top: 70px}
+}
+
+#logo{
+	animation-name:logoanimate;
+	animation-duration:2s;
+	animation-timing-function:ease;
+	animation-iteration-count:infinite;
+}
+.texto{
+	-moz-column-count:2; /*ahora podemos dividir el texto en columnas*/
+	-moz-column-gap:40px;/*distancia de las columnas*/
+	-moz-column-rule:1px inset#333;/*borde entre las columnas */
+	position: relative;
+	height: 300px;
+	padding: 30px 30px 30px 460px;
+	text-align: justify;
+	color: #333;
+	font-size: 12px;
+}
+
+#video{
+	position: absolute;
+	left: 50px;
+	top: 150px;
+}
+
+#registro {
+    position: relative;
+    width: 800px;
+    height: 800px;
+    margin: auto;
+    border: 1px solid #CCC;
+    border-radius: 8px; /*borde redondeado*/
+    padding: 20px;
+    color: #555;
+}
+
+#registro .field {
+    width: 300px;
+    height: 25px;
+    border: 1px solid #CCC;
+    border-radius: 20px;
+    padding: 2px;
+}
+
+#registro .button {
+    width: 200px;
+    height: 25px;
+    border: 1px solid #335DF1;
+    border-radius: 20px;
+    padding: 2px;
+    background: #4D72FE;
+    font-weight: bold;
+}
+
+#contacto{
+position: relative;
+width: 800px; height: 300px;
+margin: auto;
+border: 1px solid #CCC;
+border-radius: 8px; /*borde redondeado*/
+padding: 20px;
+color: #555;
+}
+#contacto .field{
+width: 300px;
+height: 25px;
+border: 1px solid #CCC;
+border-radius: 20px;
+padding: 2px;
+}
+
+#contacto .button{
+width: 200px; height: 25px;
+border: 1px solid #335DF1;
+border-radius: 20px;
+padding: 2px;
+background: #4D72FE;
+font-weight: bold;
+}
+#formulario{
+position: relative;
+width: 400px;
+float: left;
+}
+#panel{
+position: relative;
+width: 400px;
+float: left;
+}
+
+@keyframes spinner{
+from{
+	transform: rotateY(0deg);
+}
+to {
+	transform:rotateY(360deg);
+}
+}
+
+#stage{
+	margin: 1em auto;
+	perspective: 1200px;
+}
+
+#spinner{
+	animation-name:spinner;
+	animation-timing-function:linear;
+	animation-iteration-count:infinite;
+	animation-duration:6s;
+	transform-style:preserve-3d;
+}
+
+#spinner:hover{
+	animation-play-state:paused;
+	cursor:pointer;/*definimos el puntero con el icono de la mano*/
+}
+
+#spinner img {
+	position: absolute;
+	left: 80px;
+	top: 20px;
+	border: 1px solid #ccc;
+	background:rgba(255,255,255,0.8);/* forma opcional de definir color de fondo con opacidad*/
+	box-shadow: inset 0 0 50px rgba(0,0,0,0.1);
+}
+
+footer{
+background: #555;
+box-shadow: inset 0px 0px 18px #000;
+position: absolute;
+width: 100%; height: 170px;
+bottom: 0px;
+background: url('../rsc/imgs/foo.png'); /*imagen de fondo repetida en x & y*/
+}
+footer #logoface{
+position: relative;
+left: 500px;
+width: 50px;
+height: 50px;
+top: 50px;
+}
+
+
+
+footer #logoface{
+	animation-name:logoicon;
+	animation-duration:2s;
+	animation-timing-function:ease;
+	animation-iteration-count:infinite;
+}
+
+footer #logoyou{
+	animation-name:logoicon2;
+	animation-duration:2s;
+	animation-timing-function:ease;
+	animation-iteration-count:infinite;
+}
+footer #logotui{
+	animation-name:logoicon;
+	animation-duration:2s;
+	animation-timing-function:ease;
+	animation-iteration-count:infinite;
+}
+
+footer #logoyou{
+position: relative;
+left: 550px;
+width: 50px;
+height: 50px;
+top: 50px;
+}
+
+footer #logotui{
+position: relative;
+left: 600px;
+width: 50px;
+height: 50px;
+top: 50px;
+}
+
+footer p{ /*formato para el texto*/
+position: relative;
+text-align: center;
+color: #FFF;
+font-size: 12px;
+top: 60px;
+}
+/*animacion para para los iconos*/
+@keyframes logoicon{
+	0%{top:50px;}
+	50%{top: 60px}
+	100%{top: 40px}
+}
+
+@keyframes logoicon2{
+	
+100%{top: 40px}
+50%{top: 60px}
+	0%{top:50px;}
+	
+}
+
+
+
+/*
+

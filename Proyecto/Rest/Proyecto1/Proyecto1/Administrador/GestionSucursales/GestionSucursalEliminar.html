@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html ng-app="GestionSucursal">
+<head>
+    <meta charset="utf-8" />
+    <title>Gestion de Sucursales</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
+    <link rel='stylesheet' href='/mywebsite/css/styles.css'>
+</head>
+<body>
+    <div id='page'>
+        <header>
+            <div id='logo'><img src="/mywebsite/rsc/imgs/bot.png" alt="picture" width="190" /></div>
+            <nav id='menu'>
+                <ul>
+                    <li><a href='/Administrador/HomeAdministrador.html' title="INICIO">INICIO</a></li>
+                    <li><a href='/Administrador/GestionClientes/GestionClientes.html' title="GESTIONCLIENTES">GESTION CLIENTES</a></li>
+                    <li><a href='/Administrador/GestionDoctores/GestionDoctores.html' title="GESTIONDOCTORES">GESTION DOCTORES</a></li>
+                    <li><a href='/Administrador/GestionMedicamentos/GestionMedicamentos.html' title="GESTIONMEDICAMENTOS">GESTION MEDICAMENTOS</a></li>
+                    <li><a href='/Administrador/GestionRoles/GestionRoles.html' title="GESTIONROLES">GESTION ROLES</a></li>
+                    <li><a href='/Administrador/GestionSucursales/GestionSucursales.html' title="GESTIONSUCURSALES">GESTION SUCURSALES</a></li>
+                    <li><a href='/Administrador/Estadisticas/Estadisticas.html' title="ESTADISTICAS">ESTADISTICAS</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section id='main'>
+            <div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
+                <center>
+                    <div class="w3-quarter">
+                        <a href="#" onClick="href='GestionSucursalAgregar.html'"><img src="/mywebsite/rsc/imgs/agregarDoctor.jpg" alt="Agregar" style="width:100%"></a>
+                        <h3>Agregar nueva sucursal</h3>
+                        <p>Para agregar nuevas sucursales de cualquier farmacia.</p>
+                    </div>
+                    <div class="w3-quarter">
+                        <a href="#" onClick="href='GestionSucursalEliminar.html'"> <img src="/mywebsite/rsc/imgs/borrarCliente.png" alt="Borrar" style="width:100%"></a>
+                        <h3>Borrar Sucursal</h3>
+                        <p>Se borra una sucursal de la base de datos.</p>
+                    </div>
+                    <div class="w3-quarter">
+                        <a href="#" onClick="href='GestionSucursalModificar.html'"><img src="/mywebsite/rsc/imgs/modificarCliente.png" alt="Modificar" style="width:100%"></a>
+                        <h3>Modificar Sucursal</h3>
+                        <p>Se modificara los datos de una sucursal.</p>
+                    </div>
+                </center>
+            </div>
+
+            <section>
+                <form action="" method="delete" ng-controller="EliminarController">
+                    <center>
+                        <h2>Eliminar Sucursal</h2>
+                        <input type="number" class='field' value='' placeholder='Id Sucursal' name='txtIdSucursal' ng-model="IdSucursal" required />
+                        <br><br>
+                        <button type="button" class="button button-primary" ng-click="eliminar()">Eliminar</button>
+                    </center>
+                </form>
+            </section>
+
+
+        </section>
+    </div>
+</body>
+</html>

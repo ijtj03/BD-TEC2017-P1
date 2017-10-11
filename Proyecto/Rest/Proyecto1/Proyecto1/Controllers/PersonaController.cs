@@ -28,6 +28,14 @@ namespace Proyecto1.Controllers
             PersonaService con = new PersonaService();
             return Ok(con.GetPersona(id));
         }
+        
+        [HttpPost]
+        [Route("UpdatePersona")]
+        public void UpdatePersona([FromBody]Persona persona)
+        {
+            PersonaService con = new PersonaService();
+            con.UpdatePersona(persona);
+        }
 
         [HttpPost]
         [Route("PostPersona")]

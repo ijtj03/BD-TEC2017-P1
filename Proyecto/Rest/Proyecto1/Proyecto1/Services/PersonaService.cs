@@ -51,7 +51,8 @@ namespace Proyecto1.Services
             System.Data.SqlClient.SqlConnection conn;
             SqlCommand command;
 
-            conn = new SqlConnection("Data Source=MELENDEZ-JEISON\\SQLEXPRESS;Initial Catalog=Proyecto1;Integrated Security=True");
+            //conn = new SqlConnection("Data Source=MELENDEZ-JEISON\\SQLEXPRESS;Initial Catalog=Proyecto1;Integrated Security=True");
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
             conn.Open();
             String comm = "Update Persona SET Contraseña=\'" + persona.Contraseña + "\',Telefono=\'" + persona.Telefono +
                 "\',DescripcionDireccion=\'" + persona.DescripcionDireccion + "\',Provincia=\'"+persona.Provincia+"\'" +

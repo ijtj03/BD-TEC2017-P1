@@ -55,22 +55,19 @@
             </nav>
 
         </header>
-
-
-
-
-
         <section id='main' ng-controller="mainController">
             <section id='contenido' class="card">
-                <br></br>
+                <br><br/>
                 <h1>Bienvenido</h1><br>
-                <br></br>
+                <br><br/>
                 <h2>Perfil</h2><br>
                 <center>
                     <div class="container">
                         <h2><b>{{perfil.Nombre}} {{perfil.Apellido1}} {{perfil.Apellido2}}</b></h2>
-                        <h4><b>{{perfil.IdCedula}}</b></h4>
-                        <h4><b>{{perfil.FechaNacimiento}}</b></h4>
+                        <h4><b>Cedula: {{perfil.IdCedula}}</b></h4>
+                        <h4><b>Fecha de Nacimiento: {{perfil.FechaNacimiento}}</b></h4>
+                        <h4><b>Telefono: {{perfil.Telefono}}</b></h4>
+                        <button type="button" class="btn btn-primary btn-block" ng-click="goToEdit()">Editar Informacion</button>
                     </div>
                 </center>
             </section>
@@ -89,9 +86,11 @@
                     </div>
                 </div>
                 <center>
-                    <br><br />
-                    <button type="button" class="btn btn-primary btn-block" ng-click="addEnf()">Agregar otra enfermedad</button>
-                </center>
+                    <div class="container">
+                        <br><br />
+                        <button type="button" class="btn btn-primary btn-block" ng-click="addEnf()">Agregar otra enfermedad</button>
+                    </div>
+               </center>
             </section>
 
         </section>

@@ -7,6 +7,11 @@ main.controller("mainController", function mainController($scope, $http, $locati
             $scope.perfil = response.data;
             console.log("Geted");
         });
+
+    $scope.goToEdit = function () {
+        console.log("Editar perfil");
+        window.location = "http://localhost:64698/mywebsite/editperfil.html";
+    };
     $scope.addEnf = function () {
         window.location = "http://localhost:64698/mywebsite/addenf.html";
     };

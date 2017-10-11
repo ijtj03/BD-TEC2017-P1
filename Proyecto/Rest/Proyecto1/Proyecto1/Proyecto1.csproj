@@ -88,6 +88,7 @@
     <Content Include="mywebsite\.vs\VSWorkspaceState.json" />
     <Content Include="mywebsite\addenf.html" />
     <Content Include="mywebsite\css\ABEAKRG.TTF" />
+    <Content Include="mywebsite\editperfil.html" />
     <Content Include="mywebsite\medicinas.html" />
     <Content Include="mywebsite\pedido.html" />
     <Content Include="mywebsite\pedidos.html" />
@@ -116,6 +117,7 @@
     <Content Include="mywebsite\rsc\pics\4.png" />
     <Content Include="mywebsite\rsc\pics\5.png" />
     <Content Include="mywebsite\rsc\vids\movie.mp4" />
+    <Content Include="Scripts - Views\EditPerfil.js" />
     <Content Include="Scripts - Views\Enfermedades.js" />
     <Content Include="Scripts - Views\IndexController.js" />
     <Content Include="Scripts - Views\Login.js" />

@@ -102,10 +102,15 @@ namespace Proyecto1.Services
 
             SqlParameter IdEnfermedad = new SqlParameter("@IdEnfermedad", System.Data.SqlDbType.Int);
             IdEnfermedad.Value = exp.IdEnfermedad;
-            
-            command = new SqlCommand("update EnfermedadxPersona set LogicDelete=1 where IdEnfermedad = @IdEnfermedad and IdCedula = @IdCedula", conn);
+
+
+            SqlParameter FechaEnfermedad = new SqlParameter("@FechaEnfermedad", System.Data.SqlDbType.Date);
+            FechaEnfermedad.Value = exp.FechaEnfermedad;
+
+            command = new SqlCommand("update EnfermedadxPersona set LogicDelete=1 where IdEnfermedad = @IdEnfermedad and IdCedula = @IdCedula and FechaEnfermedad=@FechaEnfermedad", conn);
             command.Parameters.Add(IdEnfermedad);
             command.Parameters.Add(IdCedula);
+            command.Parameters.Add(FechaEnfermedad);
 
             command.ExecuteNonQuery();
 

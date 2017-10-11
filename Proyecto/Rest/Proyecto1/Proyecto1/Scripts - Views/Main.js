@@ -19,11 +19,12 @@ main.controller("misEnfController", function misEnfController($scope, $http) {
             $scope.misenfermedades = response.data;
             console.log("Geted");
         });
-    $scope.eliminarEnf = function (idEnf) {
+    $scope.eliminarEnf = function (idEnf,fEnf) {
         console.log("estoy en la funcion");
         var eliminarEnfermedad = {
             IdEnfermedad: idEnf,
-            IdCedula: window.localStorage.getItem("id")
+            IdCedula: window.localStorage.getItem("id"),
+            FechaEnfermedad: fEnf
         };
         $http.post("http://localhost:64698/api/EnfermedadxPersona/EliminarEnfxPer", eliminarEnfermedad)
             .then(function successCallback(response) {

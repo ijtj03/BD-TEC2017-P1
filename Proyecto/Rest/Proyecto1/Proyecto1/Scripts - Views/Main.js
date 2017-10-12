@@ -10,10 +10,10 @@ main.controller("mainController", function mainController($scope, $http, $locati
 
     $scope.goToEdit = function () {
         console.log("Editar perfil");
-        window.location = "http://localhost:64698/mywebsite/editperfil.html";
+        window.location = "http://localhost:64698/mywebsite/WebCliente/editperfil.html";
     };
     $scope.addEnf = function () {
-        window.location = "http://localhost:64698/mywebsite/addenf.html";
+        window.location = "http://localhost:64698/mywebsite/WebCliente/addenf.html";
     };
 });
 
@@ -34,7 +34,7 @@ main.controller("misEnfController", function misEnfController($scope, $http) {
         $http.post("http://localhost:64698/api/EnfermedadxPersona/EliminarEnfxPer", eliminarEnfermedad)
             .then(function successCallback(response) {
                 console.log(response);
-                window.location = "http://localhost:64698/mywebsite/main.html";
+                window.location = "http://localhost:64698/mywebsite/WebCliente/main.html";
             }, function errorCallback(response) {
                 console.log(response);
             });

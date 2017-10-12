@@ -1,24 +1,24 @@
 ﻿<!DOCTYPE HTML>
 <html ng-app="myApp">
 <head>
-    <title>Contacto</title>
+    <title>Login</title>
 
     <!-- comentario: etiquetas META descriptiva para nuestro sitio web-->
     <meta charset='utf-8'><!-- Codificacion de documento para uso de caracteres-->
     <meta name='description' content='Laboratorio #1 HTML5-CSS3'>
     <meta name='keywords' content='HTML5,CSS3,JavaScript'>
-    <script src="../Scripts/angular.js"></script>
-    <script src="../Scripts/angular-route.js"></script>
-    <script src="../Scripts - Views/Login.js"></script>
+    <script src="../../Scripts/angular.js"></script>
+    <script src="../../Scripts/angular-route.js"></script>
+    <script src="../../Scripts - Views/Login.js"></script>
     <link rel="shortcut icon" href="html5.png" />
 
-    <link rel='stylesheet' href='css/styles.css'>
+    <link rel='stylesheet' href='../css/styles.css'>
 </head>
 
 <body>
     <div id='page'>
         <header>
-            <div id='logo'><img src="rsc/imgs/bot.png" alt="picture" width="190" /></div>
+            <div id='logo'><img src="../rsc/imgs/bot.png" alt="picture" width="190" /></div>
             <nav id='menu'>
                 <ul>
 
@@ -38,15 +38,15 @@
                     <div id="stage" style="height: 160px;">
                         <div id="spinner" style="transform-origin: 180px 0 0;">
                             <img style="transform: rotateY(0deg) translateX(100px);"
-                                 src="rsc/pics/1.png" width="200" height="160" alt="">
+                                 src="../rsc/pics/1.png" width="200" height="160" alt="">
                             <img style="transform: rotateY(-72deg) translateX(100px);"
-                                 src="rsc/pics/2.png" width="200" height="160" alt="">
+                                 src="../rsc/pics/2.png" width="200" height="160" alt="">
                             <img style="transform: rotateY(-144deg) translateX(100px);"
-                                 src="rsc/pics/3.png" width="200" height="160" alt="">
+                                 src="../rsc/pics/3.png" width="200" height="160" alt="">
                             <img style="transform: rotateY(-216deg) translateX(100px);"
-                                 src="rsc/pics/4.png" width="200" height="160" alt="">
+                                 src="../rsc/pics/4.png" width="200" height="160" alt="">
                             <img style="transform: rotateY(-288deg) translateX(100px);"
-                                 src="rsc/pics/5.png" width="200" height="160" alt="">
+                                 src="../rsc/pics/5.png" width="200" height="160" alt="">
                         </div>
                     </div>
                 </div>
@@ -62,11 +62,8 @@
 
                     
                     <button type="button" class="button button-primary" ng-click="log(id,password)">LOGIN</button>
-                    
-                    
-                    <a href="register.html">
-                        <button type="button" class="button button-primary">REGISTRARSE</button>
-                    </a>
+                    <br><br />
+                    <button type="button" class="button button-primary" ng-click="goToReg()">REGISTRARSE</button>
                             
                 </form>
                 

@@ -16,12 +16,15 @@ app.controller('myController', function ($scope, $http, $location) {
                         console.log("Logged");
                         window.localStorage.setItem("id", id);
                         console.log(window.localStorage.getItem("id"));
-                       window.location = "http://localhost:64698/mywebsite/main.html";
+                        window.location = "http://localhost:64698/mywebsite/WebCliente/main.html";
                         
                     } else {
                         alert("El usuario o la contraseña no son correctos");
                     }
                 });
+        };
+        $scope.goToReg = function () {
+            window.location = "http://localhost:64698/mywebsite/WebCliente/register.html";
         };
 });
 

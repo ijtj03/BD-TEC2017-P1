@@ -30,7 +30,7 @@ editP.controller("editController", function mainController($scope, $http, $locat
             $http.post("http://localhost:64698/api/Persona/UpdatePersona", editP)
                 .then(function successCallback(response) {
                     console.log(response);
-                    window.location = "http://localhost:64698/mywebsite/main.html";
+                    window.location = "http://localhost:64698/mywebsite/WebCliente/main.html";
                 }, function errorCallback(response) {
                     console.log(response);
                 });

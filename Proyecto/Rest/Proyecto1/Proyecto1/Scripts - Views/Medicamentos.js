@@ -58,7 +58,7 @@ medicamentos.controller("medicamentosController", function ($scope, $http, $loca
 
                             });
                             /*.then(function (response) {
-                                window.location = "http://localhost:64698/mywebsite/pedidos.html";
+                                window.location = "http://localhost:64698/mywebsite/WebCliente/pedidos.html";
                             });*/
 
 

@@ -8,14 +8,14 @@ pedidos.controller("pedidosController", function ($scope, $http, $location) {
         });
     $scope.moveToId = function (idPedido) {
         window.localStorage.setItem("idPedido", idPedido);
-        window.location = "http://localhost:64698/mywebsite/pedido.html";
+        window.location = "http://localhost:64698/mywebsite/WebCliente/pedido.html";
     };
     $scope.deletePedido = function (idPedido) {
         var dP = { IdPedido: idPedido };
         $http.post("http://localhost:64698/api/Pedido/DeletePedido", dP)
             .then(function successCallback(response) {
                 console.log(response);
-                window.location = "http://localhost:64698/mywebsite/pedidos.html";
+                window.location = "http://localhost:64698/mywebsite/WebCliente/pedidos.html";
             }, function errorCallback(response) {
                 console.log(response);
             });

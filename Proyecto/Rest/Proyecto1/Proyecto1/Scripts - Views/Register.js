@@ -34,7 +34,7 @@ register.controller('registerController', function ($scope, $http) {
         $http.post("http://localhost:64698/api/Persona/PostPersona", usuario)
             .then(function successCallback(response) {
                 console.log(response);
-                window.location = "http://localhost:64698/mywebsite/login.html";
+                window.location = "http://localhost:64698/mywebsite/WebCliente/login.html";
             }, function errorCallback(response) {
                 console.log(response);
             });

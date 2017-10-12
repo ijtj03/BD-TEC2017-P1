@@ -1,18 +1,19 @@
 ﻿<!DOCTYPE HTML>
-<html>
+<html ng-app="MyApp">
 <head>
 	<title>Home</title>
+    <!-- comentario: etiquetas META descriptiva para nuestro sitio web-->
+    <meta charset='utf-8'><!-- Codificacion de documento para uso de caracteres-->
+    <meta name='description'content='Laboratorio #1 HTML5-CSS3'>
+    <meta name='keywords'content='HTML5,CSS3,JavaScript'>
+    <link rel="shortcut icon" href="html5.png"/>
 
-<!-- comentario: etiquetas META descriptiva para nuestro sitio web-->
-<meta charset='utf-8'><!-- Codificacion de documento para uso de caracteres-->
-<meta name='description'content='Laboratorio #1 HTML5-CSS3'>
-<meta name='keywords'content='HTML5,CSS3,JavaScript'>
-<link rel="shortcut icon" href="html5.png"/>
-
-<link rel='stylesheet' href='css/styles.css'>
+    <link rel='stylesheet' href='css/styles.css'>
+    <script src="../Scripts/angular.js"></script>
+    <script src="../Scripts - Views/IndexController.js"></script>
 </head>
 
-<body>
+<body ng-controller="MyController">
 	<div id='page'>
 		<header>
 			<div id='logo'><img src="rsc/imgs/bot.png" alt="picture" width="190"/></div>

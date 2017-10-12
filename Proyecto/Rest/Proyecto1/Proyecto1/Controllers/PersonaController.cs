@@ -62,6 +62,22 @@ namespace Proyecto1.Controllers
             return Ok(con.SignInVerification(id,contraseña)); 
         }
 
+        [HttpGet]
+        [Route("SignInSucursalVerification")]
+        public IHttpActionResult SignInSucursalVerification(int id, string contraseña)
+        {
+            PersonaService con = new PersonaService();
+            return Ok(con.SignInSucursalVerification(id, contraseña));
+        }
+
+        [HttpGet]
+        [Route("GetSucursalPersona")]
+        public IHttpActionResult GetSucursalPersona(int id)
+        {
+            PersonaService con = new PersonaService();
+            return Ok(con.GetSucursalPersona(id));
+        }
+
 
     }
 }

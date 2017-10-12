@@ -49,5 +49,56 @@ namespace Proyecto1.Controllers
             PedidoService con = new PedidoService();
             con.DeletePedido(pedido);
         }
+
+        [HttpGet]
+        [Route("GetPedidosSucursal")]
+        public IHttpActionResult GetPedidosSucursal(int id)
+        {
+            PedidoService con = new PedidoService();
+            return Ok(con.GetPedidosSucursal(id));
+
+        }
+
+        [HttpGet]
+        [Route("GetPedidosSucursalPreparado")]
+        public IHttpActionResult GetPedidoSucursalPreparado(int id)
+        {
+            PedidoService con = new PedidoService();
+            return Ok(con.GetPedidosSucursalPreparado(id));
+
+        }
+
+        [HttpGet]
+        [Route("GetPedidosSucursalRecogido")]
+        public IHttpActionResult GetPedidosSucursalRecogido(int id)
+        {
+            PedidoService con = new PedidoService();
+            return Ok(con.GetPedidosSucursalRecogido(id));
+
+        }
+
+        [HttpPost]
+        [Route("PrepararPedido")]
+        public void PrepararPedido(int id)
+        {
+            PedidoService con = new PedidoService();
+            con.PrepararPedido(id);
+        }
+
+        [HttpPost]
+        [Route("NoPrepararPedido")]
+        public void NoPrepararPedido(int id)
+        {
+            PedidoService con = new PedidoService();
+            con.NoPrepararPedido(id);
+        }
+
+        [HttpPost]
+        [Route("RecogerPedido")]
+        public void RecogerPedido(int id)
+        {
+            PedidoService con = new PedidoService();
+            con.RecogerPedido(id);
+        }
     }
 }

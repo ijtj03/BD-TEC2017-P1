@@ -94,6 +94,11 @@
     <Content Include="mywebsite\pedidos.html" />
     <Content Include="mywebsite\repedido.html" />
     <Content Include="mywebsite\rsc\imgs\Thumbs.db" />
+    <Content Include="mywebsite\rsc\sucursal\check.png" />
+    <Content Include="mywebsite\rsc\sucursal\text.png" />
+    <Content Include="mywebsite\rsc\sucursal\x.png" />
+    <Content Include="mywebsite\rsc\sucursal\x1.png" />
+    <Content Include="mywebsite\rsc\sucursal\x2.png" />
     <Content Include="mywebsite\rsc\vids\Thumbs.db" />
     <None Include="packages.config" />
     <Content Include="mywebsite\contacto.html" />
@@ -117,6 +122,13 @@
     <Content Include="mywebsite\rsc\pics\4.png" />
     <Content Include="mywebsite\rsc\pics\5.png" />
     <Content Include="mywebsite\rsc\vids\movie.mp4" />
+    <Content Include="mywebsite\Sucursal\indexSucursal.html" />
+    <Content Include="mywebsite\Sucursal\loginSucursal.html" />
+    <Content Include="mywebsite\Sucursal\mainSucursal.html" />
+    <Content Include="mywebsite\Sucursal\pedidoPreparadoSucursal.html" />
+    <Content Include="mywebsite\Sucursal\pedidoRecogidoSucursal.html" />
+    <Content Include="mywebsite\Sucursal\pedidosSucursal.html" />
+    <Content Include="mywebsite\Sucursal\pedidoSucursal.html" />
     <Content Include="Scripts - Views\EditPerfil.js" />
     <Content Include="Scripts - Views\Enfermedades.js" />
     <Content Include="Scripts - Views\IndexController.js" />
@@ -929,6 +941,7 @@
     <Compile Include="Classes\MedicamentoxSucursal.cs" />
     <Compile Include="Classes\Pedido.cs" />
     <Compile Include="Classes\PedidoId.cs" />
+    <Compile Include="Classes\PedidoSucursal.cs" />
     <Compile Include="Classes\PedidoxMedicamento.cs" />
     <Compile Include="Classes\Persona.cs" />
     <Compile Include="Classes\PersonaxSucursal.cs" />

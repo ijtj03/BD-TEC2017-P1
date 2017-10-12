@@ -135,5 +135,177 @@ namespace Proyecto1.Services
             conn.Close();
 
         }
+
+
+        public List<PedidoSucursal> GetPedidosSucursal(int id)
+        {
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+            SqlDataReader read;
+
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+            command = new SqlCommand("select Sucursal.Nombre,Sucursal.Provincia,Sucursal.Canton,Sucursal.Distrito,Pedido.IdPedido,Pedido.IdCedula,Pedido.Estado,Pedido.Recogido,Pedido.Preparado from Sucursal inner join Pedido on Sucursal.IdSucursal = Pedido.IdSucursal inner join Empresa on Sucursal.IdEmpresa=Empresa.IdEmpresa where Pedido.LogicDelete!=1 and Pedido.Recogido!=1 and Pedido.Preparado!=1 and Sucursal.IdSucursal=" + id.ToString(), conn);
+            read = command.ExecuteReader();
+
+            List<PedidoSucursal> ListPedidos = new List<PedidoSucursal>();
+            while (read.Read())
+            {
+                PedidoSucursal pedido = new PedidoSucursal();
+                pedido.IdCedula = Convert.ToInt32(read["IdCedula"]);
+                pedido.NombreSucursal = Convert.ToString(read["Nombre"]);
+                pedido.IdPedido = Convert.ToInt32(read["IdPedido"]);
+                pedido.Provincia = Convert.ToString(read["Provincia"]);
+                pedido.Canton = Convert.ToString(read["Canton"]);
+                pedido.Distrito = Convert.ToString(read["Distrito"]);
+                pedido.Estado = Convert.ToBoolean(read["Estado"]);
+                pedido.Preparado = Convert.ToBoolean(read["Preparado"]);
+                pedido.Recogido = Convert.ToBoolean(read["Recogido"]);
+
+                ListPedidos.Add(pedido);
+
+            }
+
+
+            read.Close();
+            conn.Close();
+            return ListPedidos;
+        }
+
+        public List<PedidoSucursal> GetPedidosSucursalPreparado(int id)
+        {
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+            SqlDataReader read;
+
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+            command = new SqlCommand("select Sucursal.Nombre,Sucursal.Provincia,Sucursal.Canton,Sucursal.Distrito,Pedido.IdPedido,Pedido.IdCedula,Pedido.Estado,Pedido.Recogido,Pedido.Preparado from Sucursal inner join Pedido on Sucursal.IdSucursal = Pedido.IdSucursal inner join Empresa on Sucursal.IdEmpresa=Empresa.IdEmpresa where Pedido.LogicDelete!=1 and Pedido.Recogido=0 and Pedido.Preparado=1 and Sucursal.IdSucursal=" + id.ToString(), conn);
+            read = command.ExecuteReader();
+
+            List<PedidoSucursal> ListPedidos = new List<PedidoSucursal>();
+            while (read.Read())
+            {
+                PedidoSucursal pedido = new PedidoSucursal();
+                pedido.IdCedula = Convert.ToInt32(read["IdCedula"]);
+                pedido.NombreSucursal = Convert.ToString(read["Nombre"]);
+                pedido.IdPedido = Convert.ToInt32(read["IdPedido"]);
+                pedido.Provincia = Convert.ToString(read["Provincia"]);
+                pedido.Canton = Convert.ToString(read["Canton"]);
+                pedido.Distrito = Convert.ToString(read["Distrito"]);
+                pedido.Estado = Convert.ToBoolean(read["Estado"]);
+                pedido.Preparado = Convert.ToBoolean(read["Preparado"]);
+                pedido.Recogido = Convert.ToBoolean(read["Recogido"]);
+
+                ListPedidos.Add(pedido);
+
+            }
+
+
+            read.Close();
+            conn.Close();
+            return ListPedidos;
+        }
+
+
+
+
+
+        public List<PedidoSucursal> GetPedidosSucursalRecogido(int id)
+        {
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+            SqlDataReader read;
+
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+            command = new SqlCommand("select Sucursal.Nombre,Sucursal.Provincia,Sucursal.Canton,Sucursal.Distrito,Pedido.IdPedido,Pedido.IdCedula,Pedido.Estado,Pedido.Recogido,Pedido.Preparado from Sucursal inner join Pedido on Sucursal.IdSucursal = Pedido.IdSucursal inner join Empresa on Sucursal.IdEmpresa=Empresa.IdEmpresa where Pedido.LogicDelete!=1 and Pedido.Recogido=1 and Pedido.Preparado=1 and Sucursal.IdSucursal=" + id.ToString(), conn);
+            read = command.ExecuteReader();
+
+            List<PedidoSucursal> ListPedidos = new List<PedidoSucursal>();
+            while (read.Read())
+            {
+                PedidoSucursal pedido = new PedidoSucursal();
+                pedido.IdCedula = Convert.ToInt32(read["IdCedula"]);
+                pedido.NombreSucursal = Convert.ToString(read["Nombre"]);
+                pedido.IdPedido = Convert.ToInt32(read["IdPedido"]);
+                pedido.Provincia = Convert.ToString(read["Provincia"]);
+                pedido.Canton = Convert.ToString(read["Canton"]);
+                pedido.Distrito = Convert.ToString(read["Distrito"]);
+                pedido.Estado = Convert.ToBoolean(read["Estado"]);
+                pedido.Preparado = Convert.ToBoolean(read["Preparado"]);
+                pedido.Recogido = Convert.ToBoolean(read["Recogido"]);
+
+                ListPedidos.Add(pedido);
+
+            }
+
+
+            read.Close();
+            conn.Close();
+            return ListPedidos;
+        }
+
+        public void PrepararPedido(int id)
+        {
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+
+
+
+            command = new SqlCommand("UPDATE Pedido SET Preparado=1 where IdPedido=" + id.ToString(), conn);
+
+            command.ExecuteNonQuery();
+
+            conn.Close();
+
+
+
+
+        }
+
+        public void NoPrepararPedido(int id)
+        {
+
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+
+
+
+            command = new SqlCommand("UPDATE Pedido SET Preparado=0 where IdPedido=" + id.ToString(), conn);
+
+            command.ExecuteNonQuery();
+
+            conn.Close();
+
+        }
+
+        public void RecogerPedido(int id)
+        {
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+
+
+
+            command = new SqlCommand("UPDATE Pedido SET Recogido=1 where IdPedido=" + id.ToString(), conn);
+
+            command.ExecuteNonQuery();
+
+            conn.Close();
+
+
+
+        }
+
+
     }
 }

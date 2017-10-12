@@ -1,2 +1,8 @@
 insert PedidoxMedicamento(IdPedido,IdMedicamento,Cantidad) values(1,1,10)
 insert PedidoxMedicamento(IdPedido,IdMedicamento,Cantidad) values(1,4,10)
+insert PedidoxMedicamento(IdPedido,IdMedicamento,Cantidad) values (2,3,5)
+insert PedidoxMedicamento(IdPedido,IdMedicamento,Cantidad) values (2,2,10)
+insert PedidoxMedicamento(IdPedido,IdMedicamento,Cantidad) values (3,3,5)
+insert PedidoxMedicamento(IdPedido,IdMedicamento,Cantidad) values (3,2,10)
+insert PedidoxMedicamento(IdPedido,IdMedicamento,Cantidad) values (4,3,5)
+insert PedidoxMedicamento(IdPedido,IdMedicamento,Cantidad) values (4,2,10)

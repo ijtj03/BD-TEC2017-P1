@@ -1,0 +1,138 @@
+﻿<!DOCTYPE HTML>
+<html ng-app="PedidoSucursal">
+<head>
+    <title>Pedidos</title>
+
+    <meta charset='utf-8'><!— Codificacion de documento para uso de caracteres-->
+
+    <meta name='description' content='Laboratorio #1 HTML5-CSS3'>
+
+    <meta name='keywords' content='HTML5,CSS3,JavaScript'>
+
+    <link rel="shortcut icon" href="html5.png" />
+
+
+    <script src="../../Scripts/angular.js"></script>
+    <script src="../../Scripts - Views/PedidoSucursal.js"></script>
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+    <link rel='stylesheet' href='../css/styles.css'>
+
+</head>
+
+<body>
+
+    <div id='page'>
+
+        <header>
+
+            <div id='logo'><img src="../rsc/imgs/bot.png" alt="picture" width="190" /></div>
+
+            <nav id='menu'>
+
+                <ul>
+
+                    <li><a href='mainSucursal.html' title="Perfil">Perfil</a></li>
+
+                    <li><a href='pedidosSucursal.html' title="Pedidos">Pedidos</a></li>
+
+                    <li><a href='indexSucursal.html' title="Logout">Log Out</a></li>
+
+                </ul>
+
+            </nav>
+
+        </header>
+
+        <section id='main'>
+
+            <section id='contenido'>
+
+                <h1>Pedidos</h1>
+                <br><br>
+                <div class="list-group" ng-controller="PedidosSucursalController">
+                    <a class="list-group-item" ng-repeat="pedido in pedidos" ng-click="moveToId(pedido.IdPedido)">
+                        <center>
+                            <h4 class="list-group-item-heading">Pedido hecho por solicitante con Cedula: {{pedido.IdCedula}}</h4>
+
+                            <h4 class="list-group-item-text">Sucursal: {{pedido.NombreSucursal}}</h4>
+
+                            <h4 class="list-group-item-heading">Pedido Numero: {{pedido.IdPedido}}</h4>
+
+
+                            <h6 class="list-group-item-text">Provincia: {{pedido.Provincia}}</h6>
+
+                            <h6 class="list-group-item-text">Canton: {{pedido.Canton}}</h6>
+
+                            <h6 class="list-group-item-text">Distrito: {{pedido.Distrito}}</h6>
+                        </center>
+                    </a>
+                </div>
+
+            </section>
+            <section id='contenido'>
+
+                <h1>Pedidos Preparados</h1>
+                <br><br>
+                <div class="list-group" ng-controller="PedidosSucursalPreparadoController">
+                    <a class="list-group-item" ng-repeat="preparado in preparados" ng-click="moveToId(preparado.IdPedido)">
+                        <center>
+                            <h4 class="list-group-item-heading">Pedido hecho por solicitante con Cedula: {{preparado.IdCedula}}</h4>
+
+                            <h4 class="list-group-item-text">Sucursal: {{preparado.NombreSucursal}}</h4>
+
+                            <h4 class="list-group-item-heading">Pedido Numero: {{preparado.IdPedido}}</h4>
+
+
+                            <h6 class="list-group-item-text">Provincia: {{preparado.Provincia}}</h6>
+
+                            <h6 class="list-group-item-text">Canton: {{preparado.Canton}}</h6>
+
+                            <h6 class="list-group-item-text">Distrito: {{preparado.Distrito}}</h6>
+                        </center>
+                    </a>
+                </div>
+
+            </section>
+            <section id='contenido'>
+
+                <h1>Pedidos Recogidos</h1>
+                <br><br>
+                <div class="list-group" ng-controller="PedidosSucursalRecogidoController">
+                    <a class="list-group-item" ng-repeat="recogido in recogidos" ng-click="moveToId(recogido.IdPedido)">
+                        <center>
+                            <h4 class="list-group-item-heading">Pedido hecho por solicitante con Cedula: {{recogido.IdCedula}}</h4>
+
+                            <h4 class="list-group-item-text">Sucursal: {{recogido.NombreSucursal}}</h4>
+
+                            <h4 class="list-group-item-heading">Pedido Numero: {{recogido.IdPedido}}</h4>
+
+
+                            <h6 class="list-group-item-text">Provincia: {{recogido.Provincia}}</h6>
+
+                            <h6 class="list-group-item-text">Canton: {{recogido.Canton}}</h6>
+
+                            <h6 class="list-group-item-text">Distrito: {{recogido.Distrito}}</h6>
+                        </center>
+                    </a>
+                </div>
+
+            </section>
+
+
+        </section>
+
+        <footer></footer>
+
+    </div>
+
+</body>
+
+</html>tml>

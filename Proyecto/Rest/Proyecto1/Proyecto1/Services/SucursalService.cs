@@ -51,7 +51,7 @@ namespace Proyecto1.Services
 
             conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
             conn.Open();
-            command = new SqlCommand("SELECT * from Sucursal WHERE IdCedula=" + IdSucursal.ToString(), conn);
+            command = new SqlCommand("SELECT * from Sucursal WHERE LogicDelete=0 and  IdSucursal=" + IdSucursal.ToString(), conn);
             read = command.ExecuteReader();
 
             Sucursal sucursal = new Sucursal();

@@ -208,6 +208,66 @@ namespace Proyecto1.Services
             }
         }
 
-        
+
+        public bool SignInSucursalVerification(int id, string contraseña)
+        {
+
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+            SqlDataReader read;
+
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+
+
+            command = new SqlCommand("SELECT Persona.Contraseña FROM Persona INNER JOIN PersonaxRol ON Persona.IdCedula=PersonaxRol.IdCedula INNER JOIN Rol ON PersonaxRol.IdRol=Rol.IdRol WHERE Rol.Nombre != 'Administrador' AND Rol.Nombre != 'Cliente' AND Persona.LogicDelete!=1 AND Persona.IdCedula =" + id.ToString(), conn);
+
+            read = command.ExecuteReader();
+
+            string valor = "";
+
+            while (read.Read())
+            {
+                valor = read["Contraseña"].ToString();
+
+            }
+
+            if (contraseña == valor)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public int GetSucursalPersona(int id)
+        {
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+            SqlDataReader read;
+
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+
+            command = new SqlCommand("SELECT Sucursal.IdSucursal FROM Persona INNER JOIN PersonaxSucursal ON Persona.IdCedula=PersonaxSucursal.IdCedula INNER JOIN Sucursal ON Sucursal.IdSucursal=PersonaxSucursal.IdSucursal WHERE Persona.LogicDelete!=1 AND Persona.IdCedula=" + id.ToString(), conn);
+
+            read = command.ExecuteReader();
+
+            int sucursal = 0;
+
+            while (read.Read())
+            {
+                sucursal = Convert.ToInt32(read["IdSucursal"]);
+            }
+
+
+            return sucursal;
+
+        }
+
+
+
     }
 }

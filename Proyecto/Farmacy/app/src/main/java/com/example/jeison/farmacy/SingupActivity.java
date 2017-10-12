@@ -3,44 +3,37 @@ package com.example.jeison.farmacy;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.app.LoaderManager.LoaderCallbacks;
-
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.google.gson.JsonObject;
+import com.loopj.android.http.*;
+
+import org.apache.http.entity.ByteArrayEntity;
+import org.apache.http.message.BasicHeader;
+import org.apache.http.protocol.HTTP;
+
+import java.io.UnsupportedEncodingException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static android.Manifest.permission.READ_CONTACTS;
 
 /**
  * A login screen that offers login via email/password.
  */
-public class SingupActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+public class SingupActivity extends AppCompatActivity {
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -57,16 +50,20 @@ public class SingupActivity extends AppCompatActivity implements LoaderCallbacks
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
-    private UserLoginTask mAuthTask = null;
+
 
     // UI references.
-    private EditText mEmailView;
     private EditText mPasswordView;
     private EditText mCedulaView;
     private EditText mNombreView;
     private EditText mApellido1;
     private EditText mApellido2;
     private EditText mDate;
+    private EditText mTelefono;
+    private EditText mCanton;
+    private EditText mProvincia;
+    private EditText mDistrito;
+    private EditText mAddress;
     private View mProgressView;
     private View mLoginFormView;
 
@@ -75,12 +72,16 @@ public class SingupActivity extends AppCompatActivity implements LoaderCallbacks
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_singup);
         // Set up the login form.
-        mEmailView = (EditText) findViewById(R.id.email);
         mCedulaView= (EditText) findViewById(R.id.cedula);
         mApellido1= (EditText) findViewById(R.id.apellido1);
         mApellido2=(EditText) findViewById(R.id.apellido2);
-        mDate=(EditText) findViewById(R.id.fecha);
+        mDate=(EditText) findViewById(R.id.dirreccion);
         mNombreView= (EditText) findViewById(R.id.nombre);
+        mTelefono= (EditText) findViewById(R.id.telefono);
+        mProvincia= (EditText) findViewById(R.id.provincia);
+        mCanton= (EditText) findViewById(R.id.canton);
+        mDistrito= (EditText) findViewById(R.id.distrito);
+        mAddress= (EditText) findViewById(R.id.dirreccion);
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -124,25 +125,32 @@ public class SingupActivity extends AppCompatActivity implements LoaderCallbacks
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
-        if (mAuthTask != null) {
-            return;
-        }
+        JsonObject persona=new JsonObject();
 
         // Reset errors.
-        mEmailView.setError(null);
         mPasswordView.setError(null);
         mCedulaView.setError(null);
         mNombreView.setError(null);
         mDate.setError(null);
+        mTelefono.setError(null);
+        mProvincia.setError(null);
+        mCanton.setError(null);
+        mDistrito.setError(null);
+        mTelefono.setError(null);
+        mAddress.setError(null);
 
         // Store values at the time of the login attempt.
-        String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
-        String name=mNombreView.getText().toString();
-        String apellido1=mApellido1.getText().toString();
-        String apellido2=mApellido2.getText().toString();
-        String date=mDate.getText().toString();
-        String cedula=mCedulaView.getText().toString();
+        String name = mNombreView.getText().toString();
+        String apellido1 = mApellido1.getText().toString();
+        String apellido2 = mApellido2.getText().toString();
+        String date = mDate.getText().toString();
+        String cedula = mCedulaView.getText().toString();
+        String telefono=mTelefono.getText().toString();
+        String canton=mCanton.getText().toString();
+        String distrito=mDistrito.getText().toString();
+        String provincia=mProvincia.getText().toString();
+        String address=mAddress.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
@@ -154,47 +162,62 @@ public class SingupActivity extends AppCompatActivity implements LoaderCallbacks
             cancel = true;
         }
         //cedula
-        if(TextUtils.isEmpty(cedula)){
+        if (TextUtils.isEmpty(cedula)) {
             mCedulaView.setError(getString(R.string.error_field_required));
-            focusView=mCedulaView;
-            cancel=true;
-        }else if(!isCedulaValid(cedula)){
+            focusView = mCedulaView;
+            cancel = true;
+        } else if (!isCedulaValid(cedula)) {
             mCedulaView.setError(getString(R.string.error_invalid_cedula));
-            focusView=mCedulaView;
+            focusView = mCedulaView;
+            cancel = true;
+        }
+        //validacion de dirrecciones
+        if(TextUtils.isEmpty(canton) || TextUtils.isEmpty(provincia) || TextUtils.isEmpty(distrito)){
+            mProvincia.setError(getString(R.string.error_field_required));
+            focusView=mProvincia;
             cancel=true;
         }
+        if(TextUtils.isEmpty(address)){
+            mAddress.setError(getString(R.string.error_field_required));
+            focusView=mAddress;
+            cancel=true;
+        }
+
+        //validacion telefono
+        if(TextUtils.isEmpty(telefono)){
+            mTelefono.setError(getString(R.string.error_field_required));
+            focusView=mTelefono;
+            cancel=true;
+        }else if(!isTelefonoValid(telefono)){
+            mTelefono.setError(getString(R.string.error_incorrect_phone));
+            focusView=mTelefono;
+            cancel=true;
+        }
+
         //validacion nombre y apellidos
-        if(TextUtils.isEmpty(name) || TextUtils.isEmpty(apellido1) || TextUtils.isEmpty(apellido2)){
+        if (TextUtils.isEmpty(name) || TextUtils.isEmpty(apellido1) || TextUtils.isEmpty(apellido2)) {
             mNombreView.setError(getString(R.string.error_field_required));
-            focusView=mNombreView;
-            cancel=true;
-        }else if(!isNameValid(name) || !(isNameValid(apellido1)) || !isNameValid(apellido2)){
+            focusView = mNombreView;
+            cancel = true;
+        } else if (!isNameValid(name) || !(isNameValid(apellido1)) || !isNameValid(apellido2)) {
             mNombreView.setError(getString(R.string.error_invalid_name));
-            focusView=mNombreView;
-            cancel=true;
+            focusView = mNombreView;
+            cancel = true;
         }
 
         //validacion fecha
-        if(TextUtils.isEmpty(date)){
+        if (TextUtils.isEmpty(date)) {
             mDate.setError(getString(R.string.error_field_required));
-            focusView=mDate;
-            cancel=true;
-        }else if(!isDateValid(date)){
+            focusView = mDate;
+            cancel = true;
+        } else if (!isDateValid(date)) {
             mDate.setError(getString(R.string.error_incorrect_date));
-            focusView=mDate;
-            cancel=true;
+            focusView = mDate;
+            cancel = true;
         }
 
-        // Check for a valid email address.
-        if (TextUtils.isEmpty(email)) {
-            mEmailView.setError(getString(R.string.error_field_required));
-            focusView = mEmailView;
-            cancel = true;
-        } else if (!isEmailValid(email)) {
-            mEmailView.setError(getString(R.string.error_invalid_email));
-            focusView = mEmailView;
-            cancel = true;
-        }
+        //validacion de address
+
 
         if (cancel) {
             // There was an error; don't attempt login and focus the first
@@ -203,15 +226,26 @@ public class SingupActivity extends AppCompatActivity implements LoaderCallbacks
         } else {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
+            persona.addProperty("IdCedula",cedula);
+            persona.addProperty("Nombre",name);
+            persona.addProperty("Apellido1",apellido1);
+            persona.addProperty("Apellido2",apellido2);
+            persona.addProperty("Contraseña",password);
+            persona.addProperty("Telefono",telefono);
+            persona.addProperty("Provincia",provincia);
+            persona.addProperty("Canton",canton);
+            persona.addProperty("Distrito",distrito);
+            persona.addProperty("DescripcionDireccion",address);
+            persona.addProperty("FechaNacimiento",date);
             showProgress(true);
-            mAuthTask = new UserLoginTask(email, password);
-            mAuthTask.execute((Void) null);
+            RegistroUser(persona.toString());
+
         }
     }
-
-    private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
-        return email.contains("@");
+    private boolean isTelefonoValid(String telefono){
+        Pattern par =Pattern.compile("[0-9]{8,8}");
+        Matcher matcher=par.matcher(telefono);
+        return matcher.matches();
     }
 
     private boolean isPasswordValid(String password) {
@@ -223,7 +257,7 @@ public class SingupActivity extends AppCompatActivity implements LoaderCallbacks
         return cedula.length() > 8;
     }
     private boolean isDateValid(String date){
-        return date.contains("/");
+        return date.contains("-");
     }
     private boolean isNameValid(String name){
         Pattern pat = Pattern.compile("^[A-Z][a-z]+");
@@ -267,104 +301,31 @@ public class SingupActivity extends AppCompatActivity implements LoaderCallbacks
         }
     }
 
-    @Override
-    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        return new CursorLoader(this,
-                // Retrieve data rows for the device user's 'profile' contact.
-                Uri.withAppendedPath(ContactsContract.Profile.CONTENT_URI,
-                        ContactsContract.Contacts.Data.CONTENT_DIRECTORY), ProfileQuery.PROJECTION,
-
-                // Select only email addresses.
-                ContactsContract.Contacts.Data.MIMETYPE +
-                        " = ?", new String[]{ContactsContract.CommonDataKinds.Email
-                .CONTENT_ITEM_TYPE},
-
-                // Show primary email addresses first. Note that there won't be
-                // a primary email address if the user hasn't specified one.
-                ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-        List<String> emails = new ArrayList<>();
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
-            emails.add(cursor.getString(ProfileQuery.ADDRESS));
-            cursor.moveToNext();
+    public void RegistroUser(String datos){
+        AsyncHttpClient client = new AsyncHttpClient();
+        Log.i("Json",datos);
+        ByteArrayEntity entity = null;
+        try {
+            entity = new ByteArrayEntity(datos.getBytes("UTF-8"));
+            entity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
-
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> cursorLoader) {
-
-    }
-
-    private interface ProfileQuery {
-        String[] PROJECTION = {
-                ContactsContract.CommonDataKinds.Email.ADDRESS,
-                ContactsContract.CommonDataKinds.Email.IS_PRIMARY,
-        };
-
-        int ADDRESS = 0;
-        int IS_PRIMARY = 1;
-    }
-
-    /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
-     */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
-
-        private final String mEmail;
-        private final String mPassword;
-
-        UserLoginTask(String email, String password) {
-            mEmail = email;
-            mPassword = password;
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
-
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
-
-            // TODO: register the new account here.
-            return true;
-        }
-
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
-            showProgress(false);
-
-            if (success) {
+        Log.d("Entity",entity.toString());
+        client.post(getApplicationContext(),"http://192.168.0.9:64698/api/Persona/PostPersona",entity,"application/json",new AsyncHttpResponseHandler(){
+            @Override
+            public void onSuccess(String response){
+                showProgress(false);
                 finish();
-            } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
             }
-        }
+            @Override
+            public void onFailure(int statusCode, Throwable error,String content){
+                showProgress(false);
+                Toast.makeText(getApplicationContext(), "Unexpected Error occcured! [Most common Error: Device might not be connected to Internet or remote server is not up and running]", Toast.LENGTH_LONG).show();
+            }
+        });
 
-        @Override
-        protected void onCancelled() {
-            mAuthTask = null;
-            showProgress(false);
-        }
     }
+
 }
 

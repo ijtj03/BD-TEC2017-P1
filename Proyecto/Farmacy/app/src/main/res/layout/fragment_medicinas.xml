@@ -7,9 +7,11 @@
     card_view:cardCornerRadius="4dp"
     card_view:cardElevation="4dp"
     card_view:cardUseCompatPadding="true">
+
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="133dp"
         android:layout_height="wrap_content">
+
         <TextView
             android:id="@+id/name"
             android:layout_width="wrap_content"
@@ -33,19 +35,11 @@
             tools:text="Localizacion sucursal" />
 
         <TextView
-            android:id="@+id/descripcion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/name"
-            android:layout_below="@+id/price"
-            android:text="Descripcion"
-            tools:text="Dirrecion de sucursal" />
-        <TextView
             android:id="@+id/cantidad"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/name"
-            android:layout_below="@+id/descripcion"
+            android:layout_below="@+id/price"
             android:text="Cantidad"
             tools:text="Dirrecion de sucursal" />
 

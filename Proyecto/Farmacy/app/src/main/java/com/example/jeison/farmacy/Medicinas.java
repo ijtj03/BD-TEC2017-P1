@@ -9,23 +9,19 @@ import android.view.View;
 public class Medicinas {
     public String mName;
     public String mPrice;
-    public String mDescripcion;
     public String mCantidad;
-    public String mPosition;
-    public int mPPostion;
     public View mViewm;
+    public String ID;
 
-    public Medicinas(String name,String price,String descripcion,String cantidad,String position){
+    public Medicinas(String name,String price,String cantidad,String id){
         this.mName=name;
         this.mCantidad=cantidad;
-        this.mDescripcion=descripcion;
         this.mPrice=price;
-        this.mPosition=position;
-        this.mPPostion=0;
+        this.ID=id;
         mViewm=null;
     }
 
     public String toString(){
-        return "{\"mName\":\""+mName+"\",\"mPrice\":\""+mPrice+"\",\"mDescripcion\":\""+mDescripcion+"\",\"mCantidad\":\""+mCantidad+"\",\"mPosition\":\""+mPosition+"\"}";
+        return "{\"mName\":\""+mName+"\",\"mPrice\":\""+mPrice+"\",\"mCantidad\":\""+mCantidad+"\",\"ID\":\""+ID+"\"}";
     }
 }

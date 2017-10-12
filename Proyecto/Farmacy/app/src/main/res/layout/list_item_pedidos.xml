@@ -29,7 +29,7 @@
             android:text="Sucursal de recojo" />
 
         <TextView
-            android:id="@+id/fecha"
+            android:id="@+id/dirreccion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/sucursal"

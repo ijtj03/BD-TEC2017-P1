@@ -7,20 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 
 import java.util.ArrayList;
 
@@ -29,8 +20,7 @@ public class PedidosFragment extends Fragment {
     public OnListener mListener;
     public RecyclerView mPedidos;
     private Context mContext;
-    private ArrayList<Pedidos> pedidoses=new ArrayList<Pedidos>();
-    private ArrayList<Medicinas> lista=new ArrayList<Medicinas>();
+
     public PedidosFragment(){}
 
     @Override
@@ -47,75 +37,17 @@ public class PedidosFragment extends Fragment {
         mContext=view.getContext();
         mPedidos= (RecyclerView) view.findViewById(R.id.recycler);
         mPedidos.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false));
-        GetPedidos();
+        mPedidos.setAdapter(new ListPedidosAdapter(PedidosProvider.getinstance().pedidoses,mListener));
 
         return view;
     }
 
-    public void GetPedidos(){
-        //showProgress(true);
-        RequestParams params=new RequestParams();
-        params.put("id",Client.getInstance().id);
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.get("http://192.168.100.7:64698/api/Pedido/GetPedidos",params,new AsyncHttpResponseHandler(){
-            @Override
-            public void onSuccess(String response){
-                JsonParser parser = new JsonParser();
-                JsonElement tradeElement = parser.parse(response);
-                JsonArray sus=tradeElement.getAsJsonArray();
-                for(int i=0;i<sus.size();++i){
-                    JsonObject obj=sus.get(i).getAsJsonObject();
-                    String direccion=obj.get("Provincia").getAsString()+", "+obj.get("Canton").getAsString()+", "+obj.get("Distrito").getAsString();
-                    pedidoses.add(new Pedidos(obj.get("IdPedido").getAsString(),obj.get("NombreSucursal").getAsString(),direccion));
-                }
-                //showProgress(false);
-                mPedidos.setAdapter(new ListPedidosAdapter(pedidoses,mListener));
-
-            }
-
-            @Override
-            public void onFailure(int statusCode, Throwable error,String content){
-                //showProgress(false);
-                Toast.makeText(mContext, "Unexpected Error occcured! [Most common Error: Device might not be connected to Internet or remote server is not up and running]", Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
     public class OnListener{
         public void onListenerAction(Pedidos item){
-            lista.clear();
-            final String sucursal=item.Sucursal;
-            final Intent intent=new Intent(mContext,PedidosConfigActivity.class);
-            RequestParams params=new RequestParams();
-            params.put("id",item.numPedido);
-            AsyncHttpClient client = new AsyncHttpClient();
-            client.get("http://192.168.0.9:64698/api/PedidoxMedicamento/GetMedicamentosxPedido",params,new AsyncHttpResponseHandler(){
-                @Override
-                public void onSuccess(String response){
-                    JsonParser parser = new JsonParser();
-                    JsonElement tradeElement = parser.parse(response);
-                    JsonArray sus=tradeElement.getAsJsonArray();
-                    for(int i=0;i<sus.size();++i){
-                        JsonObject obj=sus.get(i).getAsJsonObject();
-                        lista.add(new Medicinas(obj.get("Nombre").getAsString(),"no necesario",
-                                obj.get("Cantidad").getAsString(),"1"));
-                    }
-                    //showProgress(false);
-                    intent.putExtra("medicinas",lista.toString());
-                    intent.putExtra("Su_name",sucursal);
-                    intent.putExtra("Su_id","4");
-                    startActivity(intent);
-
-                }
-
-                @Override
-                public void onFailure(int statusCode, Throwable error,String content){
-                    //showProgress(false);
-                    Toast.makeText(mContext, "Unexpected Error occcured! [Most common Error: Device might not be connected to Internet or remote server is not up and running]", Toast.LENGTH_LONG).show();
-                }
-            });
-            Log.i("Data",lista.toString());
-
+            ArrayList<Medicinas> lista=new ArrayList<Medicinas>();
+            Intent intent=new Intent(mContext,PedidosConfigActivity.class);
+            intent.putExtra("medicinas",lista.toString());
+            startActivity(intent);
         }
     }
 }

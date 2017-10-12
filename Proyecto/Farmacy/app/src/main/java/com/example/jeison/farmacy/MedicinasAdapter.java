@@ -11,7 +11,6 @@ import android.widget.Toast;
 import com.example.jeison.farmacy.MedicinasFragment.OnListFragmentInteractionListener;
 import com.example.jeison.farmacy.dummy.DummyContent.DummyItem;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,14 +20,13 @@ import java.util.List;
  */
 public class MedicinasAdapter extends RecyclerView.Adapter<MedicinasAdapter.ViewHolder> {
 
-    private List<Medicinas> mValues;
+    private final List<Medicinas> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MedicinasAdapter(ArrayList<Medicinas> items, OnListFragmentInteractionListener listener) {
-        mValues=items;
+    public MedicinasAdapter(List<Medicinas> items, OnListFragmentInteractionListener listener) {
+        mValues = items;
         mListener = listener;
     }
-
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -42,6 +40,7 @@ public class MedicinasAdapter extends RecyclerView.Adapter<MedicinasAdapter.View
         holder.mItem = mValues.get(position);
         holder.mName.setText(mValues.get(position).mName);
         holder.mPrice.setText(mValues.get(position).mPrice);
+        holder.mDescripcion.setText(mValues.get(position).mDescripcion);
         holder.mCantidad.setText(mValues.get(position).mCantidad);
         mValues.get(position).mViewm=holder.mView;
 
@@ -73,6 +72,7 @@ public class MedicinasAdapter extends RecyclerView.Adapter<MedicinasAdapter.View
         public final View mView;
         public final TextView mName;
         public final TextView mPrice;
+        public final TextView mDescripcion;
         public final TextView mCantidad;
         public final CheckBox mAdd;
         public Medicinas mItem;
@@ -82,6 +82,7 @@ public class MedicinasAdapter extends RecyclerView.Adapter<MedicinasAdapter.View
             mView = view;
             mName = (TextView) view.findViewById(R.id.name);
             mPrice = (TextView) view.findViewById(R.id.price);
+            mDescripcion= (TextView) view.findViewById(R.id.descripcion);
             mCantidad= (TextView) view.findViewById(R.id.cantidad);
             mAdd= (CheckBox) view.findViewById(R.id.check_add);
         }

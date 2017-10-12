@@ -60,7 +60,7 @@ public class ListPedidosAdapter extends RecyclerView.Adapter<ListPedidosAdapter.
             mView = view;
             mNumero=(TextView) view.findViewById(R.id.numero);
             mSucursal=(TextView) view.findViewById(R.id.sucursal);
-            mFecha=(TextView) view.findViewById(R.id.dirreccion);
+            mFecha=(TextView) view.findViewById(R.id.fecha);
         }
 
         @Override

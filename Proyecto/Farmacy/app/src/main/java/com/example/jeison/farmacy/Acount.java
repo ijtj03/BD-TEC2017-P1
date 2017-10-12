@@ -3,13 +3,10 @@ package com.example.jeison.farmacy;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
@@ -23,9 +20,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -35,21 +30,9 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.gson.JsonObject;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-
-import org.apache.http.entity.ByteArrayEntity;
-import org.apache.http.message.BasicHeader;
-import org.apache.http.protocol.HTTP;
-
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -73,18 +56,10 @@ public class Acount extends AppCompatActivity {
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
+    private UserLoginTask mAuthTask = null;
 
     // UI references.
-    private TextView mNombre;
-    private TextView mApellido1;
-    private TextView mApellido2;
-    private EditText mProvincia;
-    private EditText mCanton;
-    private EditText mDistrito;
-    private EditText mDirreccion;
-    private EditText mFecha;
-    private EditText mTelefono;
-    private AlertDialog.Builder builder;
+    private EditText mEmailView;
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
@@ -94,31 +69,8 @@ public class Acount extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_acount);
         // Set up the login form.
-        builder = new AlertDialog.Builder(this);
-        builder.setMessage(R.string.dialog_text).setTitle(R.string.title_dialog_del);
-        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
+        mEmailView = (EditText) findViewById(R.id.email);
 
-
-        mNombre=(TextView) findViewById(R.id.nombre);
-        mApellido1=(TextView) findViewById(R.id.apellido1);
-        mApellido2=(TextView) findViewById(R.id.apellido2);
-        mProvincia=(EditText) findViewById(R.id.provincia);
-        mCanton=(EditText) findViewById(R.id.canton);
-        mDistrito=(EditText) findViewById(R.id.distrito);
-        mDirreccion=(EditText) findViewById(R.id.dirreccion);
-        mFecha=(EditText) findViewById(R.id.fecha);
-        mTelefono=(EditText) findViewById(R.id.telefono);
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -130,16 +82,6 @@ public class Acount extends AppCompatActivity {
                 return false;
             }
         });
-
-        mNombre.setText(Client.getInstance().Name);
-        mApellido1.setText(Client.getInstance().Apellido1);
-        mApellido2.setText(Client.getInstance().Apellido2);
-        mProvincia.setText(Client.getInstance().Provincia);
-        mCanton.setText(Client.getInstance().Canton);
-        mDistrito.setText(Client.getInstance().Distrito);
-        mDirreccion.setText(Client.getInstance().Direccion);
-        mFecha.setText(Client.getInstance().Fecha);
-        mTelefono.setText(Client.getInstance().Telefono);
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
@@ -153,8 +95,8 @@ public class Acount extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog dialog = builder.create();
-                dialog.show();
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
             }
         });
 
@@ -171,22 +113,17 @@ public class Acount extends AppCompatActivity {
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
-        JsonObject persona=new JsonObject();
+        if (mAuthTask != null) {
+            return;
+        }
+
         // Reset errors.
+        mEmailView.setError(null);
         mPasswordView.setError(null);
-        mTelefono.setError(null);
-        mCanton.setError(null);
-        mProvincia.setError(null);
-        mDirreccion.setError(null);
-        mDistrito.setError(null);
 
         // Store values at the time of the login attempt.
+        String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
-        String telefono=mTelefono.getText().toString();
-        String canton=mCanton.getText().toString();
-        String provincia=mProvincia.getText().toString();
-        String distrito=mDistrito.getText().toString();
-        String address=mDirreccion.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
@@ -197,27 +134,16 @@ public class Acount extends AppCompatActivity {
             focusView = mPasswordView;
             cancel = true;
         }
-        //validacion telefono
-        if(TextUtils.isEmpty(telefono)){
-            mTelefono.setError(getString(R.string.error_field_required));
-            focusView=mTelefono;
-            cancel=true;
-        }else if(!isTelefonoValid(telefono)){
-            mTelefono.setError(getString(R.string.error_incorrect_phone));
-            focusView=mTelefono;
-            cancel=true;
-        }
 
-        //validacion de dirrecciones
-        if(TextUtils.isEmpty(canton) || TextUtils.isEmpty(provincia) || TextUtils.isEmpty(distrito)){
-            mProvincia.setError(getString(R.string.error_field_required));
-            focusView=mProvincia;
-            cancel=true;
-        }
-        if(TextUtils.isEmpty(address)){
-            mDirreccion.setError(getString(R.string.error_field_required));
-            focusView=mDirreccion;
-            cancel=true;
+        // Check for a valid email address.
+        if (TextUtils.isEmpty(email)) {
+            mEmailView.setError(getString(R.string.error_field_required));
+            focusView = mEmailView;
+            cancel = true;
+        } else if (!isEmailValid(email)) {
+            mEmailView.setError(getString(R.string.error_invalid_email));
+            focusView = mEmailView;
+            cancel = true;
         }
 
         if (cancel) {
@@ -228,21 +154,14 @@ public class Acount extends AppCompatActivity {
             // Show a progress spinner, and kick off a background task to
             // perform the user login attempt.
             showProgress(true);
-            persona.addProperty("IdCedula",Client.getInstance().id);
-            persona.addProperty("Contraseña",password);
-            persona.addProperty("Telefono",telefono);
-            persona.addProperty("Provincia",provincia);
-            persona.addProperty("Canton",canton);
-            persona.addProperty("Distrito",distrito);
-            persona.addProperty("DescripcionDireccion",address);
-            UpdateUser(persona.toString());
+            mAuthTask = new UserLoginTask(email, password);
+            mAuthTask.execute((Void) null);
         }
     }
 
-    private boolean isTelefonoValid(String telefono){
-        Pattern par =Pattern.compile("[0-9]{8,8}");
-        Matcher matcher=par.matcher(telefono);
-        return matcher.matches();
+    private boolean isEmailValid(String email) {
+        //TODO: Replace this with your own logic
+        return email.contains("@");
     }
 
     private boolean isPasswordValid(String password) {
@@ -295,31 +214,62 @@ public class Acount extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void UpdateUser(String datos){
-        AsyncHttpClient client = new AsyncHttpClient();
-        Log.i("Json",datos);
-        ByteArrayEntity entity = null;
-        try {
-            entity = new ByteArrayEntity(datos.getBytes("UTF-8"));
-            entity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+
+    /**
+     * Represents an asynchronous login/registration task used to authenticate
+     * the user.
+     */
+    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+
+        private final String mEmail;
+        private final String mPassword;
+
+        UserLoginTask(String email, String password) {
+            mEmail = email;
+            mPassword = password;
         }
-        Log.d("Entity",entity.toString());
-        client.post(getApplicationContext(),"http://192.168.100.7:64698/api/Persona/UpdatePersona",entity,"application/json",new AsyncHttpResponseHandler(){
-            @Override
-            public void onSuccess(String response){
-                showProgress(false);
-                Toast.makeText(getApplicationContext(), "Actualizacion Exitosa", Toast.LENGTH_LONG).show();
-            }
-            @Override
-            public void onFailure(int statusCode, Throwable error,String content){
-                showProgress(false);
-                Toast.makeText(getApplicationContext(), "Unexpected Error occcured! [Most common Error: Device might not be connected to Internet or remote server is not up and running]", Toast.LENGTH_LONG).show();
-            }
-        });
 
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            // TODO: attempt authentication against a network service.
+
+            try {
+                // Simulate network access.
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                return false;
+            }
+
+            for (String credential : DUMMY_CREDENTIALS) {
+                String[] pieces = credential.split(":");
+                if (pieces[0].equals(mEmail)) {
+                    // Account exists, return true if the password matches.
+                    return pieces[1].equals(mPassword);
+                }
+            }
+
+            // TODO: register the new account here.
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            mAuthTask = null;
+            showProgress(false);
+
+            if (success) {
+                finish();
+            } else {
+                mPasswordView.setError(getString(R.string.error_incorrect_password));
+                mPasswordView.requestFocus();
+            }
+        }
+
+        @Override
+        protected void onCancelled() {
+            mAuthTask = null;
+            showProgress(false);
+        }
     }
-
 }
 

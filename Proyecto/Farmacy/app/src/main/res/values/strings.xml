@@ -23,9 +23,6 @@
     <string name="title_activity_singup">Sign in</string>
     <string name="title_activity_main">MainActivity</string>
 
-    <string name="title_dialog_del">Eliminar Cuenta</string>
-    <string name="dialog_text">Desea eliminar la cuenta?</string>
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 

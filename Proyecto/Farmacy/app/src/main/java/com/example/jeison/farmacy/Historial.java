@@ -7,12 +7,10 @@ package com.example.jeison.farmacy;
 public class Historial {
     public String mFecha;
     public String mPadecimientos;
-    public String Idenfermedad;
 
-    public Historial(String fecha,String padecimientos,String idenfermedad){
+    public Historial(String fecha,String padecimientos){
         this.mFecha=fecha;
         this.mPadecimientos=padecimientos;
-        this.Idenfermedad=idenfermedad;
     }
 
     public String toString(){

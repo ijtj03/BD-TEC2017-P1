@@ -12,20 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.example.jeison.farmacy.dummy.DummyContent;
 import com.example.jeison.farmacy.dummy.DummyContent.DummyItem;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 
 import java.io.Console;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,14 +31,9 @@ public class MedicinasFragment extends Fragment {
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 3;
-    private String id;
     private OnListFragmentInteractionListener mListener;
     public PedidosAdapter mPedidos;
     public RecyclerView pedidos;
-    public RecyclerView medicamentos;
-    public MedicinasAdapter Amedicinas;
-    private Context context;
-    private ArrayList<Medicinas> medicinases=new ArrayList<Medicinas>();
     public Button endPedido;
 
     /**
@@ -72,7 +58,7 @@ public class MedicinasFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            id=getArguments().getString("ID");
+            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
     }
 
@@ -84,17 +70,18 @@ public class MedicinasFragment extends Fragment {
         endPedido.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent=new Intent(getActivity().getApplicationContext(),PedidosConfigActivity.class);
                 Log.d("myTag",mPedidos.getItems().toString());
-                mListener.onTerminarPedidoInteration(mPedidos.getItems().toString());
-
+                intent.putExtra("medicinas",mPedidos.getItems().toString());
+                startActivity(intent);
             }
         });
         // Set the adapter
-        context = view.getContext();
-        medicamentos = (RecyclerView) view.findViewById(R.id.list);
-        medicamentos.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+        Context context = view.getContext();
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.list);
+        recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+        recyclerView.setAdapter(new MedicinasAdapter(MedicinasProvider.getInstance().Items, mListener));
 
-        GetMedicinas();
         mPedidos=new PedidosAdapter(mListener);
         pedidos= (RecyclerView) view.findViewById(R.id.list2);
         pedidos.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
@@ -120,37 +107,6 @@ public class MedicinasFragment extends Fragment {
         mListener = null;
     }
 
-    public void GetMedicinas(){
-        //showProgress(true);
-        RequestParams params=new RequestParams();
-        params.put("id",id);
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.get("http://192.168.100.7:64698/api/MedicamentoxSucursal/GetMedicamentoxSucursal",params,new AsyncHttpResponseHandler(){
-            @Override
-            public void onSuccess(String response){
-                JsonParser parser = new JsonParser();
-                JsonElement tradeElement = parser.parse(response);
-                JsonArray sus=tradeElement.getAsJsonArray();
-                for(int i=0;i<sus.size();++i){
-                    JsonObject obj=sus.get(i).getAsJsonObject();
-                    medicinases.add(new Medicinas(obj.get("Nombre").getAsString(),obj.get("Precio").getAsString(),
-                            obj.get("Cantidad").getAsString(),obj.get("IdMedicamento").getAsString()));
-                }
-                //showProgress(false);
-                Amedicinas=new MedicinasAdapter(medicinases,mListener);
-                medicamentos.setAdapter(Amedicinas);
-
-
-            }
-
-            @Override
-            public void onFailure(int statusCode, Throwable error,String content){
-                //showProgress(false);
-                Toast.makeText(context, "Unexpected Error occcured! [Most common Error: Device might not be connected to Internet or remote server is not up and running]", Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -165,6 +121,5 @@ public class MedicinasFragment extends Fragment {
         // TODO: Update argument type and name
         void onListFragmentInteraction(Medicinas item,boolean checked,View view);
         void onPedidoFragmentInteration(Medicinas item,boolean checked,View view);
-        void onTerminarPedidoInteration(String PedidoList);
     }
 }

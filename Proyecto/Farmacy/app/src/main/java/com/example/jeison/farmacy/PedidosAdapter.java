@@ -53,6 +53,7 @@ public class PedidosAdapter extends RecyclerView.Adapter<PedidosAdapter.ViewHold
         holder.mItem = mValues.get(position);
         holder.mName.setText(mValues.get(position).mName);
         holder.mPrice.setText(mValues.get(position).mPrice);
+        holder.mDescripcion.setText(mValues.get(position).mDescripcion);
         holder.mCantidad.setText(mValues.get(position).mCantidad);
 
         holder.mAdd.setOnClickListener(new View.OnClickListener() {
@@ -73,6 +74,7 @@ public class PedidosAdapter extends RecyclerView.Adapter<PedidosAdapter.ViewHold
         public final View mView;
         public final TextView mName;
         public final TextView mPrice;
+        public final TextView mDescripcion;
         public final TextView mCantidad;
         public final CheckBox mAdd;
         public Medicinas mItem;
@@ -82,6 +84,7 @@ public class PedidosAdapter extends RecyclerView.Adapter<PedidosAdapter.ViewHold
             mView = view;
             mName = (TextView) view.findViewById(R.id.name);
             mPrice = (TextView) view.findViewById(R.id.price);
+            mDescripcion= (TextView) view.findViewById(R.id.descripcion);
             mCantidad= (TextView) view.findViewById(R.id.cantidad);
             mAdd= (CheckBox) view.findViewById(R.id.check_add);
             mAdd.setChecked(true);

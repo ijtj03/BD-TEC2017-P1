@@ -1,0 +1,18 @@
+﻿<!DOCTYPE html>
+<html ng-app="MyApp">
+<head>
+    <meta charset="utf-8" />
+    <script src="../Scripts/angular.js"></script>
+    <script src="../Scripts - Views/IndexController.js"></script>
+    <title></title>
+</head>
+<body ng-app="MyApp">
+    <div ng-controller="MyController">
+        Cedula: <input ng-model="cedula" name="cedula">
+        <h1>{{cedula}}</h1>
+        Contraseña: <input type="password" ng-model="password" name="contraseña" >
+        <button ng-click="fun(cedula,password)">Enviar</button>
+    </div>
+    
+</body>
+</html>

@@ -97,14 +97,14 @@ CREATE TABLE Pedido(
   LogicDelete BIT NOT NULL DEFAULT 0,
   Recogido BIT NOT NULL DEFAULT 0,
   Preparado BIT NOT NULL DEFAULT 0,
-  FechaRecojo DATE NOT NULL
+  FechaRecojo DATE NOT NULL,
+  RecetaImg IMAGE 
 )
 
 CREATE TABLE PedidoxMedicamento(
   IdPedido INT NOT NULL,
   IdMedicamento INT NOT NULL,
   Cantidad INT NOT NULL,
-  RecetaImg IMAGE ,
   LogicDelete BIT NOT NULL DEFAULT 0
 )
 

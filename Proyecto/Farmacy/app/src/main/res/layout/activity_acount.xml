@@ -65,85 +65,32 @@
                     android:text="Segundo Apelldo"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large" />
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="124dp"
-                    android:layout_height="match_parent">
-
-                    <EditText
-                        android:id="@+id/provincia"
-                        android:layout_width="114dp"
-                        android:layout_height="wrap_content"
-                        android:hint="Provincia"
-                        android:inputType="text" />
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent">
-
-                    <EditText
-                        android:id="@+id/canton"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Canton"
-                        android:inputType="text" />
-                </android.support.design.widget.TextInputLayout>
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <EditText
-                        android:id="@+id/distrito"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Distrito"
-                        android:inputType="text" />
-                </android.support.design.widget.TextInputLayout>
-            </LinearLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <EditText
-                    android:id="@+id/dirreccion"
+                    android:id="@+id/fecha"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Dirreccion"
-                    android:inputType="text" />
+                    android:hint="DD/MM/AAAA"
+                    android:inputType="date" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
-                    android:id="@+id/fecha"
+                <AutoCompleteTextView
+                    android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:hint="Fecha de nacimiento"
-                    android:inputType="date" />
-            </android.support.design.widget.TextInputLayout>
+                    android:hint="@string/prompt_email"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"
+                    android:singleLine="true" />
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <EditText
-                    android:id="@+id/telefono"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:inputType="phone" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout

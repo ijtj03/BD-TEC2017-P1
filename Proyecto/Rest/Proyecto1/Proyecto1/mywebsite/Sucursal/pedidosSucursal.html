@@ -66,12 +66,13 @@
 
                             <h4 class="list-group-item-heading">Pedido Numero: {{pedido.IdPedido}}</h4>
 
-
                             <h6 class="list-group-item-text">Provincia: {{pedido.Provincia}}</h6>
 
                             <h6 class="list-group-item-text">Canton: {{pedido.Canton}}</h6>
 
                             <h6 class="list-group-item-text">Distrito: {{pedido.Distrito}}</h6>
+
+                            <h6 class="list-group-item-text">Fecha de Recojo: {{pedido.FechaRecojo | date}}</h6>
                         </center>
                     </a>
                 </div>
@@ -90,12 +91,13 @@
 
                             <h4 class="list-group-item-heading">Pedido Numero: {{preparado.IdPedido}}</h4>
 
-
                             <h6 class="list-group-item-text">Provincia: {{preparado.Provincia}}</h6>
 
                             <h6 class="list-group-item-text">Canton: {{preparado.Canton}}</h6>
 
                             <h6 class="list-group-item-text">Distrito: {{preparado.Distrito}}</h6>
+
+                            <h6 >Fecha de Recojo: {{preparado.FechaRecojo | date}}</h6>
                         </center>
                     </a>
                 </div>
@@ -120,6 +122,9 @@
                             <h6 class="list-group-item-text">Canton: {{recogido.Canton}}</h6>
 
                             <h6 class="list-group-item-text">Distrito: {{recogido.Distrito}}</h6>
+                         
+                            <h6 class="list-group-item-date">Fecha de Recojo: {{recogido.FechaRecojo | date}} </h6>
+                            
                         </center>
                     </a>
                 </div>
@@ -129,7 +134,7 @@
 
         </section>
 
-        <footer></footer>
+        <!---<footer></footer>-->
 
     </div>
 

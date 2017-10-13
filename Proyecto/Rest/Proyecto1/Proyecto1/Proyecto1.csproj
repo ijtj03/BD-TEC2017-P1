@@ -109,6 +109,7 @@
     <Content Include="mywebsite\.vs\ProjectSettings.json" />
     <Content Include="mywebsite\.vs\slnx.sqlite" />
     <Content Include="mywebsite\.vs\VSWorkspaceState.json" />
+    <Content Include="mywebsite\Administrador\LoginAdministrador.html" />
     <Content Include="mywebsite\rsc\imgs\agregarCliente.png" />
     <Content Include="mywebsite\rsc\imgs\agregarDoctor.jpg" />
     <Content Include="mywebsite\rsc\imgs\borrarCliente.png" />
@@ -165,6 +166,7 @@
     <Content Include="Scripts - Views\GestionSucursal.js" />
     <Content Include="Scripts - Views\IndexController.js" />
     <Content Include="Scripts - Views\Login.js" />
+    <Content Include="Scripts - Views\LoginAdministrador.js" />
     <Content Include="Scripts - Views\Main.js" />
     <Content Include="Scripts - Views\Medicamentos.js" />
     <Content Include="Scripts - Views\Pedido.js" />

@@ -13,8 +13,16 @@ loginadministrador.controller('LoginAdministradorController', function ($scope, 
                 if (response.data == true) {
                     console.log("Logged");
                     window.localStorage.setItem("id", id);
-                    console.log(window.localStorage.getItem("id"));
-                    window.location = "http://localhost:64698/mywebsite/Administrador/HomeAdministrador.html";
+                    $http.get("http://localhost:64698/api/Persona/GetSucursalPersona?id=" + window.localStorage.getItem("id"))
+                        .then(function (response) {
+                            $scope.res = response;
+                            window.localStorage.setItem("idSucursal", response.data);
+                            console.log(window.localStorage.getItem("id"), window.localStorage.getItem("idSucursal"));
+                            window.location = "http://localhost:64698/mywebsite/Administrador/HomeAdministrador.html";
+                        });
+
+
+                 
 
                 } else {
                     alert("El usuario o la contraseña no son correctos");

@@ -16,6 +16,7 @@ namespace Proyecto1.Classes
         public Boolean Estado { get; set; }
         public Boolean Recogido { get; set; }
         public Boolean Preparado { get; set; }
+        public DateTime FechaRecojo { get; set; }
 
     }
 }

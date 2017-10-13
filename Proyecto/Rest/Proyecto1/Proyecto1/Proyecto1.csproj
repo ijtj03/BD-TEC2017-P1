@@ -170,6 +170,7 @@
     <Content Include="Scripts - Views\Main.js" />
     <Content Include="Scripts - Views\Medicamentos.js" />
     <Content Include="Scripts - Views\Pedido.js" />
+    <Content Include="Scripts - Views\PedidoSucursal.js" />
     <Content Include="Scripts - Views\RealizarPedidos.js" />
     <Content Include="Scripts - Views\Register.js" />
     <Content Include="Scripts\angular-animate.js" />

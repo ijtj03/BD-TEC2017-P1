@@ -145,7 +145,7 @@ namespace Proyecto1.Services
 
             conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
             conn.Open();
-            command = new SqlCommand("select Sucursal.Nombre,Sucursal.Provincia,Sucursal.Canton,Sucursal.Distrito,Pedido.IdPedido,Pedido.IdCedula,Pedido.Estado,Pedido.Recogido,Pedido.Preparado from Sucursal inner join Pedido on Sucursal.IdSucursal = Pedido.IdSucursal inner join Empresa on Sucursal.IdEmpresa=Empresa.IdEmpresa where Pedido.LogicDelete!=1 and Pedido.Recogido!=1 and Pedido.Preparado!=1 and Sucursal.IdSucursal=" + id.ToString(), conn);
+            command = new SqlCommand("select Sucursal.Nombre,Sucursal.Provincia,Sucursal.Canton,Sucursal.Distrito,Pedido.IdPedido,Pedido.IdCedula,Pedido.Estado,Pedido.Recogido,Pedido.Preparado,Pedido.FechaRecojo from Sucursal inner join Pedido on Sucursal.IdSucursal = Pedido.IdSucursal inner join Empresa on Sucursal.IdEmpresa=Empresa.IdEmpresa where Pedido.LogicDelete!=1 and Pedido.Recogido!=1 and Pedido.Preparado!=1 and Sucursal.IdSucursal=" + id.ToString() + " ORDER BY Pedido.FechaRecojo DESC", conn);
             read = command.ExecuteReader();
 
             List<PedidoSucursal> ListPedidos = new List<PedidoSucursal>();
@@ -161,6 +161,7 @@ namespace Proyecto1.Services
                 pedido.Estado = Convert.ToBoolean(read["Estado"]);
                 pedido.Preparado = Convert.ToBoolean(read["Preparado"]);
                 pedido.Recogido = Convert.ToBoolean(read["Recogido"]);
+                pedido.FechaRecojo = Convert.ToDateTime(read["FechaRecojo"]);
 
                 ListPedidos.Add(pedido);
 
@@ -180,7 +181,7 @@ namespace Proyecto1.Services
 
             conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
             conn.Open();
-            command = new SqlCommand("select Sucursal.Nombre,Sucursal.Provincia,Sucursal.Canton,Sucursal.Distrito,Pedido.IdPedido,Pedido.IdCedula,Pedido.Estado,Pedido.Recogido,Pedido.Preparado from Sucursal inner join Pedido on Sucursal.IdSucursal = Pedido.IdSucursal inner join Empresa on Sucursal.IdEmpresa=Empresa.IdEmpresa where Pedido.LogicDelete!=1 and Pedido.Recogido=0 and Pedido.Preparado=1 and Sucursal.IdSucursal=" + id.ToString(), conn);
+            command = new SqlCommand("select Sucursal.Nombre,Sucursal.Provincia,Sucursal.Canton,Sucursal.Distrito,Pedido.IdPedido,Pedido.IdCedula,Pedido.Estado,Pedido.Recogido,Pedido.Preparado,Pedido.FechaRecojo from Sucursal inner join Pedido on Sucursal.IdSucursal = Pedido.IdSucursal inner join Empresa on Sucursal.IdEmpresa=Empresa.IdEmpresa where Pedido.LogicDelete!=1 and Pedido.Recogido=0 and Pedido.Preparado=1 and Sucursal.IdSucursal=" + id.ToString() + " ORDER BY Pedido.FechaRecojo DESC", conn);
             read = command.ExecuteReader();
 
             List<PedidoSucursal> ListPedidos = new List<PedidoSucursal>();
@@ -196,6 +197,7 @@ namespace Proyecto1.Services
                 pedido.Estado = Convert.ToBoolean(read["Estado"]);
                 pedido.Preparado = Convert.ToBoolean(read["Preparado"]);
                 pedido.Recogido = Convert.ToBoolean(read["Recogido"]);
+                pedido.FechaRecojo = Convert.ToDateTime(read["FechaRecojo"]);
 
                 ListPedidos.Add(pedido);
 
@@ -219,7 +221,7 @@ namespace Proyecto1.Services
 
             conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
             conn.Open();
-            command = new SqlCommand("select Sucursal.Nombre,Sucursal.Provincia,Sucursal.Canton,Sucursal.Distrito,Pedido.IdPedido,Pedido.IdCedula,Pedido.Estado,Pedido.Recogido,Pedido.Preparado from Sucursal inner join Pedido on Sucursal.IdSucursal = Pedido.IdSucursal inner join Empresa on Sucursal.IdEmpresa=Empresa.IdEmpresa where Pedido.LogicDelete!=1 and Pedido.Recogido=1 and Pedido.Preparado=1 and Sucursal.IdSucursal=" + id.ToString(), conn);
+            command = new SqlCommand("select Sucursal.Nombre,Sucursal.Provincia,Sucursal.Canton,Sucursal.Distrito,Pedido.IdPedido,Pedido.IdCedula,Pedido.Estado,Pedido.Recogido,Pedido.Preparado,Pedido.FechaRecojo from Sucursal inner join Pedido on Sucursal.IdSucursal = Pedido.IdSucursal inner join Empresa on Sucursal.IdEmpresa=Empresa.IdEmpresa where Pedido.LogicDelete!=1 and Pedido.Recogido=1 and Pedido.Preparado=1 and Sucursal.IdSucursal=" + id.ToString() + " ORDER BY Pedido.FechaRecojo DESC", conn);
             read = command.ExecuteReader();
 
             List<PedidoSucursal> ListPedidos = new List<PedidoSucursal>();
@@ -235,6 +237,7 @@ namespace Proyecto1.Services
                 pedido.Estado = Convert.ToBoolean(read["Estado"]);
                 pedido.Preparado = Convert.ToBoolean(read["Preparado"]);
                 pedido.Recogido = Convert.ToBoolean(read["Recogido"]);
+                pedido.FechaRecojo = Convert.ToDateTime(read["FechaRecojo"]);
 
                 ListPedidos.Add(pedido);
 

@@ -1,4 +1,5 @@
 ﻿var pedidos = angular.module('Pedidos', []);
+
 pedidos.controller("pedidosController", function ($scope, $http, $location) {
     $http.get('http://localhost:64698/api/Pedido/GetPedidos?id=' + window.localStorage.getItem("id"))
         .then(function (response) {
@@ -67,7 +68,8 @@ pedidos.controller("pedidoController", function ($scope, $http, $location) {
                     });
             }
         });
-            
+        window.location = "http://localhost:64698/mywebsite/WebCliente/pedido.html";
+                        
     };
 });
 pedidos.controller("precioController", function ($scope, $http) {
@@ -78,3 +80,7 @@ pedidos.controller("precioController", function ($scope, $http) {
             console.log("Geted");
         });
 });
+
+
+
+    

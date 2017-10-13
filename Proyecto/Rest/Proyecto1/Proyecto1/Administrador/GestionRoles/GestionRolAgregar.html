@@ -1,14 +1,22 @@
 ﻿<!DOCTYPE html>
-<html>
+<html ng-app="GestionRol">
 <head>
     <meta charset="utf-8" />
     <title>Gestion de Roles</title>
+
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
     <link rel='stylesheet' href='/mywebsite/css/styles.css'>
+
+    <script src="/Scripts/angular.js"></script>
+    <script src="/Scripts/angular-route.js"></script>
+    <script src="/Scripts - Views/GestionRol.js"></script>
+
+
 </head>
 <body>
     <div id='page'>
@@ -51,30 +59,12 @@
             </div>
 
             <section id='registro'>
-                <form action="" method="post" ng-controller="GestionUsuarioController">
+                <form action="" method="post" ng-controller="GestionRolController">
                     <center>
-                        <h2>Agregar</h2>
-                        <input type="number" class='field' value='' placeholder='Cedula' name='txtcedula' ng-model="cedula" required />
-                        <br><br>
+                        <h2>Agregar Rol</h2>
                         <input type="text" class='field' value='' placeholder='Nombre' name='txtnombre' ng-model="nombre" required />
                         <br><br>
-                        <input type="text" class='field' value='' placeholder='Primer Apellido' name='txtapp1' ng-model="apellido1" required />
-                        <br><br>
-                        <input type="text" class='field' value='' placeholder='Segundo Apellido' name='txtapp2' ng-model="apellido2" required />
-                        <br><br>
-                        <input type="number" class='field' value='' placeholder='Telefono' name='txttel' ng-model="telefono" required />
-                        <br><br>
-                        <input type="password" class='field' value='' placeholder='Password' name='txtpass' ng-model="password" required />
-                        <br><br>
-                        <input type="text" class='field' value='' placeholder='Provincia' name='txtprovincia' ng-model="provincia" required />
-                        <br><br>
-                        <input type="text" class='field' value='' placeholder='Canton' name='txtcanton' ng-model="canton" required />
-                        <br><br>
-                        <input type="text" class='field' value='' placeholder='Distrito' name='txtdistrito' ng-model="distrito" required />
-                        <br><br>
-                        <input type="text" class='field' value='' placeholder='Direccion' name='txtdir' ng-model="direccion" required />
-                        <br><br>
-                        <input type="date" class='field' value='' placeholder='Fecha Nacimiento' name='txtFechaNac' ng-model="fecha" required />
+                        <input type="text" class='field' value='' placeholder='Discripcion' name='txtdescripcion' ng-model="descripcion" required />
                         <br><br>
 
                         <button type="button" class="button button-primary" ng-click="agregar()">Agregar</button>

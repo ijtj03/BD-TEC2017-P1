@@ -39,6 +39,31 @@ namespace Proyecto1.Services
             return ListRoles;
         }
 
+        public Rol GetRol(int id)
+        {
+
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+            SqlDataReader read;
+
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+            command = new SqlCommand("SELECT *  from Rol where IdRol=" + id.ToString(), conn);
+            read = command.ExecuteReader();
+            Console.WriteLine("Paso por aqui");
+            Rol rol = new Rol();
+            while (read.Read())
+            {
+                rol.IdRol = Convert.ToInt32(read["IdRol"]);
+                rol.Nombre = read["Nombre"].ToString();
+                rol.Descripcion = read["Descripcion"].ToString();
+                rol.LogicDelete = Convert.ToBoolean(read["LogicDelete"]);
+            }
+            read.Close();
+            conn.Close();
+            return rol;
+        }
+
         public void PostRol([FromBody] Rol rol)
         {
             System.Data.SqlClient.SqlConnection conn;
@@ -47,22 +72,30 @@ namespace Proyecto1.Services
             conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
             conn.Open();
 
-            SqlParameter IdCedula = new SqlParameter("@IdCedula", System.Data.SqlDbType.Int);
-            IdCedula.Value = rol.IdCedula;
-
             SqlParameter Nombre = new SqlParameter("@Nombre", System.Data.SqlDbType.VarChar);
             Nombre.Value = rol.Nombre;
 
             SqlParameter Descripcion = new SqlParameter("@Descripcion", System.Data.SqlDbType.VarChar);
             Descripcion.Value = rol.Descripcion;
 
-
-            command = new SqlCommand("insert into Rol(IdCedula,Nombre,Descripcion) VALUES (@IdCedula,@Nombre,@Descripcion)", conn);
-            command.Parameters.Add(IdCedula);
+            command = new SqlCommand("insert into Rol(Nombre,Descripcion) VALUES (@Nombre,@Descripcion)", conn);
             command.Parameters.Add(Nombre);
             command.Parameters.Add(Descripcion);
             command.ExecuteNonQuery();
+            conn.Close();
 
+        }
+
+        public void DeleteRol([FromBody] int id)
+        {
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+
+            command = new SqlCommand("UPDATE Rol SET LogicDelete = 1  WHERE IdRol=" + id.ToString(), conn);
+            command.ExecuteNonQuery();
             conn.Close();
 
         }

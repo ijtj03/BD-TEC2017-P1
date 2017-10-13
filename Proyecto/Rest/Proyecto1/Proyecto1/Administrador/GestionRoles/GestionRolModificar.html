@@ -1,14 +1,19 @@
 ﻿<!DOCTYPE html>
-<html>
+<html ng-app="GestionRol">
 <head>
     <meta charset="utf-8" />
     <title>Gestion de Roles</title>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
     <link rel='stylesheet' href='/mywebsite/css/styles.css'>
+
+    <script src="/Scripts/angular.js"></script>
+    <script src="/Scripts/angular-route.js"></script>
+    <script src="/Scripts - Views/GestionRol.js"></script>
 </head>
 <body>
     <div id='page'>
@@ -50,6 +55,24 @@
                     </div>
                 </center>
             </div>
+
+            <section id='registro'>
+                <form action="" method="put" ng-controller="ModificarController">
+                    <center>
+                        <h2>Modificar Rol</h2>
+                        <input type="number" class='field' value='' placeholder='IdRol' name='txtcedula' ng-model="IdRol" required />
+                        <button type="button" class="button button-primary" ng-click="buscar()">Buscar</button>
+                        <br><br>
+                        <input type="text" class='field' value="{{buscar.Nombre}}"  required />
+                        <br><br>
+                        <input type="text" class='field' value="{{buscar.Descripcion}}"  required />
+                        <br><br>
+                        <button type="button" class="button button-primary" ng-click="modificar()">Modificar</button>
+                    </center>
+                </form>
+            </section>
+
+
         </section>
     </div>
 

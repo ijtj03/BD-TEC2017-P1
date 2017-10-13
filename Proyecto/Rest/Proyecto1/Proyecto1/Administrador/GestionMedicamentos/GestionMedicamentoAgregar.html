@@ -1,14 +1,20 @@
 ﻿<!DOCTYPE html>
-<html>
+<html ng-app="GestionMedicamento">
 <head>
     <meta charset="utf-8" />
     <title>Gestion de Medicamentos</title>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
     <link rel='stylesheet' href='/mywebsite/css/styles.css'>
+
+    <script src="/Scripts/angular.js"></script>
+    <script src="/Scripts/angular-route.js"></script>
+    <script src="/Scripts - Views/GestionMedicamento.js"></script>
+
 </head>
 <body>
     <div id='page'>
@@ -47,14 +53,34 @@
                             <h3>Modificar informacion de medicamento.</h3>
                             <p>Se modificara la informacion de un medicamento en la base de datos.</p>
                         </div>
-                        <div class="w3-quarter">
+                        <!--<div class="w3-quarter">
                             <a href="#" onClick="href='ConsultaMedicamento.html'"><img src="/mywebsite/rsc/imgs/modificarCliente.png" alt="Modificar" style="width:100%"></a>
                             <h3>Consulta Medicamento</h3>
                             <p>Se podra obtener la informacion de un medicamento en especifico.</p>
-                        </div>
+                        </div>-->
                     </div>
                 </center>
             </div>
+
+            <section id='registro'>
+                <form action="" method="post" ng-controller="GestionMedicamentoController">
+                    <center>
+                        <h2>Agregar</h2>
+                        <input type="text" class='field' value='' placeholder='Nombre' name='txtnombre' ng-model="nombre" required />
+                        <br><br>
+                        <input type="number" class='field' value='' placeholder='Casa Farmaceutica' ng-model="idCasaFarmaceutica" required />
+                        <br><br>
+                        <input type="number" class='field' value='' placeholder='Precio Proveedor' ng-model="precioProveedor" required />
+                        <br><br>
+                        <input type="number" class='field' value='' placeholder='Requiere Prescripcion' ng-model="prescripcion" required />
+                        <br><br>
+                        <input type="number" class='field' value='' placeholder='Cantidad Disponible' ng-model="cantidad" required />
+                        <br><br>
+                        <button type="button" class="button button-primary" ng-click="agregar()">Agregar</button>
+                    </center>
+                </form>
+            </section>
+
         </section>
     </div>
 </body>

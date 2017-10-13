@@ -21,6 +21,22 @@ namespace Proyecto1.Controllers
             return Ok(con.GetAllRoles());
         }
 
+        [HttpGet]
+        [Route("GetRol")]
+        public IHttpActionResult GetRoll(int id)
+        {
+            RolService con = new RolService();
+            return Ok(con.GetRol(id));
+        }
+
+        [HttpPut]
+        [Route("PutLogicDelete")]
+        public void DeleteRol([FromBody] int id)
+        {
+            RolService con = new RolService();
+            con.DeleteRol(id);
+        }
+
         [HttpPost]
         [Route("PostRol")]
         public void PostMedicamento([FromBody] Rol rol)

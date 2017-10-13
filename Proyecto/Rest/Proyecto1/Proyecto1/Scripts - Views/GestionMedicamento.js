@@ -80,10 +80,11 @@ GestionMedicamento.controller('ModificarController', function ($scope, $http, $l
 
 GestionMedicamento.controller('ObtenerTodos', function ($scope, $http, $location) {
     console.log("Obtener Todos los medicamentos");
+    console.log(window.localStorage.getItem("idSucursal"));
     $http.get('http://localhost:64698/api/Medicamento/GetAllMedicamentosxRelacion?id=' + window.localStorage.getItem("idSucursal"))
         .then(function successCallback(response) {
             $scope.Medicamentos = response.data;
-            console.log($scope.Medicamentos);
+            console.log(response.data);
         }, function errorCallback(response) {
             console.log(response);
         });

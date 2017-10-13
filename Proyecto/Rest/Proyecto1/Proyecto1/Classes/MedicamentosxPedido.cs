@@ -6,5 +6,6 @@
 
         public int Cantidad { get; set; }
         public string Nombre { get; set; }
+        public string IdMedicamento { get; set; }
     }
 }

@@ -55,20 +55,36 @@
             <section id='contenido'>
 
                 <h1>Mi Pedido</h1>
+                <center><h3><b>Fecha de Recojo: {{pedidoSel.FechaRecojo}}</b></h3></center>
                 <br><br>
                 <div class="list-group" ng-controller="pedidoController">
                     <a class="list-group-item" ng-repeat="medicina in medicinas">
                         <center>
                             <h4 class="list-group-item-text">Medicamento: {{medicina.Nombre}}</h4>
-
-                            <h4 class="list-group-item-heading">Cantidad: {{medicina.Cantidad}}</h4>
-
+                            <h4 class="list-group-item-heading">Cantidad:</h4>
+                            <input type="number" min="0" class='field' ng-attr-id="{{'med'+medicina.IdMedicamento}}" value="{{medicina.Cantidad}}" placeholder='Cantidad' />
                         </center>
                     </a>
                 </div>
+                <div ng-controller="pedidoController">
+                    <center>
+                        <div>
+                            <h2>Nueva fecha para recoger</h2><br>
+                        </div>
+                        <div>
+                            <input type="date" class='field' id="fechaRec" />
+                        </div>
+                    </center>
+                </div>
+                <br><br />
                 <div ng-controller="precioController">
                     <center>
                         <h4>Precio total: {{precio}}</h4>
+                    </center>
+                </div>
+                <div ng-controller="pedidoController">
+                    <center>
+                        <button type="button" class="btn btn-primary btn-block" ng-click="updatePedido()">Actualizar Pedido</button>
                     </center>
                 </div>
 

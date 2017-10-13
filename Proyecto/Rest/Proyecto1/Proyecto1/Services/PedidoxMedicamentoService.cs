@@ -58,6 +58,7 @@ namespace Proyecto1.Services
                 MedicamentosxPedido pedidoxMedicamento = new MedicamentosxPedido();
                 pedidoxMedicamento.Cantidad = Convert.ToInt32(read["Cantidad"]);
                 pedidoxMedicamento.Nombre = Convert.ToString(read["Nombre"]);
+                pedidoxMedicamento.IdMedicamento = Convert.ToString(read["IdMedicamento"]);
                 pedidoxMedicamento.Precio = Convert.ToInt32(read["PrecioSucursal"]);
                 ListPedidosxMedicamento.Add(pedidoxMedicamento);
 
@@ -97,5 +98,34 @@ namespace Proyecto1.Services
             conn.Close();
 
         }
+
+        public void UpdatePedidoxMedicamento([FromBody] PedidoxMedicamento pedidoxMedicamento)
+        {
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+
+            SqlParameter IdPedido = new SqlParameter("@IdPedido", System.Data.SqlDbType.Int);
+            IdPedido.Value = pedidoxMedicamento.IdPedido;
+
+            SqlParameter IdMedicamento = new SqlParameter("@IdMedicamento", System.Data.SqlDbType.Int);
+            IdMedicamento.Value = pedidoxMedicamento.IdMedicamento;
+
+            SqlParameter Cantidad = new SqlParameter("@Cantidad", System.Data.SqlDbType.Int);
+            Cantidad.Value = pedidoxMedicamento.Cantidad;
+            
+            command = new SqlCommand("update PedidoxMedicamento set Cantidad = @Cantidad where IdPedido=@IdPedido and IdMedicamento=@IdMedicamento", conn);
+            command.Parameters.Add(IdPedido);
+            command.Parameters.Add(IdMedicamento);
+            command.Parameters.Add(Cantidad);
+
+            command.ExecuteNonQuery();
+
+            conn.Close();
+
+        }
+
     }
 }

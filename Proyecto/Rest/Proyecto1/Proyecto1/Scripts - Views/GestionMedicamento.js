@@ -22,9 +22,9 @@ GestionMedicamento.controller('GestionMedicamentoController', function ($scope, 
             .then(function successCallback(response) {
                 var medicamento = response.data;
                 var medicamentoxCasaFarmaceutica = {
-                    IdMedicamento = medicamento.IdMedicamento,
-                    IdCasaFarmaceutica = $scope.idCasaFarmaceutica,
-                    PrecioProveedor = $scope.precioProveedor,
+                    IdMedicamento: medicamento.IdMedicamento,
+                    IdCasaFarmaceutica: $scope.idCasaFarmaceutica,
+                    PrecioProveedor: $scope.precioProveedor,
                 }
                 $http.post("http://localhost:64698/api/MedicamentoxCasaFarmaceutica/PostMedicamentoxCasaFarmaceutica", medicamentoxCasaFarmaceutica)
                     .then(function successCallback(response) {
@@ -80,9 +80,10 @@ GestionMedicamento.controller('ModificarController', function ($scope, $http, $l
 
 GestionMedicamento.controller('ObtenerTodos', function ($scope, $http, $location) {
     console.log("Obtener Todos los medicamentos");
-    $http.get('http://localhost:64698/api/Medicamento/GetAllMedicamentos')
+    $http.get('http://localhost:64698/api/Medicamento/GetAllMedicamentosxRelacion')
         .then(function successCallback(response) {
             $scope.Medicamentos = response.data;
+            console.log($scope.Medicamentos);
         }, function errorCallback(response) {
             console.log(response);
         });

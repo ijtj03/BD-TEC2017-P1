@@ -2022,6 +2022,7 @@
     <Compile Include="Classes\Empresa.cs" />
     <Compile Include="Classes\Enfermedad.cs" />
     <Compile Include="Classes\EnfermedadxPersona.cs" />
+    <Compile Include="Classes\GestionMedicamento.cs" />
     <Compile Include="Classes\Medicamento.cs" />
     <Compile Include="Classes\MedicamentoId.cs" />
     <Compile Include="Classes\MedicamentoxCasaFarmaceutica.cs" />

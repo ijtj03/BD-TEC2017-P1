@@ -33,7 +33,7 @@ namespace Proyecto1.Controllers
         public IHttpActionResult GetAllMedicamentosxRelacion()
         {
             MedicamentoService con = new MedicamentoService();
-            return Ok(con.GetAllMedicamentos());
+            return Ok(con.GetAllMedicamentosxRelacion());
         }
 
 

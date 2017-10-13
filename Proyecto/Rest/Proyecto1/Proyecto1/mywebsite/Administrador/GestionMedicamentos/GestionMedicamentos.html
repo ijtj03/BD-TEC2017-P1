@@ -10,10 +10,10 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
     <link rel='stylesheet' href='/mywebsite/css/styles.css'>
 
-    <script src="/Scripts/angular.js"></script>
-    <script src="/Scripts/angular-route.js"></script>
-    <script src="/Scripts - Views/GestionMedicamento.js"></script>
 
+    <script src="../../../Scripts/angular-route.js"></script>
+    <script src="../../../Scripts/angular.js"></script>
+    <script src="../../../Scripts - Views/GestionMedicamento.js"></script>
 
 </head>
 <body>
@@ -68,11 +68,12 @@
                     <div class="row" ng-controller="ObtenerTodos">
                         <div class="col-sm-3" style="background-color:lavenderblush;" ng-repeat="med in Medicamentos">
                             <center>
-                                <h3>"{{med.Nombre}}"</h3>
-                                <h4>Precio: "{{med.Precio}}"</h4>
+                                <h3>"{{med.Nombre}}" , "{{med.IdMedicamento}}"</h3>
+                                <h4>Precio: "{{med.PrecioSucursal}}"</h4>
                                 <h5>Cantida disponible: "{{med.Cantidad}}"</h5>
-                                <h5>Sucursal: "{{med.Cantidad}}"</h5>
-                                <h5>Necesita Reseta: "{{med.Cantidad}}"</h5>
+                                <h5>Sucursal: "{{med.IdSucursal}}"</h5>
+                                <h5>Necesita Reseta: "{{med.NecesitaReceta}}"</h5>
+                                <h5>Nombre casa faramaceutica: "{{med.NombreCasaFarmaceutica}}"</h5>
                             </center>
                         </div>
                     </div>

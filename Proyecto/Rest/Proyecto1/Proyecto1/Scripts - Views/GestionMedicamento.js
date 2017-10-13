@@ -79,7 +79,7 @@ GestionMedicamento.controller('ModificarController', function ($scope, $http, $l
 });
 
 GestionMedicamento.controller('ObtenerTodos', function ($scope, $http, $location) {
-    console.log("Obtener Todos los pedidos");
+    console.log("Obtener Todos los medicamentos");
     $http.get('http://localhost:64698/api/Medicamento/GetAllMedicamentos')
         .then(function successCallback(response) {
             $scope.Medicamentos = response.data;

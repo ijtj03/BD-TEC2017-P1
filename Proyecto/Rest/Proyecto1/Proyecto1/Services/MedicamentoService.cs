@@ -64,5 +64,35 @@ namespace Proyecto1.Services
 
         }
 
+        public List<GestionMedicamento> GetAllMedicamentosxRelacion()
+        {
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+            SqlDataReader read;
+
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+            command = new SqlCommand("SELECT M.IdMedicamento, M.Nombre, M.NecesitaReceta, MS.IdSucursal, MS.Cantidad, MS.PrecioSucursal,CF.IdCasaFarmaceutica , CF.Nombre  FROM Medicamento AS M INNER JOIN MedicamentoxSucursal AS MS ON M.IdMedicamento = MS.IdMedicamento INNER JOIN MedicamentoxCasaFarmaceutica AS MC ON M.IdMedicamento = MC.IdMedicamento INNER JOIN CasaFarmaceutica AS CF ON CF.IdCasaFarmaceutica = MC.IdCasaFarmaceutica", conn);
+            read = command.ExecuteReader();
+
+            List<GestionMedicamento> ListMedicamentos = new List<GestionMedicamento>();
+            while (read.Read())
+            {
+                GestionMedicamento medicamento = new GestionMedicamento();
+                medicamento.IdMedicamento = Convert.ToInt32(read["IdMedicamento"]);
+                medicamento.IdCasaFarmaceutica = Convert.ToInt32(read["IdCasaFarmaceutica"]);
+                medicamento.IdSucursal = Convert.ToInt32(read["IdSucursal"]);
+                medicamento.Nombre = read["Nombre"].ToString();
+                medicamento.NecesitaReceta = Convert.ToBoolean(read["NecesitaReceta"]);
+                
+
+                ListMedicamentos.Add(medicamento);
+
+            }
+            read.Close();
+            conn.Close();
+            return ListMedicamentos;
+        }
+
     }
 }

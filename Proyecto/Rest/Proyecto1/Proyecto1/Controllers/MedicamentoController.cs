@@ -28,6 +28,14 @@ namespace Proyecto1.Controllers
             con.PostMedicamento(medicamento);
         }
 
+        [HttpGet]
+        [Route("GetAllMedicamentosxRelacion")]
+        public IHttpActionResult GetAllMedicamentosxRelacion()
+        {
+            MedicamentoService con = new MedicamentoService();
+            return Ok(con.GetAllMedicamentos());
+        }
+
 
 
 

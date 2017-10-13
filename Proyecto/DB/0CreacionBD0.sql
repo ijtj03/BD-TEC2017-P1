@@ -1,10 +1,11 @@
+
 CREATE TABLE Persona(
   IdCedula INT NOT NULL PRIMARY KEY,
   Nombre VARCHAR(50) NOT NULL,
   Apellido1 VARCHAR(50) NOT NULL,
   Apellido2 VARCHAR(50) NOT NULL,
   Telefono INT,
-  Contraseña VARCHAR(100) NOT NULL,
+  ContraseÃ±a VARCHAR(100) NOT NULL,
   Provincia VARCHAR(100) NOT NULL,
   Canton VARCHAR(100) NOT NULL,
   Distrito VARCHAR(100) NOT NULL,
@@ -88,6 +89,22 @@ CREATE TABLE EnfermedadxPersona(
   LogicDelete BIT NOT NULL DEFAULT 0
 )
 
+CREATE TABLE Receta(
+  IdReceta INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
+  IdCedula INT NOT NULL,
+  LogicDelete BIT NOT NULL DEFAULT 0,
+  RecetaImg IMAGE NOT NULL,
+  FOREIGN KEY (IdCedula) REFERENCES Persona (IdCedula)
+)
+
+CREATE TABLE MedicamentoxReceta(
+  IdReceta INT NOT NULL,
+  IdMedicamento INT NOT NULL,
+  Cantidad INT NOT NULL,
+  LogicDelete BIT NOT NULL DEFAULT 0,
+  FOREIGN KEY (IdMedicamento) REFERENCES Medicamento (IdMedicamento),
+  FOREIGN KEY (IdReceta) REFERENCES Receta (IdReceta)
+)
 
 CREATE TABLE Pedido(
   IdPedido INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
@@ -179,6 +196,29 @@ FOREIGN KEY (IdSucursal) REFERENCES Sucursal (IdSucursal);
 ALTER TABLE MedicamentoxSucursal
 ADD CONSTRAINT FkMedicamentoxSucursalMedicamento 
 FOREIGN KEY (IdMedicamento) REFERENCES Medicamento (IdMedicamento);
+
+
+
+ALTER TABLE PersonaxSucursal
+ADD CONSTRAINT PK_PersonaxSucursal PRIMARY KEY (IdCedula,IdSucursal);
+
+ALTER TABLE MedicamentoxSucursal
+ADD CONSTRAINT PK_MedicamentoxSucursal PRIMARY KEY (IdMedicamento,IdSucursal);
+
+ALTER TABLE MedicamentoxCasaFarmaceutica
+ADD CONSTRAINT PK_MedicamentoxCasaFarmaceutica PRIMARY KEY (IdMedicamento,IdCasaFarmaceutica);
+
+ALTER TABLE EnfermedadxPersona
+ADD CONSTRAINT PK_EnfermedadxPersona PRIMARY KEY (IdEnfermedad,IdCedula,FechaEnfermedad);
+
+ALTER TABLE PedidoxMedicamento
+ADD CONSTRAINT PK_PedidoxMedicamento PRIMARY KEY (IdPedido,IdMedicamento);
+
+ALTER TABLE PersonaxRol
+ADD CONSTRAINT PK_PersonaxRol PRIMARY KEY (IdCedula,IdRol);
+
+ALTER TABLE MedicamentoxReceta
+ADD CONSTRAINT PK_MedicamentoxReceta PRIMARY KEY (IdReceta,IdMedicamento);
 
 
 

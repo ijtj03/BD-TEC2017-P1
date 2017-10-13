@@ -71,6 +71,14 @@ namespace Proyecto1.Controllers
         }
 
         [HttpGet]
+        [Route("SignInAdministradorVerification")]
+        public IHttpActionResult SignInAdministradorVerification(int id, string contraseña)
+        {
+            PersonaService con = new PersonaService();
+            return Ok(con.SignInAdministradorVerification(id, contraseña));
+        }
+
+        [HttpGet]
         [Route("GetSucursalPersona")]
         public IHttpActionResult GetSucursalPersona(int id)
         {

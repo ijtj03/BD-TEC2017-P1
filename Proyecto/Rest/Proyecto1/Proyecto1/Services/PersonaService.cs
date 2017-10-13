@@ -242,6 +242,39 @@ namespace Proyecto1.Services
             }
         }
 
+        public bool SignInAdministradorVerification(int id, string contraseña)
+        {
+
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+            SqlDataReader read;
+
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+
+
+            command = new SqlCommand("SELECT Persona.Contraseña FROM Persona INNER JOIN PersonaxRol ON Persona.IdCedula=PersonaxRol.IdCedula INNER JOIN Rol ON PersonaxRol.IdRol=Rol.IdRol WHERE Rol.Nombre = 'Administrador' AND Persona.LogicDelete!=1 AND Persona.IdCedula =" + id.ToString(), conn);
+
+            read = command.ExecuteReader();
+
+            string valor = "";
+
+            while (read.Read())
+            {
+                valor = read["Contraseña"].ToString();
+
+            }
+
+            if (contraseña == valor)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public int GetSucursalPersona(int id)
         {
             System.Data.SqlClient.SqlConnection conn;

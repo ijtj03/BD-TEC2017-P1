@@ -63,7 +63,7 @@ GestionRol.controller('ModificarController', function ($scope, $http, $location)
     }
 
     $scope.modificar = function () {
-        $http.put('http://localhost:64698/api/Rol/GetRol?id=' + IdRol)
+        $http.get('http://localhost:64698/api/Rol/GetRol?id=' + IdRol)
             .then(function successCallback(response) {
                 $scope.buscar = response.data;
                 console.log("Encontro el data", $scope.buscar);

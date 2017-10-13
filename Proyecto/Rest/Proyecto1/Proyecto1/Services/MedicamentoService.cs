@@ -64,7 +64,7 @@ namespace Proyecto1.Services
 
         }
 
-        public List<GestionMedicamento> GetAllMedicamentosxRelacion()
+        public List<GestionMedicamento> GetAllMedicamentosxRelacion(int IdSucursal)
         {
             System.Data.SqlClient.SqlConnection conn;
             SqlCommand command;
@@ -72,7 +72,7 @@ namespace Proyecto1.Services
 
             conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
             conn.Open();
-            command = new SqlCommand("SELECT M.IdMedicamento, M.Nombre, M.NecesitaReceta, MS.IdSucursal, MS.Cantidad, MS.PrecioSucursal,CF.IdCasaFarmaceutica , CF.Nombre AS NombreCasaFarmaceutica FROM Medicamento AS M INNER JOIN MedicamentoxSucursal AS MS ON M.IdMedicamento = MS.IdMedicamento INNER JOIN MedicamentoxCasaFarmaceutica AS MC ON M.IdMedicamento = MC.IdMedicamento INNER JOIN CasaFarmaceutica AS CF ON CF.IdCasaFarmaceutica = MC.IdCasaFarmaceutica", conn);
+            command = new SqlCommand("SELECT M.IdMedicamento, M.Nombre, M.NecesitaReceta, MS.IdSucursal, MS.Cantidad, MS.PrecioSucursal,CF.IdCasaFarmaceutica , CF.Nombre AS NombreCasaFarmaceutica FROM Medicamento AS M INNER JOIN MedicamentoxSucursal AS MS ON M.IdMedicamento = MS.IdMedicamento INNER JOIN MedicamentoxCasaFarmaceutica AS MC ON M.IdMedicamento = MC.IdMedicamento INNER JOIN CasaFarmaceutica AS CF ON CF.IdCasaFarmaceutica = MC.IdCasaFarmaceutica WHERE MS.IdSucursal =" + IdSucursal.ToString(), conn);
             read = command.ExecuteReader();
 
             List<GestionMedicamento> ListMedicamentos = new List<GestionMedicamento>();

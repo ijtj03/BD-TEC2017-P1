@@ -30,10 +30,10 @@ namespace Proyecto1.Controllers
 
         [HttpGet]
         [Route("GetAllMedicamentosxRelacion")]
-        public IHttpActionResult GetAllMedicamentosxRelacion()
+        public IHttpActionResult GetAllMedicamentosxRelacion(int IdSucursal)
         {
             MedicamentoService con = new MedicamentoService();
-            return Ok(con.GetAllMedicamentosxRelacion());
+            return Ok(con.GetAllMedicamentosxRelacion(IdSucursal));
         }
 
 

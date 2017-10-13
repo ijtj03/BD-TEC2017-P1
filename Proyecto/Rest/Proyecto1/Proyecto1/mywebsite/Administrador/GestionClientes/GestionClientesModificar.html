@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html ng-app="GestionUsuario">
 <head>
     <meta charset="utf-8" />
     <title>Gestion de Clientes</title>
@@ -60,11 +60,11 @@
 
 
             <section id='registro'>
-                <form action="" method="update">
+                <form action="" method="put" ng-controller="ModificarContoller">
                     <center>
-                        <h2>Agregar</h2>
+                        <h2>Modificar</h2>
                         <input type="number" class='field' value='' placeholder='Cedula' name='txtcedula' ng-model="cedula" required />
-                        <button type="button" class="button button-primary" ng-click="agregar()">Buscar</button>
+                        <button type="button" class="button button-primary" ng-click="buscar()">Buscar</button>
                         <br><br>
                         <input type="text" class='field' value='' placeholder='Nombre' name='txtnombre' ng-model="nombre" required />
                         <br><br>

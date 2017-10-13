@@ -36,7 +36,7 @@ GestionUsuario.controller('GestionUsuarioController', function ($scope, $http) {
         $http.post("http://localhost:64698/api/Persona/PostPersona", usuario)
             .then(function successCallback(response) {
                 console.log(response);
-                window.location = "http://localhost:64698/Administrador/GestionClientes/GestionClientes.html";
+                window.location = "http://localhost:64698/mywebsite/Administrador/GestionClientes/GestionClientes.html";
             }, function errorCallback(response) {
                 console.log(response);
             });
@@ -58,7 +58,7 @@ GestionUsuario.controller("EliminarController", function ($scope, $http, $locati
 
         $http.put("http://localhost:64698/api/Persona/PutLogicDelete", IdCedula).then(function successCallback(response) {
             console.log(response);
-            window.location = "http://localhost:64698/Administrador/GestionClientes/GestionClientes.html";
+            window.location = "http://localhost:64698/mywebsite/Administrador/GestionClientes/GestionClientes.html";
         }, function errorCallback(response) {
             console.log(response);
         });
@@ -66,7 +66,7 @@ GestionUsuario.controller("EliminarController", function ($scope, $http, $locati
 
 });
 
-GestionUsuario.controller('BuscarController', function ($scope, $http, $location) {
+GestionUsuario.controller('ModificarContoller', function ($scope, $http, $location) {
     console.log("Buscar Usurario");
     $scope.cedula = $scope.cedula;
 
@@ -74,7 +74,7 @@ GestionUsuario.controller('BuscarController', function ($scope, $http, $location
     $scope.buscar = function () {
         var IdCedula = $scope.cedula
         console.log(IdCedula);
-        $http.Get("http://localhost:64698/api/Persona/GetPersona", IdCedula).then(function (response) {
+        $http.get("http://localhost:64698/api/Persona/GetPersona?id=" + IdCedula).then(function (response) {
             console.log("Geting");
             $scope.buscar = response.data;
             console.log("Geted");

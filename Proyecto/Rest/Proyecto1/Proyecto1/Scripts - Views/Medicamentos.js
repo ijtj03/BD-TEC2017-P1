@@ -17,7 +17,7 @@ medicamentos.controller("medicamentosController", function ($scope, $http, $loca
                 IdSucursal: window.localStorage.getItem("idSucursal"),
                 Estado: 0,
                 FechaRecojo: fRec
-        };
+            };
             $http.post("http://localhost:64698/api/Pedido/PostPedido", pedido)
                 .then(function successCallback(response) {
                     console.log(response);

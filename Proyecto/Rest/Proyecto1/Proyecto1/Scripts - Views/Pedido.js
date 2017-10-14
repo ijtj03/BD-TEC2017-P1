@@ -68,7 +68,6 @@ pedidos.controller("pedidoController", function ($scope, $http, $location) {
                     });
             }
         });
-        window.location = "http://localhost:64698/mywebsite/WebCliente/pedido.html";
                         
     };
 });

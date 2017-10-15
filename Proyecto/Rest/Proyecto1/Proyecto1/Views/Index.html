@@ -3,16 +3,21 @@
 <head>
     <meta charset="utf-8" />
     <script src="../Scripts/angular.js"></script>
-    <script src="../Scripts - Views/IndexController.js"></script>
+    <script src="../Scripts - Views/Test.js"></script>
+    <script src="../Scripts/angular-base64-master/angular-base64-master/angular-base64.js"></script>
     <title></title>
 </head>
-<body ng-app="MyApp">
-    <div ng-controller="MyController">
-        Cedula: <input ng-model="cedula" name="cedula">
-        <h1>{{cedula}}</h1>
-        Contraseña: <input type="password" ng-model="password" name="contraseña" >
-        <button ng-click="fun(cedula,password)">Enviar</button>
+<body>
+
+    <div ng-controller="myController">
+        <input type="date" ng-model="date" />
+        <input type="file" id="file" name="file"/>
+        <button ng-click="add()">UPLOAD</button>
+        <button ng-click="image()">IMAGEN</button>
+        <img src="{{base}}" />
+
     </div>
     
+ 
 </body>
 </html>

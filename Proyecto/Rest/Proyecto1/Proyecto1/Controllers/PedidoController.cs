@@ -100,5 +100,22 @@ namespace Proyecto1.Controllers
             PedidoService con = new PedidoService();
             con.RecogerPedido(id);
         }
+
+        [HttpPost]
+        [Route("PostPedidoImage")]
+        public void PostPedidoImage([FromBody] PedidoImage pedido)
+        {
+            PedidoService con = new PedidoService();
+            con.PostPedidoImage(pedido);
+        }
+
+        [HttpGet]
+        [Route("GetImagePedido")]
+        public IHttpActionResult GetImagePedido()
+        {
+            PedidoService con = new PedidoService();
+            return Ok(con.GetImagePedido());
+
+        }
     }
 }

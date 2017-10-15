@@ -309,6 +309,79 @@ namespace Proyecto1.Services
 
         }
 
+        public void PostPedidoImage([FromBody] PedidoImage pedido)
+        {
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+
+            SqlParameter IdCedula = new SqlParameter("@IdCedula", System.Data.SqlDbType.Int);
+            IdCedula.Value = pedido.IdCedula;
+
+            SqlParameter IdSucursal = new SqlParameter("@IdSucursal", System.Data.SqlDbType.Int);
+            IdSucursal.Value = pedido.IdSucursal;
+
+            SqlParameter Estado = new SqlParameter("@Estado", System.Data.SqlDbType.Bit);
+            Estado.Value = pedido.Estado;
+
+            SqlParameter Recogido = new SqlParameter("@Recogido", System.Data.SqlDbType.Bit);
+            Recogido.Value = pedido.Recogido;
+
+            SqlParameter Preparado = new SqlParameter("@Preparado", System.Data.SqlDbType.Bit);
+            Preparado.Value = pedido.Preparado;
+
+            SqlParameter FechaRecojo = new SqlParameter("@FechaRecojo", System.Data.SqlDbType.Date);
+            FechaRecojo.Value = Convert.ToDateTime(pedido.FechaRecojo);
+
+            SqlParameter RecetaImg = new SqlParameter("@RecetaImg", System.Data.SqlDbType.VarChar);
+            RecetaImg.Value = pedido.RecetaImg;
+
+            command = new SqlCommand("insert into Pedido(IdCedula,IdSucursal,Estado,Recogido,Preparado,FechaRecojo,RecetaImg) VALUES (@IdCedula,@IdSucursal,@Estado,@Recogido,@Preparado,@FechaRecojo,@RecetaImg)", conn);
+            command.Parameters.Add(IdCedula);
+            command.Parameters.Add(IdSucursal);
+            command.Parameters.Add(Estado);
+            command.Parameters.Add(Recogido);
+            command.Parameters.Add(Preparado);
+            command.Parameters.Add(FechaRecojo);
+            command.Parameters.Add(RecetaImg);
+            command.ExecuteNonQuery();
+
+            conn.Close();
+
+        }
+
+
+        public string GetImagePedido()
+        {
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+            SqlDataReader read;
+
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+            command = new SqlCommand("select RecetaImg from Pedido where IdPedido=13", conn);
+            read = command.ExecuteReader();
+
+            string img = "";
+
+
+            while (read.Read())
+            {
+
+                img = read["RecetaImg"].ToString();
+
+            }
+
+            read.Close();
+            conn.Close();
+
+            return img;
+        }
+
+
 
     }
+
 }

@@ -173,10 +173,16 @@
     <Content Include="Scripts - Views\PedidoSucursal.js" />
     <Content Include="Scripts - Views\RealizarPedidos.js" />
     <Content Include="Scripts - Views\Register.js" />
+    <Content Include="Scripts - Views\Test.js" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-aria.js" />
     <Content Include="Scripts\angular-aria.min.js" />
+    <Content Include="Scripts\angular-base64-master\angular-base64-master\.gitignore" />
+    <Content Include="Scripts\angular-base64-master\angular-base64-master\angular-base64.js" />
+    <Content Include="Scripts\angular-base64-master\angular-base64-master\angular-base64.min.js" />
+    <Content Include="Scripts\angular-base64-master\angular-base64-master\Gruntfile.js" />
+    <Content Include="Scripts\angular-base64-master\angular-base64-master\index.js" />
     <Content Include="Scripts\angular-cookies.js" />
     <Content Include="Scripts\angular-cookies.min.js" />
     <Content Include="Scripts\angular-csp.css" />
@@ -952,6 +958,10 @@
     <Content Include="Scripts\angular-cookies.min.js.map" />
     <Content Include="Scripts\angular-aria.min.js.map" />
     <Content Include="Scripts\angular-animate.min.js.map" />
+    <Content Include="Scripts\angular-base64-master\angular-base64-master\bower.json" />
+    <Content Include="Scripts\angular-base64-master\angular-base64-master\LICENSE" />
+    <Content Include="Scripts\angular-base64-master\angular-base64-master\package.json" />
+    <Content Include="Scripts\angular-base64-master\angular-base64-master\README.md" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -977,6 +987,7 @@
     <Compile Include="Classes\MedicamentoxSucursal.cs" />
     <Compile Include="Classes\Pedido.cs" />
     <Compile Include="Classes\PedidoId.cs" />
+    <Compile Include="Classes\PedidoImage.cs" />
     <Compile Include="Classes\PedidoSucursal.cs" />
     <Compile Include="Classes\PedidoxMedicamento.cs" />
     <Compile Include="Classes\Persona.cs" />

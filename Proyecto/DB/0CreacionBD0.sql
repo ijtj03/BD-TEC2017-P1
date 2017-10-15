@@ -93,7 +93,7 @@ CREATE TABLE Receta(
   IdReceta INT IDENTITY(1,1) NOT NULL PRIMARY KEY,
   IdCedula INT NOT NULL,
   LogicDelete BIT NOT NULL DEFAULT 0,
-  RecetaImg IMAGE NOT NULL,
+  RecetaImg VARCHAR(MAX) NOT NULL,
   FOREIGN KEY (IdCedula) REFERENCES Persona (IdCedula)
 )
 
@@ -115,7 +115,7 @@ CREATE TABLE Pedido(
   Recogido BIT NOT NULL DEFAULT 0,
   Preparado BIT NOT NULL DEFAULT 0,
   FechaRecojo DATE NOT NULL,
-  RecetaImg IMAGE 
+  RecetaImg VARCHAR(MAX)
 )
 
 CREATE TABLE PedidoxMedicamento(

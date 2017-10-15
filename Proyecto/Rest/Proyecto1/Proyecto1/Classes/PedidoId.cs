@@ -12,6 +12,6 @@ namespace Proyecto1.Classes
         public string Provincia { get; set; }
         public string Canton { get; set; }
         public string Distrito { get; set; }
-        public string FechaRecojo { get; set; }
+        public DateTime FechaRecojo { get; set; }
     }
 }

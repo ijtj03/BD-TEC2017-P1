@@ -115,7 +115,11 @@ CREATE TABLE Pedido(
   Recogido BIT NOT NULL DEFAULT 0,
   Preparado BIT NOT NULL DEFAULT 0,
   FechaRecojo DATE NOT NULL,
+<<<<<<< HEAD
   RecetaImg VARCHAR(MAX)
+=======
+  RecetaImg VARCHAR(MAX) 
+>>>>>>> 25ca11b2b8437febfb06a33c6a922c39a36a0b77
 )
 
 CREATE TABLE PedidoxMedicamento(

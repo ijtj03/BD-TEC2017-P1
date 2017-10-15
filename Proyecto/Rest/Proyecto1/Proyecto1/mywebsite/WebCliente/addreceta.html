@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE HTML>
-<html ng-app="Medicamentos">
+<html ng-app="AddReceta">
 <head>
-    <title>Pedidos</title>
+    <title>Agregar Receta</title>
 
     <!-- comentario: etiquetas META descriptiva para nuestro sitio web-->
     <meta charset='utf-8'><!-- Codificacion de documento para uso de caracteres-->
@@ -14,7 +14,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="../../Scripts/angular.js"></script>
-    <script src="../../Scripts - Views/Medicamentos.js"></script>
+    <script src="../../Scripts - Views/AddReceta.js"></script>
 
     <link rel='stylesheet' href='../css/styles.css'>
 </head>
@@ -36,42 +36,32 @@
             </nav>
         </header>
 
-        <section id='main' class="container" ng-controller="medicamentosController">
-            
+        <section id='main' class="container" ng-controller="addRecetaController">
+
             <section id='contenido'>
 
                 <h1>Seleciona las medicinas</h1><br>
                 <div class="container">
-                    <div class="row" >
-                        <div class="col-sm-3" style="background-color:lavenderblush;" ng-repeat="med in medicamentosid" >
+                    <div class="row">
+                        <div class="col-sm-3" style="background-color:lavenderblush;" ng-repeat="med in medicinas">
                             <center>
                                 <h3>{{med.Nombre}}</h3>
-                                <h4>Precio: {{med.Precio}}</h4>
-                                <h5>Cantida disponible: {{med.Cantidad}}</h5>
                                 <input type="number" min="0" class='field' ng-attr-id="{{'med'+med.IdMedicamento}}" value='' placeholder='Cantidad Solicitada' />
                             </center>
                         </div>
-                    </div> 
+                    </div>
                 </div>
                 <center>
                     <div>
-                        <h3>Fecha para recoger</h3><br>
+                        <h3>Elija la foto de la receta</h3><br>
                     </div>
                     <div>
-                        <input type="date" class='field' id="fechaRec" value='' />
+                        <input type="file" name="pic" id="recImg" value="" accept="image/*">
                     </div>
-                    <center>
-                        <div>
-                            <h3>Elija la foto de la receta</h3><br>
-                        </div>
-                        <div>
-                            <input type="file" name="pic" id="recImg" value="" accept="image/*">
-                        </div>
-                    </center>
                 </center>
-                <br></br>
+                <br><br/>
                 <center>
-                    <button type="button" class="btn btn-primary btn-block" ng-controller="medicamentosController" ng-click="rePedido()">Realizar Pedido</button>
+                    <button type="button" class="btn btn-primary btn-block"  ng-click="addRec()">Agregar Receta</button>
                 </center>
             </section>
         </section>

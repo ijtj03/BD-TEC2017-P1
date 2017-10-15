@@ -34,7 +34,7 @@ namespace Proyecto1.Controllers
             List<MedicamentosxPedido> l = con.GetMedicamentosxPedido(id);
             int total = 0;
             foreach (MedicamentosxPedido m in l) {
-                total = total + m.Precio*m.Cantidad;
+                total = total + m.Precio*Convert.ToInt32(m.Cantidad);
             }
             return Ok(total);
         }
@@ -44,6 +44,13 @@ namespace Proyecto1.Controllers
         {
             PedidoxMedicamentoService con = new PedidoxMedicamentoService();
             con.PostPedidoxMedicamento(pedidoxMedicamento);
+        }
+        [HttpPost]
+        [Route("UpdatePedidoxMedicamento")]
+        public void UpdatePedidoxMedicamento([FromBody] PedidoxMedicamento pedidoxMedicamento)
+        {
+            PedidoxMedicamentoService con = new PedidoxMedicamentoService();
+            con.UpdatePedidoxMedicamento(pedidoxMedicamento);
         }
     }
 }

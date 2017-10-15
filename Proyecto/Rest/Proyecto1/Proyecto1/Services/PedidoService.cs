@@ -77,7 +77,7 @@ namespace Proyecto1.Services
                 pedido.Provincia = Convert.ToString(read["Provincia"]);
                 pedido.Canton = Convert.ToString(read["Canton"]);
                 pedido.Distrito = Convert.ToString(read["Distrito"]);
-                pedido.FechaRecojo = Convert.ToString(read["FechaRecojo"]);
+                pedido.FechaRecojo = Convert.ToDateTime(read["FechaRecojo"]);
 
                 ListPedidos.Add(pedido);
 
@@ -85,6 +85,27 @@ namespace Proyecto1.Services
             read.Close();
             conn.Close();
             return ListPedidos;
+        }
+        public PedidosId GetPedido(int id)
+        {
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+            SqlDataReader read;
+
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+            command = new SqlCommand("select  Pedido.FechaRecojo from Pedido where IdPedido=" + id.ToString(), conn);
+            read = command.ExecuteReader();
+
+            PedidosId pedido = new PedidosId();
+            while (read.Read())
+            {
+                pedido.FechaRecojo = Convert.ToDateTime(read["FechaRecojo"]);
+                //01 / 01 / 2015 0:00:00
+            }
+            read.Close();
+            conn.Close();
+            return pedido;
         }
 
         public void PostPedido([FromBody] Pedido pedido)
@@ -135,7 +156,28 @@ namespace Proyecto1.Services
             conn.Close();
 
         }
+        public void UpdatePedido([FromBody] Pedido pedido)
+        {
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
 
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+
+            SqlParameter IdPedido = new SqlParameter("@IdPedido", System.Data.SqlDbType.Int);
+            IdPedido.Value = pedido.IdPedido;
+
+            SqlParameter FechaRecojo = new SqlParameter("@FechaRecojo", System.Data.SqlDbType.Date);
+            FechaRecojo.Value = pedido.FechaRecojo;
+
+            command = new SqlCommand("update Pedido set FechaRecojo=@FechaRecojo where IdPedido = @IdPedido", conn);
+            command.Parameters.Add(IdPedido);
+            command.Parameters.Add(FechaRecojo);
+            command.ExecuteNonQuery();
+
+            conn.Close();
+
+        }
 
         public List<PedidoSucursal> GetPedidosSucursal(int id)
         {

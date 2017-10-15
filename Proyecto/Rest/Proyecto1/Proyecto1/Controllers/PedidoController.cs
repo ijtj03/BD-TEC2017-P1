@@ -41,13 +41,26 @@ namespace Proyecto1.Controllers
             PedidoService con = new PedidoService();
             return Ok(con.GetPedidos(id));
         }
-        
+        [HttpGet]
+        [Route("GetPedido")]
+        public IHttpActionResult GetPedido(int id)
+        {
+            PedidoService con = new PedidoService();
+            return Ok(con.GetPedido(id));
+        }
         [HttpPost]
         [Route("DeletePedido")]
         public void DeletePedido([FromBody] Pedido pedido)
         {
             PedidoService con = new PedidoService();
             con.DeletePedido(pedido);
+        }
+        [HttpPost]
+        [Route("UpdatePedido")]
+        public void UpdatePedido([FromBody] Pedido pedido)
+        {
+            PedidoService con = new PedidoService();
+            con.UpdatePedido(pedido);
         }
 
         [HttpGet]

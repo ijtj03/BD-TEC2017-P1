@@ -69,14 +69,12 @@ GestionUsuario.controller("EliminarController", function ($scope, $http, $locati
 GestionUsuario.controller('ModificarContoller', function ($scope, $http, $location) {
     console.log("Buscar Usurario");
     $scope.cedula = $scope.cedula;
-
-
     $scope.buscar = function () {
         var IdCedula = $scope.cedula
-        console.log(IdCedula);
         $http.get("http://localhost:64698/api/Persona/GetPersona?id=" + IdCedula).then(function (response) {
             console.log("Geting");
             $scope.buscar = response.data;
+            console.log(response.data);
             console.log("Geted");
         });
     }

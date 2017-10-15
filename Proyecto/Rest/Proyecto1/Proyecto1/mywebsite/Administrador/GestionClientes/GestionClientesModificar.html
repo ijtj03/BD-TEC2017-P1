@@ -10,10 +10,9 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
     <link rel='stylesheet' href='/mywebsite/css/styles.css'>
 
-    <script src="../Scripts/angular.js"></script>
-    <script src="../Scripts/angular-route.js"></script>
-    <script src="../Scripts - Views/GestionClientes.js"></script>
 
+    <script src="../../../Scripts/angular.js"></script>
+    <script src="../../../Scripts - Views/GestionClientesAgregar.js"></script>
 </head>
 <body>
     <div id='page'>
@@ -24,7 +23,7 @@
                     <li><a href='/mywebsite/Administrador/HomeAdministrador.html' title="INICIO">INICIO</a></li>
                     <li><a href='/mywebsite/Administrador/GestionClientes/GestionClientes.html' title="GESTIONCLIENTES">GESTION CLIENTES</a></li>
                     <li><a href='/mywebsite/Administrador/GestionDoctores/GestionDoctores.html' title="GESTIONEMPLEADOS">GESTION EMPLEADOS</a></li>
-                    <li><a href='/mywebsite/Administrador/GestionMedicamentos/ConsultaMedicamento.html' title="GESTIONMEDICAMENTOS">GESTION MEDICAMENTOS</a></li>
+                    <li><a href='/mywebsite/Administrador/GestionMedicamentos/GestionMedicamentos.html' title="GESTIONMEDICAMENTOS">GESTION MEDICAMENTOS</a></li>
                     <li><a href='/mywebsite/Administrador/GestionRoles/GestionRoles.html' title="GESTIONROLES">GESTION ROLES</a></li>
                     <li><a href='/mywebsite/Administrador/GestionSucursales/GestionSucursales.html' title="GESTIONSUCURSALES">GESTION SUCURSALES</a></li>
                     <li><a href='/mywebsite/Administrador/Estadisticas/Estadisticas.html' title="ESTADISTICAS">ESTADISTICAS</a></li>
@@ -66,11 +65,11 @@
                         <input type="number" class='field' value='' placeholder='Cedula' name='txtcedula' ng-model="cedula" required />
                         <button type="button" class="button button-primary" ng-click="buscar()">Buscar</button>
                         <br><br>
-                        <input type="text" class='field' value='' placeholder='Nombre' name='txtnombre' ng-model="nombre" required />
+                        <input type="text" class='field' value="{{buscar.Nombre}}"  placeholder="Nombre" disabled/>
                         <br><br>
-                        <input type="text" class='field' value='' placeholder='Primer Apellido' name='txtapp1' ng-model="apellido1" required />
+                        <input type="text" class='field' value="{{buscar.Apellido1}}" placeholder='Primer Apellido' disabled />
                         <br><br>
-                        <input type="text" class='field' value='' placeholder='Segundo Apellido' name='txtapp2' ng-model="apellido2" required />
+                        <input type="text" class='field' value="{{buscar.Apellido2}}" placeholder='Segundo Apellido'  disabled />
                         <br><br>
                         <input type="number" class='field' value='' placeholder='Telefono' name='txttel' ng-model="telefono" required />
                         <br><br>
@@ -84,7 +83,7 @@
                         <br><br>
                         <input type="text" class='field' value='' placeholder='Direccion' name='txtdir' ng-model="direccion" required />
                         <br><br>
-                        <input type="date" class='field' value='' placeholder='Fecha Nacimiento' name='txtFechaNac' ng-model="fecha" required />
+                        <input type="text" class='field' value="{{buscar.FechaNacimiento}}" placeholder='Fecha Nacimiento' disabled />
                         <br><br>
                         <button type="button" class="button button-primary" ng-click="agregar()">Agregar</button>
                     </center>

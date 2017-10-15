@@ -117,10 +117,13 @@
     <Content Include="mywebsite\rsc\imgs\modificarCliente.png" />
     <Content Include="mywebsite\WebCliente\addenf.html" />
     <Content Include="mywebsite\css\ABEAKRG.TTF" />
+    <Content Include="mywebsite\WebCliente\addreceta.html" />
     <Content Include="mywebsite\WebCliente\editperfil.html" />
     <Content Include="mywebsite\WebCliente\medicinas.html" />
     <Content Include="mywebsite\WebCliente\pedido.html" />
     <Content Include="mywebsite\WebCliente\pedidos.html" />
+    <Content Include="mywebsite\WebCliente\receta.html" />
+    <Content Include="mywebsite\WebCliente\recetas.html" />
     <Content Include="mywebsite\WebCliente\repedido.html" />
     <Content Include="mywebsite\rsc\imgs\Thumbs.db" />
     <Content Include="mywebsite\rsc\sucursal\check.png" />
@@ -158,6 +161,7 @@
     <Content Include="mywebsite\Sucursal\pedidoRecogidoSucursal.html" />
     <Content Include="mywebsite\Sucursal\pedidosSucursal.html" />
     <Content Include="mywebsite\Sucursal\pedidoSucursal.html" />
+    <Content Include="Scripts - Views\AddReceta.js" />
     <Content Include="Scripts - Views\EditPerfil.js" />
     <Content Include="Scripts - Views\Enfermedades.js" />
     <Content Include="Scripts - Views\GestionClientesAgregar.js" />
@@ -172,6 +176,7 @@
     <Content Include="Scripts - Views\Pedido.js" />
     <Content Include="Scripts - Views\PedidoSucursal.js" />
     <Content Include="Scripts - Views\RealizarPedidos.js" />
+    <Content Include="Scripts - Views\Recetas.js" />
     <Content Include="Scripts - Views\Register.js" />
     <Content Include="Scripts - Views\Test.js" />
     <Content Include="Scripts\angular-animate.js" />
@@ -992,6 +997,7 @@
     <Compile Include="Classes\PedidoxMedicamento.cs" />
     <Compile Include="Classes\Persona.cs" />
     <Compile Include="Classes\PersonaxSucursal.cs" />
+    <Compile Include="Classes\Receta.cs" />
     <Compile Include="Classes\Rol.cs" />
     <Compile Include="Classes\Sucursal.cs" />
     <Compile Include="Controllers\CasaFarmaceuticaController.cs" />
@@ -1000,17 +1006,21 @@
     <Compile Include="Controllers\EnfermedadxPersonaController.cs" />
     <Compile Include="Controllers\MedicamentoController.cs" />
     <Compile Include="Controllers\MedicamentoxCasaFarmaceuticaController.cs" />
+    <Compile Include="Controllers\MedicamentoxRecetaController.cs" />
     <Compile Include="Controllers\MedicamentoxSucursalController.cs" />
     <Compile Include="Controllers\PedidoController.cs" />
     <Compile Include="Controllers\PedidoxMedicamentoController.cs" />
     <Compile Include="Controllers\PersonaController.cs" />
     <Compile Include="Controllers\PersonaxSucursalController.cs" />
+    <Compile Include="Controllers\RecetaController.cs" />
     <Compile Include="Controllers\RolController.cs" />
     <Compile Include="Controllers\SucursalController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\MedicamentoxRecetaService.cs" />
+    <Compile Include="Services\RecetaService.cs" />
     <Compile Include="Services\CasaFarmaceuticaService.cs" />
     <Compile Include="Classes\EliminarEnfxPer.cs" />
     <Compile Include="Services\EmpresaService.cs" />

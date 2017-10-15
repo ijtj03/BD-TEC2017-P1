@@ -10,38 +10,36 @@ using System.Data.SqlClient;
 
 namespace Proyecto1.Services
 {
-    public class PedidoxMedicamentoService
+    public class MedicamentoxRecetaService
     {
-        public List<PedidoxMedicamento> GetAllPedidosxMedicamentos()
+        public void UpdateMedicamentoxReceta([FromBody] PedidoxMedicamento pedidoxMedicamento)
         {
             System.Data.SqlClient.SqlConnection conn;
             SqlCommand command;
-            SqlDataReader read;
 
             conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
             conn.Open();
-            command = new SqlCommand("SELECT *  from PedidoxMedicamento where LogicDelete = 0", conn);
-            read = command.ExecuteReader();
 
-            List<PedidoxMedicamento> ListPedidosxMedicamento = new List<PedidoxMedicamento>();
-            while (read.Read())
-            {
-                PedidoxMedicamento pedidoxMedicamento = new PedidoxMedicamento();
-                pedidoxMedicamento.IdMedicamento = Convert.ToInt32(read["IdMedicamento"]);
-                pedidoxMedicamento.IdPedido = Convert.ToInt32(read["IdPedido"]);
-                pedidoxMedicamento.Cantidad = Convert.ToInt32(read["Cantidad"]);
-                pedidoxMedicamento.RecetaImg = read["RecetaImg"].ToString();
-                pedidoxMedicamento.LogicDelete = Convert.ToBoolean(read["LogicDelete"]);
+            SqlParameter IdReceta = new SqlParameter("@IdReceta", System.Data.SqlDbType.Int);
+            IdReceta.Value = pedidoxMedicamento.IdPedido;
 
-                ListPedidosxMedicamento.Add(pedidoxMedicamento);
+            SqlParameter IdMedicamento = new SqlParameter("@IdMedicamento", System.Data.SqlDbType.Int);
+            IdMedicamento.Value = pedidoxMedicamento.IdMedicamento;
 
-            }
-            read.Close();
+            SqlParameter Cantidad = new SqlParameter("@Cantidad", System.Data.SqlDbType.Int);
+            Cantidad.Value = pedidoxMedicamento.Cantidad;
+
+            command = new SqlCommand("update MedicamentoxReceta set Cantidad = @Cantidad where IdReceta=@IdReceta and IdMedicamento=@IdMedicamento", conn);
+            command.Parameters.Add(IdReceta);
+            command.Parameters.Add(IdMedicamento);
+            command.Parameters.Add(Cantidad);
+
+            command.ExecuteNonQuery();
+
             conn.Close();
-            return ListPedidosxMedicamento;
-        }
 
-        public List<MedicamentosxPedido> GetMedicamentosxPedido(int id)
+        }
+        /*public List<MedicamentosxPedido> GetMedicamentosxPedido(int id)
         {
             System.Data.SqlClient.SqlConnection conn;
             SqlCommand command;
@@ -66,9 +64,9 @@ namespace Proyecto1.Services
             read.Close();
             conn.Close();
             return ListPedidosxMedicamento;
-        }
+        }*/
 
-        public void PostPedidoxMedicamento([FromBody] PedidoxMedicamento pedidoxMedicamento)
+        public void PostMedicamentoxReceta([FromBody] PedidoxMedicamento pedidoxMedicamento)
         {
             System.Data.SqlClient.SqlConnection conn;
             SqlCommand command;
@@ -76,8 +74,8 @@ namespace Proyecto1.Services
             conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
             conn.Open();
 
-            SqlParameter IdPedido = new SqlParameter("@IdPedido", System.Data.SqlDbType.Int);
-            IdPedido.Value = pedidoxMedicamento.IdPedido;
+            SqlParameter IdReceta = new SqlParameter("@IdReceta", System.Data.SqlDbType.Int);
+            IdReceta.Value = pedidoxMedicamento.IdPedido;
 
             SqlParameter IdMedicamento = new SqlParameter("@IdMedicamento", System.Data.SqlDbType.Int);
             IdMedicamento.Value = pedidoxMedicamento.IdMedicamento;
@@ -88,18 +86,42 @@ namespace Proyecto1.Services
             /*SqlParameter RecetaImg = new SqlParameter("@RecetaImg", System.Data.SqlDbType.Image);
             RecetaImg.Value = pedidoxMedicamento.RecetaImg;*/
 
-            command = new SqlCommand("insert into PedidoxMedicamento(IdPedido,IdMedicamento,Cantidad) VALUES (@IdPedido,@IdMedicamento,@Cantidad)", conn);
-            command.Parameters.Add(IdPedido);
+            command = new SqlCommand("insert into MedicamentoxReceta(IdReceta,IdMedicamento,Cantidad) VALUES (@IdReceta,@IdMedicamento,@Cantidad)", conn);
+            command.Parameters.Add(IdReceta);
             command.Parameters.Add(IdMedicamento);
             command.Parameters.Add(Cantidad);
-            //command.Parameters.Add(RecetaImg);
             command.ExecuteNonQuery();
 
             conn.Close();
 
         }
+        public List<MedicamentosxPedido> GetMedicamentosxReceta(int id)
+        {
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+            SqlDataReader read;
 
-        public void UpdatePedidoxMedicamento([FromBody] PedidoxMedicamento pedidoxMedicamento)
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+            command = new SqlCommand("select  MedicamentoxReceta.Cantidad, Medicamento.Nombre,Medicamento.IdMedicamento  from  MedicamentoxReceta inner join Medicamento on Medicamento.IdMedicamento=MedicamentoxReceta.IdMedicamento where MedicamentoxReceta.IdReceta=" + id.ToString(), conn);
+            read = command.ExecuteReader();
+
+            List<MedicamentosxPedido> ListPedidosxMedicamento = new List<MedicamentosxPedido>();
+            while (read.Read())
+            {
+                MedicamentosxPedido pedidoxMedicamento = new MedicamentosxPedido();
+                pedidoxMedicamento.Cantidad = Convert.ToInt32(read["Cantidad"]);
+                pedidoxMedicamento.IdMedicamento = Convert.ToString(read["IdMedicamento"]);
+                pedidoxMedicamento.Nombre = Convert.ToString(read["Nombre"]);
+                ListPedidosxMedicamento.Add(pedidoxMedicamento);
+
+            }
+            read.Close();
+            conn.Close();
+            return ListPedidosxMedicamento;
+        }
+
+        /*public void UpdatePedidoxMedicamento([FromBody] PedidoxMedicamento pedidoxMedicamento)
         {
             System.Data.SqlClient.SqlConnection conn;
             SqlCommand command;
@@ -125,7 +147,7 @@ namespace Proyecto1.Services
 
             conn.Close();
 
-        }
+        }*/
 
     }
 }

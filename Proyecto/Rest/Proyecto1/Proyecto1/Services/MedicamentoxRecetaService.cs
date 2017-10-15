@@ -12,6 +12,33 @@ namespace Proyecto1.Services
 {
     public class MedicamentoxRecetaService
     {
+        public void UpdateMedicamentoxReceta([FromBody] PedidoxMedicamento pedidoxMedicamento)
+        {
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+
+            SqlParameter IdReceta = new SqlParameter("@IdReceta", System.Data.SqlDbType.Int);
+            IdReceta.Value = pedidoxMedicamento.IdPedido;
+
+            SqlParameter IdMedicamento = new SqlParameter("@IdMedicamento", System.Data.SqlDbType.Int);
+            IdMedicamento.Value = pedidoxMedicamento.IdMedicamento;
+
+            SqlParameter Cantidad = new SqlParameter("@Cantidad", System.Data.SqlDbType.Int);
+            Cantidad.Value = pedidoxMedicamento.Cantidad;
+
+            command = new SqlCommand("update MedicamentoxReceta set Cantidad = @Cantidad where IdReceta=@IdReceta and IdMedicamento=@IdMedicamento", conn);
+            command.Parameters.Add(IdReceta);
+            command.Parameters.Add(IdMedicamento);
+            command.Parameters.Add(Cantidad);
+
+            command.ExecuteNonQuery();
+
+            conn.Close();
+
+        }
         /*public List<MedicamentosxPedido> GetMedicamentosxPedido(int id)
         {
             System.Data.SqlClient.SqlConnection conn;
@@ -67,6 +94,31 @@ namespace Proyecto1.Services
 
             conn.Close();
 
+        }
+        public List<MedicamentosxPedido> GetMedicamentosxReceta(int id)
+        {
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+            SqlDataReader read;
+
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+            command = new SqlCommand("select  MedicamentoxReceta.Cantidad, Medicamento.Nombre,Medicamento.IdMedicamento  from  MedicamentoxReceta inner join Medicamento on Medicamento.IdMedicamento=MedicamentoxReceta.IdMedicamento where MedicamentoxReceta.IdReceta=" + id.ToString(), conn);
+            read = command.ExecuteReader();
+
+            List<MedicamentosxPedido> ListPedidosxMedicamento = new List<MedicamentosxPedido>();
+            while (read.Read())
+            {
+                MedicamentosxPedido pedidoxMedicamento = new MedicamentosxPedido();
+                pedidoxMedicamento.Cantidad = Convert.ToInt32(read["Cantidad"]);
+                pedidoxMedicamento.IdMedicamento = Convert.ToString(read["IdMedicamento"]);
+                pedidoxMedicamento.Nombre = Convert.ToString(read["Nombre"]);
+                ListPedidosxMedicamento.Add(pedidoxMedicamento);
+
+            }
+            read.Close();
+            conn.Close();
+            return ListPedidosxMedicamento;
         }
 
         /*public void UpdatePedidoxMedicamento([FromBody] PedidoxMedicamento pedidoxMedicamento)

@@ -72,5 +72,21 @@ namespace Proyecto1.Services
             conn.Close();
 
         }
+        public void DeleteReceta([FromBody] Receta cFar)
+        {
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+
+            command = new SqlCommand("update Receta set LogicDelete=1 where IdReceta=@IdReceta", conn);
+
+            command.Parameters.AddWithValue("@IdReceta", cFar.IdReceta);
+            command.ExecuteNonQuery();
+
+            conn.Close();
+
+        }
     }
 }

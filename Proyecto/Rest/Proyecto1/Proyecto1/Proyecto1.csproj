@@ -122,6 +122,7 @@
     <Content Include="mywebsite\WebCliente\medicinas.html" />
     <Content Include="mywebsite\WebCliente\pedido.html" />
     <Content Include="mywebsite\WebCliente\pedidos.html" />
+    <Content Include="mywebsite\WebCliente\receta.html" />
     <Content Include="mywebsite\WebCliente\recetas.html" />
     <Content Include="mywebsite\WebCliente\repedido.html" />
     <Content Include="mywebsite\rsc\imgs\Thumbs.db" />
@@ -994,12 +995,12 @@
     <Compile Include="Controllers\EnfermedadxPersonaController.cs" />
     <Compile Include="Controllers\MedicamentoController.cs" />
     <Compile Include="Controllers\MedicamentoxCasaFarmaceuticaController.cs" />
+    <Compile Include="Controllers\MedicamentoxRecetaController.cs" />
     <Compile Include="Controllers\MedicamentoxSucursalController.cs" />
     <Compile Include="Controllers\PedidoController.cs" />
     <Compile Include="Controllers\PedidoxMedicamentoController.cs" />
     <Compile Include="Controllers\PersonaController.cs" />
     <Compile Include="Controllers\PersonaxSucursalController.cs" />
-    <Compile Include="Controllers\MedicamentoxRecetaController.cs" />
     <Compile Include="Controllers\RecetaController.cs" />
     <Compile Include="Controllers\RolController.cs" />
     <Compile Include="Controllers\SucursalController.cs" />

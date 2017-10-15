@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE HTML>
-<html ng-app="Pedidos">
+<html ng-app="Recetas">
 <head>
     <title>Pedidos</title>
     <!— comentario: etiquetas META descriptiva para nuestro sitio web-->
@@ -18,7 +18,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <script src="../../Scripts/angular.js"></script>
-    <script src="../../Scripts - Views/Pedido.js"></script>
+    <script src="../../Scripts - Views/Recetas.js"></script>
 
     <link rel='stylesheet' href='../css/styles.css'>
 
@@ -49,37 +49,23 @@
 
             <section id='contenido'>
 
-                <h1>Mi Pedido</h1>
+                <h1>Mi Receta</h1>
                 <!--<center><h3><b>Fecha de Recojo: {{pedidoSel.FechaRecojo}}</b></h3></center>-->
                 <br><br>
-                <div class="list-group" ng-controller="pedidoController">
+                <div class="list-group" ng-controller="rController">
                     <a class="list-group-item" ng-repeat="medicina in medicinas">
                         <center>
                             <h4 class="list-group-item-text">Medicamento: {{medicina.Nombre}}</h4>
                             <h4 class="list-group-item-heading">Cantidad:</h4>
-                            <input type="text"   ng-attr-id="{{'med'+medicina.IdMedicamento}}" value="{{medicina.Cantidad}}" placeholder='Cantidad' />
+                            <input type="text"  class='field' ng-attr-id="{{'med'+medicina.IdMedicamento}}" value="{{medicina.Cantidad}}" placeholder='Cantidad' />
                         </center>
                     </a>
                 </div>
-                <div ng-controller="pedidoController">
+                
+                
+                <div ng-controller="rController">
                     <center>
-                        <div>
-                            <h2>Nueva fecha para recoger</h2><br>
-                        </div>
-                        <div>
-                            <input type="date" class='field' id="fechaRec" />
-                        </div>
-                    </center>
-                </div>
-                <br><br />
-                <div ng-controller="precioController">
-                    <center>
-                        <h4>Precio total: {{precio}}</h4>
-                    </center>
-                </div>
-                <div ng-controller="pedidoController">
-                    <center>
-                        <button type="button" class="btn btn-primary btn-block" ng-click="updatePedido()">Actualizar Pedido</button>
+                        <button type="button" class="btn btn-primary btn-block" ng-click="updateReceta()">Actualizar Receta</button>
                     </center>
                 </div>
 

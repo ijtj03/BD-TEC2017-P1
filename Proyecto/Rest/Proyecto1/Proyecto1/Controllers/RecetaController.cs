@@ -35,5 +35,12 @@ namespace Proyecto1.Controllers
             RecetaService con = new RecetaService();
             con.PostReceta(cFar);
         }
+        [HttpPost]
+        [Route("DeleteReceta")]
+        public void DeleteReceta([FromBody] Receta cFar)
+        {
+            RecetaService con = new RecetaService();
+            con.DeleteReceta(cFar);
+        }
     }
 }

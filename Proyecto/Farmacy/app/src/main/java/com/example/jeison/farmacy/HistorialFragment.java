@@ -2,15 +2,29 @@ package com.example.jeison.farmacy;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
+
+import com.example.jeison.farmacy.Adapters.HistorialAdapter;
+import com.example.jeison.farmacy.Clases.Client;
+import com.example.jeison.farmacy.Clases.Historial;
+import com.example.jeison.farmacy.Clases.Medicinas;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 import java.util.ArrayList;
 
@@ -33,7 +47,8 @@ public class HistorialFragment extends Fragment {
     private RecyclerView recyclerView;
     private Context context;
     private ArrayList<Historial> mItems;
-
+    private OnListener mListener=new OnListener();
+    private HistorialAdapter mAdapter;
 
     public HistorialFragment() {
         // Required empty public constructor
@@ -61,9 +76,6 @@ public class HistorialFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mItems=new ArrayList<Historial>();
-        mItems.add(new Historial("12/19/2015","Fiebre"));
-        mItems.add(new Historial("12/19/2015","Dengue,Vomitos"));
-        mItems.add(new Historial("12/19/2015","Diarrea,Gastritis, Nauceas"));
     }
 
     @Override
@@ -74,18 +86,54 @@ public class HistorialFragment extends Fragment {
         context=view.getContext();
         recyclerView=(RecyclerView) view.findViewById(R.id.list);
         recyclerView.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false));
-        recyclerView.setAdapter(new HistorialAdapter(mItems));
+        GetHistorial();
 
         FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.addHis);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                startActivity(new Intent(getContext(),NewHistorial.class));
             }
         });
 
         return view;
+    }
+
+
+
+    public void GetHistorial(){
+        mItems.clear();
+        RequestParams params=new RequestParams();
+        params.put("id", Client.getInstance().id);
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.get("http://"+Client.getInstance().ip+":64698/api/EnfermedadxPersona/GetMisEnfermedades",params,new AsyncHttpResponseHandler(){
+            @Override
+            public void onSuccess(String response){
+                JsonParser parser = new JsonParser();
+                JsonElement tradeElement = parser.parse(response);
+                JsonArray sus=tradeElement.getAsJsonArray();
+                for (int i=0;i<sus.size();++i){
+                    JsonObject obj=sus.get(i).getAsJsonObject();
+                    mItems.add(new Historial(obj.get("FechaEnfermedad").getAsString(),obj.get("Nombre").getAsString(),
+                            obj.get("IdEnfermedad").getAsString()));
+                }
+                mAdapter=new HistorialAdapter(mItems,mListener);
+                recyclerView.setAdapter(mAdapter);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Throwable error,String content){
+                Toast.makeText(getContext(), "Unexpected Error occcured! [Most common Error: Device might not be connected to Internet or remote server is not up and running]", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    public class OnListener{
+        public void onListenerAction(Historial item, View view){
+            recyclerView.removeView(view);
+            mAdapter.delEnfermedad(item);
+        }
     }
 
 }

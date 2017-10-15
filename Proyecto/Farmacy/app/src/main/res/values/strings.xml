@@ -20,15 +20,22 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="title_activity_singup">Sign in</string>
+    <string name="title_activity_singup">Registro</string>
     <string name="title_activity_main">MainActivity</string>
+
+    <string name="title_dialog_del">Eliminar Cuenta</string>
+    <string name="dialog_text">Desea eliminar la cuenta?</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
     <string name="action_save">Save</string>
+    <string name="action_new_recipe">Nueva Receta</string>
+    <string name="action_add_recipe">Añadir Receta</string>
     <string name="title_activity_acount">Sign in</string>
+    <string name="title_activity_endPedido">Finalizar Pedido</string>
+    <string name="title_activity_configPedido">Modificar Pedido</string>
     <string name="title_activity_sucursales">SucursalesActivity</string>
 
     <!-- TODO: Remove or change this placeholder text -->

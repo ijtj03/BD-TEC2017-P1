@@ -1,5 +1,7 @@
 package com.example.jeison.farmacy;
 
+import com.example.jeison.farmacy.Clases.Medicinas;
+
 import java.util.List;
 
 /**
@@ -12,10 +14,12 @@ public class Pedidos {
     String numPedido;
     String Sucursal;
     String Dater;
+    String Direccion;
 
-    public Pedidos(String numpedido,String sucursal,String drecojo){
+    public Pedidos(String numpedido,String sucursal,String drecojo,String direccion){
         this.numPedido=numpedido;
         this.Sucursal=sucursal;
         this.Dater=drecojo;
+        this.Direccion=direccion;
     }
 }

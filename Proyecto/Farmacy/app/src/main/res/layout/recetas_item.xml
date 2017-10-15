@@ -24,30 +24,12 @@
             android:textAppearance="?attr/textAppearanceListItem"
             tools:text="Nombre Sucursal" />
 
-        <TextView
-            android:id="@+id/price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/name"
-            android:layout_below="@+id/name"
-            android:text="Precio"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            tools:text="Localizacion sucursal" />
-
-        <TextView
-            android:id="@+id/cantidad"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/name"
-            android:layout_below="@+id/price"
-            android:text="Cantidad"
-            tools:text="Dirrecion de sucursal" />
 
         <CheckBox
             android:id="@+id/check_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/cantidad"
+            android:layout_below="@+id/name"
             android:text="Añadir" />
 
     </RelativeLayout>

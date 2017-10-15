@@ -1,13 +1,19 @@
-package com.example.jeison.farmacy;
+package com.example.jeison.farmacy.Adapters;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.jeison.farmacy.Clases.Medicinas;
+import com.example.jeison.farmacy.FinalizarPedidosActivity;
+import com.example.jeison.farmacy.R;
 
 import java.util.List;
 
@@ -15,12 +21,12 @@ import java.util.List;
  * Created by Jeison on 03/10/2017.
  */
 
-public class ConfigAdapter extends RecyclerView.Adapter<ConfigAdapter.ViewHolder> {
+public class TerminarAdapter extends RecyclerView.Adapter<TerminarAdapter.ViewHolder> {
 
     private List<Medicinas> mMedicinas;
-    private final PedidosConfigActivity.OnListener mListener;
+    private final FinalizarPedidosActivity.OnListener mListener;
 
-    public ConfigAdapter(List<Medicinas> medicinases,PedidosConfigActivity.OnListener listener){
+    public TerminarAdapter(List<Medicinas> medicinases, FinalizarPedidosActivity.OnListener listener){
         this.mMedicinas=medicinases;
         this.mListener=listener;
     }
@@ -29,6 +35,11 @@ public class ConfigAdapter extends RecyclerView.Adapter<ConfigAdapter.ViewHolder
         mMedicinas.remove(item);
         notifyDataSetChanged();
     }
+
+    public List<Medicinas> getmMedicinas() {
+        return mMedicinas;
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
@@ -37,17 +48,33 @@ public class ConfigAdapter extends RecyclerView.Adapter<ConfigAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         Medicinas item = mMedicinas.get(position);
         holder.mItem = item;
         holder.mName.setText(item.mName);
         holder.mPrice.setText(item.mPrice);
-        holder.mDescripcion.setText(item.mDescripcion);
 
         holder.mAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mListener.onListenerAction(holder.mItem, holder.mView);
+            }
+        });
+        holder.mCantidad.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Log.d("Cantidad",s.toString());
+                mMedicinas.get(position).mCantidad=s.toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
     }
@@ -60,7 +87,6 @@ public class ConfigAdapter extends RecyclerView.Adapter<ConfigAdapter.ViewHolder
         public final View mView;
         public final TextView mName;
         public final TextView mPrice;
-        public final TextView mDescripcion;
         public final EditText mCantidad;
         public final Button mAdd;
         public Medicinas mItem;
@@ -70,7 +96,6 @@ public class ConfigAdapter extends RecyclerView.Adapter<ConfigAdapter.ViewHolder
             mView = view;
             mName = (TextView) view.findViewById(R.id.name);
             mPrice = (TextView) view.findViewById(R.id.price);
-            mDescripcion= (TextView) view.findViewById(R.id.des);
             mAdd= (Button) view.findViewById(R.id.check_add);
             mCantidad= (EditText) view.findViewById(R.id.cantidad);
             mCantidad.setText("1");

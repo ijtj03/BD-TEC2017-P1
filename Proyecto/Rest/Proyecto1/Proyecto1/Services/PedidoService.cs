@@ -65,7 +65,7 @@ namespace Proyecto1.Services
 
             conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
             conn.Open();
-            command = new SqlCommand("select Sucursal.Nombre,Sucursal.Provincia,Sucursal.Canton,Sucursal.Distrito,Pedido.IdPedido,Pedido.FechaRecojo from Pedido inner join Sucursal on Pedido.IdSucursal=Sucursal.IdSucursal where Pedido.Estado=0 and Pedido.LogicDelete=0 and Pedido.IdCedula=" + id.ToString(), conn);
+            command = new SqlCommand("select Sucursal.Nombre,Sucursal.Provincia,Sucursal.Canton,Sucursal.Distrito,Pedido.IdPedido,Pedido.FechaRecojo,Pedido.RecetaImg from Pedido inner join Sucursal on Pedido.IdSucursal=Sucursal.IdSucursal where Pedido.Estado=0 and Pedido.LogicDelete=0 and Pedido.IdCedula=" + id.ToString(), conn);
             read = command.ExecuteReader();
 
             List<PedidosId> ListPedidos = new List<PedidosId>();
@@ -78,7 +78,7 @@ namespace Proyecto1.Services
                 pedido.Canton = Convert.ToString(read["Canton"]);
                 pedido.Distrito = Convert.ToString(read["Distrito"]);
                 pedido.FechaRecojo = Convert.ToDateTime(read["FechaRecojo"]);
-
+                pedido.RecetaImg = Convert.ToString(read["RecetaImg"]);
                 ListPedidos.Add(pedido);
 
             }
@@ -174,8 +174,11 @@ namespace Proyecto1.Services
 
             SqlParameter FechaRecojo = new SqlParameter("@FechaRecojo", System.Data.SqlDbType.Date);
             FechaRecojo.Value = pedido.FechaRecojo;
-
-            command = new SqlCommand("update Pedido set FechaRecojo=@FechaRecojo where IdPedido = @IdPedido", conn);
+            
+            SqlParameter RecetaImg = new SqlParameter("@RecetaImg", System.Data.SqlDbType.VarChar);
+            RecetaImg.Value = pedido.RecetaImg;
+            
+            command = new SqlCommand("update Pedido set FechaRecojo=@FechaRecojo,RecetaImg=@RecetaImg where IdPedido = @IdPedido", conn);
             command.Parameters.Add(IdPedido);
             command.Parameters.Add(FechaRecojo);
             command.ExecuteNonQuery();

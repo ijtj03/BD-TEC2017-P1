@@ -95,7 +95,7 @@ GestionEmpleado.controller("EliminarController", function ($scope, $http, $locat
 
 });
 
-GestionUsuario.controller('ModificarContoller', function ($scope, $http, $location) {
+GestionEmpleado.controller('ModificarContoller', function ($scope, $http, $location) {
     console.log("Buscar Usurario");
     $scope.cedula = $scope.cedula;
     $scope.buscar = function () {
@@ -106,6 +106,7 @@ GestionUsuario.controller('ModificarContoller', function ($scope, $http, $locati
             console.log(response.data);
             console.log("Geted");
         });
+        /**
         $http.get("http://localhost:64698/api/PersonaxRol/GetPersonaxRol?id=" + IdCedula).then(function (response) {
             console.log("Geting");
             $scope.buscarRol = response.data;
@@ -117,7 +118,7 @@ GestionUsuario.controller('ModificarContoller', function ($scope, $http, $locati
             $scope.buscarSucursal = response.data;
             console.log(response.data);
             console.log("Geted");
-        });
+        });*/
     }
     $scope.modificar = function () {
         console.log("Modificar Usuario");

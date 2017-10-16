@@ -81,6 +81,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="mywebsite\Administrador\Estadisticas\Estadisticas.html" />
+    <Content Include="mywebsite\Administrador\GestionClientes\AgregarEnfermedades.html" />
+    <Content Include="mywebsite\Administrador\GestionClientes\EliminarEnfermedad.html" />
     <Content Include="mywebsite\Administrador\GestionClientes\GestionClientes.html" />
     <Content Include="mywebsite\Administrador\GestionClientes\GestionClientesAgregar.html" />
     <Content Include="mywebsite\Administrador\GestionClientes\GestionClientesEliminar.html" />

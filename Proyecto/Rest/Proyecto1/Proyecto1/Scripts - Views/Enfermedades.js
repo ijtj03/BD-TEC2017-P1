@@ -63,3 +63,54 @@ enfermedades.controller("enfermedadesController", function ($scope, $http, $loca
     };
 
 });
+
+
+enfermedades.controller("AgregarEnferemedadController", function ($scope, $http, $location) {
+    $http.get("http://localhost:64698/api/Enfermedad/GetAllEnfermedadesN")
+        .then(function (response) {
+            console.log("Getting");
+            $scope.enfermedades = response.data;
+            console.log("Getted");
+        });
+    $scope.agregar = function () {
+        console.log($scope.enfermedad);
+        $http.get("http://localhost:64698/api/Enfermedad/GetIdEnfermedad?nombre=" + $scope.enfermedad)
+            .then(function (response) {
+                $scope.Idenfermedad = response.data;
+                var data = {
+                    IdEnfermedad: $scope.Idenfermedad,
+                    IdCedula: $scope.cedula,
+                    FechaEnfermedad : $scope.fecha,
+                }
+                $http.post("http://localhost:64698/api/EnfermedadxPersona/PostEnfermedadxPersona", data)
+                    .then(function successCallback(response) {
+                        console.log(response);
+                    }, function errorCallback(response) {
+                        console.log(response);
+                    });
+            });
+    }
+});
+
+
+enfermedades.controller("EliminarEnferemedadController", function ($scope, $http, $location) {
+    $http.get("http://localhost:64698/api/Enfermedad/GetAllEnfermedadesN")
+        .then(function (response) {
+            console.log("Getting");
+            $scope.enfermedades = response.data;
+            console.log("Getted");
+        });
+    $scope.eliminar = function () {
+        console.log($scope.enfermedad);
+        $http.get("http://localhost:64698/api/Enfermedad/GetIdEnfermedad?nombre=" + $scope.enfermedad )
+            .then(function (response) {
+                $scope.Idenfermedad = response.data;
+                $http.put("http://localhost:64698/api/Enfermedad/PutLogicDelete?id=" + $scope.Idenfermedad + "&" + "cedula=" +$scope.cedula)
+                    .then(function successCallback(response) {
+                        console.log(response);
+                    }, function errorCallback(response) {
+                        console.log(response);
+                    });
+            });
+    }
+});

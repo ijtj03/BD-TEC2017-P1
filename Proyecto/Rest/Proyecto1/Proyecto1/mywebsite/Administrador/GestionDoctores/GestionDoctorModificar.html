@@ -12,7 +12,6 @@
 
     <script src="../../../Scripts/angular.js"></script>
     <script src="../../../Scripts - Views/GestionEmpleado.js"></script>
-
 </head>
 <body>
     <div id='page'>
@@ -55,8 +54,8 @@
                 </center>
             </div>
 
-            <section id='registro'>
-                <form action="" method="put" ng-controller="ModificarContoller">
+            <section id='registro' >
+                <form action="" method="put"  ng-controller="ModificarContoller">
                     <center>
                         <h2>Modificar</h2>
                         <input type="number" class='field' value='' placeholder='Cedula' name='txtcedula' ng-model="cedula" required />
@@ -82,7 +81,7 @@
                         <br><br>
                         <input type="text" class='field' value="{{buscar.FechaNacimiento}}" placeholder='Fecha Nacimiento' disabled />
                         <br><br>
-                        <input type="text" class='field' value="{{buscarRol.IdRol}}"  placeholder='ID Rol' id="idRol" required />
+                        <input type="text" class='field' value="{{buscarRol.IdRol}}" placeholder='ID Rol' id="idRol" required />
                         <br><br>
                         <input type="text" class='field' value="{{buscarSucursal.SalarioHora}}" placeholder='Salario por Hora' id="salario" required />
                         <br><br>

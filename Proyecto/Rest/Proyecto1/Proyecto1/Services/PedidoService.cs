@@ -78,7 +78,6 @@ namespace Proyecto1.Services
                 pedido.Canton = Convert.ToString(read["Canton"]);
                 pedido.Distrito = Convert.ToString(read["Distrito"]);
                 pedido.FechaRecojo = Convert.ToDateTime(read["FechaRecojo"]);
-                pedido.RecetaImg = Convert.ToString(read["RecetaImg"]);
                 ListPedidos.Add(pedido);
 
             }

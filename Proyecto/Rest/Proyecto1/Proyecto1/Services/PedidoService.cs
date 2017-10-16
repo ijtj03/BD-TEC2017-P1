@@ -128,11 +128,16 @@ namespace Proyecto1.Services
             SqlParameter FechaRecojo = new SqlParameter("@FechaRecojo", System.Data.SqlDbType.VarChar);
             FechaRecojo.Value = pedido.FechaRecojo;
 
-            command = new SqlCommand("insert into Pedido(IdCedula,IdSucursal,Estado,FechaRecojo) VALUES (@IdCedula,@IdSucursal,@Estado,@FechaRecojo)", conn);
+            SqlParameter RecetaImg = new SqlParameter("@RecetaImg", System.Data.SqlDbType.VarChar);
+            RecetaImg.Value = pedido.RecetaImg;
+
+
+            command = new SqlCommand("insert into Pedido(IdCedula,IdSucursal,Estado,FechaRecojo,RecetaImg) VALUES (@IdCedula,@IdSucursal,@Estado,@FechaRecojo,@RecetaImg)", conn);
             command.Parameters.Add(IdCedula);
             command.Parameters.Add(IdSucursal);
             command.Parameters.Add(Estado);
             command.Parameters.Add(FechaRecojo);
+            command.Parameters.Add(RecetaImg);
             command.ExecuteNonQuery();
 
             conn.Close();
@@ -395,7 +400,7 @@ namespace Proyecto1.Services
         }
 
 
-        public string GetImagePedido()
+        public string GetImagePedido(int id)
         {
             System.Data.SqlClient.SqlConnection conn;
             SqlCommand command;
@@ -403,7 +408,7 @@ namespace Proyecto1.Services
 
             conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
             conn.Open();
-            command = new SqlCommand("select RecetaImg from Pedido where IdPedido=13", conn);
+            command = new SqlCommand("select RecetaImg from Pedido where IdPedido="+id.ToString(), conn);
             read = command.ExecuteReader();
 
             string img = "";

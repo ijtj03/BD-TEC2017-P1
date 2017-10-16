@@ -13,7 +13,7 @@ namespace Proyecto1.Classes
         public bool Estado { get; set; }
         public bool LogicDelete { get; set; }
         public string FechaRecojo { get; set; }
-        //public byte[] RecetaImg { get; set; }
+        public string RecetaImg { get; set; }
 
     }
 }

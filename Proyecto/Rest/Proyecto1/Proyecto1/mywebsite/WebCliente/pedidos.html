@@ -61,7 +61,7 @@
                                 <h6 class="list-group-item-text">Provincia: {{pedido.Provincia}}</h6>
                                 <h6 class="list-group-item-text">Canton: {{pedido.Canton}}</h6>
                                 <h6 class="list-group-item-text">Distrito: {{pedido.Distrito}}</h6>
-                                <h6 class="list-group-item-text">Fecha  de  recoger: {{pedido.FechaRecojo}}</h6>
+                                <h6 class="list-group-item-text">Fecha  de  recoger: {{pedido.FechaRecojo | date : "d/M/y h:mm a"}}</h6>
                                 <button type="button" ng-click="moveToId(pedido.IdPedido)" class="btn btn-primary btn-circle"><i class="fa fa-bars" aria-hidden="true"></i></button>
                                 <button type="button" ng-click="deletePedido(pedido.IdPedido)" class="btn btn-danger btn-circle"><i class="fa fa-trash-o"></i></button>
                                 

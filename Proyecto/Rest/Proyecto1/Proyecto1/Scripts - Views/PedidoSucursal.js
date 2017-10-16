@@ -62,6 +62,7 @@ pedidosucursal.controller("PedidoSucursalController", function ($scope, $http) {
         $http.post("http://localhost:64698/api/Pedido/PrepararPedido?id=" + id)
             .then(function successCallback(response) {
                 console.log(response);
+                window.location = "http://localhost:64698/mywebsite/Sucursal/pedidosSucursal.html";
             }, function errorCallback(response) {
                 console.log(response);
             });
@@ -74,6 +75,7 @@ pedidosucursal.controller("PedidoSucursalController", function ($scope, $http) {
         $http.post("http://localhost:64698/api/Pedido/NoPrepararPedido?id=" + id)
             .then(function successCallback(response) {
                 console.log(response);
+                window.location = "http://localhost:64698/mywebsite/Sucursal/pedidosSucursal.html";
             }, function errorCallback(response) {
                 console.log(response);
             });
@@ -99,6 +101,7 @@ pedidosucursal.controller("PedidoSucursalPreparadoController", function ($scope,
         $http.post("http://localhost:64698/api/Pedido/PrepararPedido?id=" + id)
             .then(function successCallback(response) {
                 console.log(response);
+                window.location = "http://localhost:64698/mywebsite/Sucursal/pedidosSucursal.html";
             }, function errorCallback(response) {
                 console.log(response);
             });
@@ -111,6 +114,7 @@ pedidosucursal.controller("PedidoSucursalPreparadoController", function ($scope,
         $http.post("http://localhost:64698/api/Pedido/NoPrepararPedido?id=" + id)
             .then(function successCallback(response) {
                 console.log(response);
+                window.location = "http://localhost:64698/mywebsite/Sucursal/pedidosSucursal.html";
             }, function errorCallback(response) {
                 console.log(response);
             });
@@ -122,6 +126,7 @@ pedidosucursal.controller("PedidoSucursalPreparadoController", function ($scope,
         console.log("RECOGER", id);
         $http.post("http://localhost:64698/api/Pedido/RecogerPedido?id=" + id)
             .then(function successCallback(response) {
+                window.location = "http://localhost:64698/mywebsite/Sucursal/pedidosSucursal.html";
                 console.log(response);
             }, function errorCallback(response) {
                 console.log(response);
@@ -144,5 +149,25 @@ pedidosucursal.controller("PedidoSucursalRecogidoController", function ($scope, 
     $http.get('http://localhost:64698/api/PedidoxMedicamento/GetMedicamentosxPedido?id=' + window.localStorage.getItem("idPedido"))
         .then(function (response) {
             $scope.medicinas = response.data;
+        });
+});
+
+
+
+pedidosucursal.controller("PrecioSucursalController", function ($scope, $http) {
+    $http.get('http://localhost:64698/api/PedidoxMedicamento/GetPrecioTotal?id=' + window.localStorage.getItem("idPedido"))
+        .then(function (response) {
+            console.log("Geting");
+            $scope.precio = response.data;
+            console.log("Geted");
+        });
+});
+
+pedidosucursal.controller("imageSucursalController", function ($scope, $http) {
+    $http.get('http://localhost:64698/api/Pedido/GetImagePedido?id=' + window.localStorage.getItem("idPedido"))
+        .then(function (response) {
+            console.log("Geting");
+            $scope.img = response.data;
+            console.log("Geted");
         });
 });

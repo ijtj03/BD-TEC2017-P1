@@ -80,6 +80,15 @@ pedidos.controller("precioController", function ($scope, $http) {
         });
 });
 
+pedidos.controller("imageController", function ($scope, $http) {
+    $http.get('http://localhost:64698/api/Pedido/GetImagePedido?id=' + window.localStorage.getItem("idPedido"))
+        .then(function (response) {
+            console.log("Geting");
+            $scope.img = response.data;
+            console.log("Geted");
+        });
+});
+
 
 
     

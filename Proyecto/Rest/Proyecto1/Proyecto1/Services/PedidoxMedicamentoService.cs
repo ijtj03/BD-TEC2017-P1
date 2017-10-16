@@ -85,8 +85,7 @@ namespace Proyecto1.Services
             SqlParameter Cantidad = new SqlParameter("@Cantidad", System.Data.SqlDbType.Int);
             Cantidad.Value = pedidoxMedicamento.Cantidad;
 
-            /*SqlParameter RecetaImg = new SqlParameter("@RecetaImg", System.Data.SqlDbType.Image);
-            RecetaImg.Value = pedidoxMedicamento.RecetaImg;*/
+            
 
             command = new SqlCommand("insert into PedidoxMedicamento(IdPedido,IdMedicamento,Cantidad) VALUES (@IdPedido,@IdMedicamento,@Cantidad)", conn);
             command.Parameters.Add(IdPedido);

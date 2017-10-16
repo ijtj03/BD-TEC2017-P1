@@ -17,7 +17,7 @@ namespace Proyecto1.Classes
         public string Canton { get; set; }
         public string Distrito { get; set; }
         public string DescripcionDireccion { get; set; }
-        public string FechaNacimiento { get; set; }
+        public DateTime FechaNacimiento { get; set; }
         public bool LogicDelete { get; set; }
     }
 }

@@ -60,16 +60,20 @@
                     <div>
                         <input type="date" class='field' id="fechaRec" value='' />
                     </div>
-                    <center>
+                    <center >
                         <div>
                             <h3>Elija la foto de la receta</h3><br>
                         </div>
                         <div>
                             <input type="file" name="pic" id="recImg" value="" accept="image/*">
+                            <button type="button" class="btn btn-primary" ng-click="agregarimg()">Agregar Foto</button>
                         </div>
+                
+                        
+
                     </center>
                 </center>
-                <br></br>
+                <br><br/>
                 <center>
                     <button type="button" class="btn btn-primary btn-block" ng-controller="medicamentosController" ng-click="rePedido()">Realizar Pedido</button>
                 </center>

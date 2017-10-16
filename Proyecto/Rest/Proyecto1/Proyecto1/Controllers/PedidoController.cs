@@ -124,10 +124,10 @@ namespace Proyecto1.Controllers
 
         [HttpGet]
         [Route("GetImagePedido")]
-        public IHttpActionResult GetImagePedido()
+        public IHttpActionResult GetImagePedido(int id)
         {
             PedidoService con = new PedidoService();
-            return Ok(con.GetImagePedido());
+            return Ok(con.GetImagePedido(id));
 
         }
     }

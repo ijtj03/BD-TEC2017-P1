@@ -67,8 +67,24 @@
                         </center>
                     </a>
                 </div>
+                <div ng-controller="imageSucursalController">
+                    <center>
+                        <h2>Esta es la imagen de tu pedido:</h2>
+                        <br />
+                        <img ng-src="{{img}}" style="width:300px; height:200px;" />
+                    </center>
+                </div>
+                <br />
+              
+                <div ng-controller="PrecioSucursalController">
+                    <center>
+                        <h4>Precio total: {{precio}}</h4>
+                    </center>
+                </div>
+                
 
             </section>
+            
 
         </section>
 

@@ -1,6 +1,8 @@
 ﻿var medicamentos = angular.module('Medicamentos', []);
 medicamentos.controller("medicamentosController", function ($scope, $http, $location) {
     $scope.medValues;
+    window.localStorage.setItem("img", null);
+   // console.log(window.localStorage.getItem("img"));
     
     $http.get('http://localhost:64698/api/MedicamentoxSucursal/GetMedicamentoxSucursal?id=' + window.localStorage.getItem("idSucursal"))
         .then(function (response) {
@@ -8,6 +10,20 @@ medicamentos.controller("medicamentosController", function ($scope, $http, $loca
             $scope.medValues = response.data;
             $scope.medicamentosid = $scope.medValues;
         }); 
+
+    $scope.agregarimg = function () {
+        var file = document.getElementById('recImg').files[0];
+        var reader = new FileReader();
+        reader.onloadend = function () {
+            console.log('RESULT', reader.result);
+            window.localStorage.setItem("img", reader.result);
+            console.log(window.localStorage.getItem("img"));
+
+        }
+        
+        reader.readAsDataURL(file);
+    }
+
     
     $scope.rePedido = function () {
         var fRec = angular.element(document.getElementById("fechaRec")).val();
@@ -16,8 +32,10 @@ medicamentos.controller("medicamentosController", function ($scope, $http, $loca
                 IdCedula: window.localStorage.getItem("id"),
                 IdSucursal: window.localStorage.getItem("idSucursal"),
                 Estado: 0,
-                FechaRecojo: fRec
+                FechaRecojo: fRec,
+                RecetaImg: window.localStorage.getItem("img")
             };
+            
             $http.post("http://localhost:64698/api/Pedido/PostPedido", pedido)
                 .then(function successCallback(response) {
                     console.log(response);
@@ -36,11 +54,15 @@ medicamentos.controller("medicamentosController", function ($scope, $http, $loca
                                         Cantidad: cantidadMed,
                                         RecetaImg: null
                                     };
+                                    
+
+                                
                                     var newCantidad = {
                                         IdSucursal: window.localStorage.getItem("idSucursal"),
                                         IdMedicamento: value.IdMedicamento,
                                         Cantidad: updateCantidad
                                     };
+
                                     console.log(PedidoxMedicamento);
                                     $http.post("http://localhost:64698/api/PedidoxMedicamento/PostPedidoxMedicamento", PedidoxMedicamento)
                                         .then(function successCallback(response) {

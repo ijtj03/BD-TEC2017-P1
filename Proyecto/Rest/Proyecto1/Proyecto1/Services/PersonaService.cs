@@ -35,7 +35,7 @@ namespace Proyecto1.Services
                 persona.Canton = read["Canton"].ToString();
                 persona.Distrito = read["Distrito"].ToString();
                 persona.DescripcionDireccion = read["DescripcionDireccion"].ToString();
-                persona.FechaNacimiento = read["FechaNacimiento"].ToString();
+                persona.FechaNacimiento = Convert.ToDateTime(read["FechaNacimiento"]);
                 persona.LogicDelete = Convert.ToBoolean(read["LogicDelete"]);
 
                 ListPersonas.Add(persona);
@@ -92,7 +92,7 @@ namespace Proyecto1.Services
                 persona.Canton = read["Canton"].ToString();
                 persona.Distrito = read["Distrito"].ToString();
                 persona.DescripcionDireccion = read["DescripcionDireccion"].ToString();
-                persona.FechaNacimiento = read["FechaNacimiento"].ToString();
+                persona.FechaNacimiento = Convert.ToDateTime(read["FechaNacimiento"]);
                 persona.LogicDelete = Convert.ToBoolean(read["LogicDelete"]);
             }
             read.Close();

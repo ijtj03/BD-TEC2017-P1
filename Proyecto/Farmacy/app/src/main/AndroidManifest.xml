@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -39,10 +40,14 @@
             android:label="@string/title_activity_acount" />
         <activity android:name=".SucursalesActivity" />
         <activity android:name=".MedicamentosActivity" />
-        <activity android:name=".PedidosFragment" />
+        <activity
+            android:name=".FinalizarPedidosActivity"
+            android:label="@string/title_activity_endPedido" />
         <activity
             android:name=".PedidosConfigActivity"
-            android:label="@string/title_activity_pedidos_config"></activity>
+            android:label="@string/title_activity_configPedido" />
+        <activity android:name=".NewHistorial" />
+        <activity android:name=".CrearReceta"></activity>
     </application>
 
 </manifest>

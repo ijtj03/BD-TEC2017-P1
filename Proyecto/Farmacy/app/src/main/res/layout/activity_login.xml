@@ -71,6 +71,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:background="@drawable/round_button"
+                android:backgroundTint="@color/accept"
                 android:text="@string/action_sign_in"
                 android:textStyle="bold" />
 

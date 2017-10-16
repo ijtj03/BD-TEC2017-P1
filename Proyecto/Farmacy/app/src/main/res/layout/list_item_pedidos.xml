@@ -29,12 +29,28 @@
             android:text="Sucursal de recojo" />
 
         <TextView
-            android:id="@+id/fecha"
+            android:id="@+id/dirreccion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/sucursal"
             android:textSize="8pt"
             android:text="Hora de recojo" />
+        <TextView
+            android:id="@+id/fecha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dirreccion"
+            android:textSize="8pt"
+            android:text="Hora de recojo" />
+
+        <Button
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fecha"
+            android:background="@drawable/round_button"
+            android:backgroundTint="@color/decline"
+            android:text="Eliminar" />
 
 
     </RelativeLayout>

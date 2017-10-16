@@ -1,7 +1,6 @@
-package com.example.jeison.farmacy;
+package com.example.jeison.farmacy.Fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,12 +11,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
-import com.example.jeison.farmacy.dummy.DummyContent;
-import com.example.jeison.farmacy.dummy.DummyContent.DummyItem;
+import com.example.jeison.farmacy.Adapters.MedicinasAdapter;
+import com.example.jeison.farmacy.Adapters.PedidosAdapter;
+import com.example.jeison.farmacy.Clases.Client;
+import com.example.jeison.farmacy.Clases.Medicinas;
+import com.example.jeison.farmacy.Interfaces.OnListFragmentInteractionListener;
+import com.example.jeison.farmacy.R;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
-import java.io.Console;
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * A fragment representing a list of Items.
@@ -31,9 +41,14 @@ public class MedicinasFragment extends Fragment {
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 3;
+    private String id;
     private OnListFragmentInteractionListener mListener;
     public PedidosAdapter mPedidos;
     public RecyclerView pedidos;
+    public RecyclerView medicamentos;
+    public MedicinasAdapter Amedicinas;
+    private Context context;
+    private ArrayList<Medicinas> medicinases=new ArrayList<Medicinas>();
     public Button endPedido;
 
     /**
@@ -58,7 +73,8 @@ public class MedicinasFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
+            id=getArguments().getString("ID");
+            mPedidos=new PedidosAdapter(mListener);
         }
     }
 
@@ -70,19 +86,17 @@ public class MedicinasFragment extends Fragment {
         endPedido.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getActivity().getApplicationContext(),PedidosConfigActivity.class);
                 Log.d("myTag",mPedidos.getItems().toString());
-                intent.putExtra("medicinas",mPedidos.getItems().toString());
-                startActivity(intent);
+                mListener.onTerminarPedidoInteration(mPedidos.getItems().toString());
+
             }
         });
         // Set the adapter
-        Context context = view.getContext();
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.list);
-        recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-        recyclerView.setAdapter(new MedicinasAdapter(MedicinasProvider.getInstance().Items, mListener));
+        context = view.getContext();
+        medicamentos = (RecyclerView) view.findViewById(R.id.list);
+        medicamentos.setLayoutManager(new GridLayoutManager(context, mColumnCount));
 
-        mPedidos=new PedidosAdapter(mListener);
+        GetMedicinas();
         pedidos= (RecyclerView) view.findViewById(R.id.list2);
         pedidos.setLayoutManager(new LinearLayoutManager(context,LinearLayoutManager.HORIZONTAL,false));
         pedidos.setAdapter(mPedidos);
@@ -107,19 +121,35 @@ public class MedicinasFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(Medicinas item,boolean checked,View view);
-        void onPedidoFragmentInteration(Medicinas item,boolean checked,View view);
+    public void GetMedicinas(){
+        //showProgress(true);
+        RequestParams params=new RequestParams();
+        params.put("id",id);
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.get("http://"+ Client.getInstance().ip+":64698/api/MedicamentoxSucursal/GetMedicamentoxSucursal",params,new AsyncHttpResponseHandler(){
+            @Override
+            public void onSuccess(String response){
+                JsonParser parser = new JsonParser();
+                JsonElement tradeElement = parser.parse(response);
+                JsonArray sus=tradeElement.getAsJsonArray();
+                for(int i=0;i<sus.size();++i){
+                    JsonObject obj=sus.get(i).getAsJsonObject();
+                    medicinases.add(new Medicinas(obj.get("Nombre").getAsString(),obj.get("Precio").getAsString(),
+                            obj.get("Cantidad").getAsString(),obj.get("IdMedicamento").getAsString()));
+                }
+                //showProgress(false);
+                Amedicinas=new MedicinasAdapter(medicinases,mListener);
+                medicamentos.setAdapter(Amedicinas);
+
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Throwable error,String content){
+                //showProgress(false);
+                Toast.makeText(context, "Unexpected Error occcured! [Most common Error: Device might not be connected to Internet or remote server is not up and running]", Toast.LENGTH_LONG).show();
+            }
+        });
     }
+
 }

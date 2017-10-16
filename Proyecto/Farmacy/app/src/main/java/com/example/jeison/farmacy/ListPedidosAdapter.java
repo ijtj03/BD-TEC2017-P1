@@ -36,6 +36,7 @@ public class ListPedidosAdapter extends RecyclerView.Adapter<ListPedidosAdapter.
         holder.mNumero.setText("Pedido#:"+item.numPedido);
         holder.mSucursal.setText("Sucursal de recojo:"+item.Sucursal);
         holder.mFecha.setText(item.Dater);
+        holder.mDireccion.setText(item.Direccion);
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,6 +54,7 @@ public class ListPedidosAdapter extends RecyclerView.Adapter<ListPedidosAdapter.
         public final TextView mNumero;
         public final TextView mSucursal;
         public final TextView mFecha;
+        public final TextView mDireccion;
         public Pedidos mItem;
 
         public ViewHolder(View view) {
@@ -60,6 +62,7 @@ public class ListPedidosAdapter extends RecyclerView.Adapter<ListPedidosAdapter.
             mView = view;
             mNumero=(TextView) view.findViewById(R.id.numero);
             mSucursal=(TextView) view.findViewById(R.id.sucursal);
+            mDireccion=(TextView) view.findViewById(R.id.dirreccion);
             mFecha=(TextView) view.findViewById(R.id.fecha);
         }
 

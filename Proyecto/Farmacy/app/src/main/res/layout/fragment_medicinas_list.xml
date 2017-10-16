@@ -26,7 +26,7 @@
         android:clipToPadding="false"
         android:scrollbars="horizontal"
         app:layoutManager="LinearLayoutManager"
-        tools:context="com.example.jeison.farmacy.MedicinasFragment"
+        tools:context="com.example.jeison.farmacy.Fragments.MedicinasFragment"
         tools:listitem="@layout/fragment_medicinas" />
 
     <LinearLayout
@@ -63,7 +63,7 @@
         android:clipChildren="false"
         android:clipToPadding="false"
         app:layoutManager="LinearLayoutManager"
-        tools:context="com.example.jeison.farmacy.PedidosConfigActivity"
+        tools:context="com.example.jeison.farmacy.FinalizarPedidosActivity"
         tools:listitem="@layout/fragment_medicinas" />
 
 </LinearLayout>

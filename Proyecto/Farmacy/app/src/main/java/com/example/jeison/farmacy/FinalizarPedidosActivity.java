@@ -3,9 +3,10 @@ package com.example.jeison.farmacy;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.support.v7.app.AppCompatActivity;
+
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -17,13 +18,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.jeison.farmacy.Adapters.ConfigAdapter;
 import com.example.jeison.farmacy.Adapters.TerminarAdapter;
 import com.example.jeison.farmacy.Clases.Client;
 import com.example.jeison.farmacy.Clases.Medicinas;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.loopj.android.http.AsyncHttpClient;
@@ -43,7 +42,7 @@ import java.util.regex.Pattern;
 /**
  * A login screen that offers login via email/password.
  */
-public class PedidosConfigActivity extends AppCompatActivity {
+public class FinalizarPedidosActivity extends AppCompatActivity {
 
     /**
      * Id to identity READ_CONTACTS permission request.
@@ -70,10 +69,9 @@ public class PedidosConfigActivity extends AppCompatActivity {
     private View mProgressView;
     private View mLoginFormView;
     private RecyclerView recyclerView;
-    private ConfigAdapter madapter;
+    private TerminarAdapter madapter;
     private OnListener mListener;
     private String SuId;
-    private String fecha;
     private ArrayList<Medicinas> medicinases;
     private String SucursalName;
 
@@ -89,17 +87,15 @@ public class PedidosConfigActivity extends AppCompatActivity {
 
         SucursalName=getIntent().getStringExtra("Su_name");
         SuId=getIntent().getStringExtra("Su_id");
-        fecha=getIntent().getStringExtra("Fecha");
         String medicinas=getIntent().getExtras().getString("medicinas");
         stringtoArr(medicinas);
         mDateView=(EditText) findViewById(R.id.dirreccion);
-        mDateView.setText(fecha);
         mSucursalView= (TextView) findViewById(R.id.Sucursal);
         mSucursalView.setText("Sucursal de recojo:"+SucursalName);
         mTelefonoView=(EditText) findViewById(R.id.telefono);
         mTelefonoView.setText(Client.getInstance().Telefono);
 
-        madapter=new ConfigAdapter(this.medicinases,mListener);
+        madapter=new TerminarAdapter(this.medicinases,mListener);
         recyclerView= (RecyclerView) findViewById(R.id.rec_list);
         recyclerView.setLayoutManager(new GridLayoutManager(this,3));
         recyclerView.setAdapter(madapter);
@@ -119,14 +115,20 @@ public class PedidosConfigActivity extends AppCompatActivity {
     }
 
     public void stringtoArr(String arr){
-        JsonParser parser = new JsonParser();
-        JsonElement tradeElement = parser.parse(arr);
-        JsonArray sus=tradeElement.getAsJsonArray();
-        for(int i=0;i<sus.size();++i){
-            JsonObject obj=sus.get(i).getAsJsonObject();
-            medicinases.add(new Medicinas(obj.get("Nombre").getAsString(),obj.get("Precio").getAsString(),
-                    obj.get("Cantidad").getAsString(),obj.get("IdMedicamento").getAsString()));
+        arr="{\"medicinas\":"+arr+"}";
+        Log.d("my tag",arr);
+        Object obj = mParser.parse(arr);
+        Gson gson=new Gson();
+        JsonObject medi=(JsonObject)obj;
+        JsonArray mediarr=medi.getAsJsonArray("medicinas");
+        for(int i=0;i<mediarr.size();++i){
+            JsonObject medicinaobj= (JsonObject) mediarr.get(i);
+            Medicinas item=new Medicinas(medicinaobj.get("mName").getAsString(),medicinaobj.get("mPrice").getAsString(),
+                    medicinaobj.get("mCantidad").getAsString(),medicinaobj.get("ID").getAsString());
+            medicinases.add(item);
         }
+
+
     }
 
     /**
@@ -197,6 +199,12 @@ public class PedidosConfigActivity extends AppCompatActivity {
             this.finish();
         }else if(id==R.id.action_done){
             showProgress(true);
+            JsonObject pedido=new JsonObject();
+            pedido.addProperty("IdCedula",Client.getInstance().id);
+            pedido.addProperty("IdSucursal",SuId);
+            pedido.addProperty("Estado","0");
+            pedido.addProperty("FechaRecojo",mDateView.getText().toString());
+            PostPedido(pedido.toString());
         }
         return super.onOptionsItemSelected(item);
     }
@@ -237,6 +245,29 @@ public class PedidosConfigActivity extends AppCompatActivity {
         }
     }
 
+    public void PostPedido(String datos){
+        AsyncHttpClient client = new AsyncHttpClient();
+        ByteArrayEntity entity = null;
+        try {
+            entity = new ByteArrayEntity(datos.getBytes("UTF-8"));
+            entity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        client.post(getApplicationContext(),"http://"+Client.getInstance().ip+":64698/api/Pedido/PostPedido",entity,"application/json",new AsyncHttpResponseHandler(){
+            @Override
+            public void onSuccess(String response){
+                GetPedidoId();
+            }
+            @Override
+            public void onFailure(int statusCode, Throwable error,String content){
+                showProgress(false);
+                Toast.makeText(getApplicationContext(), "Unexpected Error occcured! [Most common Error: Device might not be connected to Internet or remote server is not up and running]", Toast.LENGTH_LONG).show();
+            }
+        });
+
+    }
+
     public void GetPedidoId(){
         RequestParams params=new RequestParams();
         AsyncHttpClient client = new AsyncHttpClient();
@@ -244,6 +275,7 @@ public class PedidosConfigActivity extends AppCompatActivity {
             @Override
             public void onSuccess(String response){
                 Peidoid=response;
+                PostMedicinas();
             }
 
             @Override
@@ -255,7 +287,37 @@ public class PedidosConfigActivity extends AppCompatActivity {
     }
     public void PostMedicinas(){
         List<Medicinas> medicinases=madapter.getmMedicinas();
+        for(int i=0;i<medicinases.size();++i){
+            Medicinas item=medicinases.get(i);
+            JsonObject medicinaxpedido=new JsonObject();
+            medicinaxpedido.addProperty("IdPedido",Peidoid);
+            medicinaxpedido.addProperty("IdMedicamento",item.ID);
+            medicinaxpedido.addProperty("Cantidad",item.mCantidad);
+            PostMedicina(medicinaxpedido.toString());
+        }
         showProgress(false);
+    }
+
+    public void PostMedicina(String datos){
+        AsyncHttpClient client = new AsyncHttpClient();
+        ByteArrayEntity entity = null;
+        try {
+            entity = new ByteArrayEntity(datos.getBytes("UTF-8"));
+            entity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        client.post(getApplicationContext(),"http://"+Client.getInstance().ip+":64698/api/PedidoxMedicamento/PostPedidoxMedicamento",entity,"application/json",new AsyncHttpResponseHandler(){
+            @Override
+            public void onSuccess(String response){
+
+            }
+            @Override
+            public void onFailure(int statusCode, Throwable error,String content){
+                showProgress(false);
+                Toast.makeText(getApplicationContext(), "Unexpected Error occcured! [Most common Error: Device might not be connected to Internet or remote server is not up and running]", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
 

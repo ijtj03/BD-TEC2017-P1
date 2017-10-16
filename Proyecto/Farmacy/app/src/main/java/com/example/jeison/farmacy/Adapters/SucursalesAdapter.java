@@ -1,12 +1,14 @@
-package com.example.jeison.farmacy;
+package com.example.jeison.farmacy.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.jeison.farmacy.R;
+import com.example.jeison.farmacy.Clases.Sucursales;
 
 import java.util.List;
 

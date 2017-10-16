@@ -11,6 +11,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.jeison.farmacy.Clases.Client;
+import com.example.jeison.farmacy.Fragments.SucursalesFragment;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -19,13 +30,16 @@ public class MainActivity extends AppCompatActivity
     private PedidosFragment pedidosFragment;
     private HistorialFragment historialFragment;
     private boolean first_fragment=true;
+    private TextView name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        name=(TextView) findViewById(R.id.nombreUs);
 
+        GetUser();
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -37,6 +51,7 @@ public class MainActivity extends AppCompatActivity
         sucursalesFragment=new SucursalesFragment();
         pedidosFragment=new PedidosFragment();
         historialFragment=new HistorialFragment();
+        //name.setText(Client.getInstance().Name+" "+Client.getInstance().Apellido1+" "+Client.getInstance().Apellido2);
     }
 
     @Override
@@ -112,6 +127,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(acount);
         } else if (id == R.id.nav_exit) {
             Intent loggin=new Intent(getApplicationContext(),LoginActivity.class);
+            this.finish();
             startActivity(loggin);
         }else{
         }
@@ -119,5 +135,37 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+    public void GetUser(){
+        //showProgress(true);
+        RequestParams params=new RequestParams();
+        params.put("id", Client.getInstance().id);
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.get("http://"+Client.getInstance().ip+":64698/api/Persona/GetPersona",params,new AsyncHttpResponseHandler(){
+            @Override
+            public void onSuccess(String response){
+                JsonParser parser = new JsonParser();
+                JsonElement tradeElement = parser.parse(response);
+                JsonObject sus=tradeElement.getAsJsonObject();
+                Client.getInstance().Telefono=sus.get("Telefono").getAsString();
+                Client.getInstance().Name=sus.get("Nombre").getAsString();
+                Client.getInstance().Apellido1=sus.get("Apellido1").getAsString();
+                Client.getInstance().Apellido2=sus.get("Apellido2").getAsString();
+                Client.getInstance().Provincia=sus.get("Provincia").getAsString();
+                Client.getInstance().Canton=sus.get("Canton").getAsString();
+                Client.getInstance().Distrito=sus.get("Distrito").getAsString();
+                Client.getInstance().Direccion=sus.get("DescripcionDireccion").getAsString();
+                Client.getInstance().Fecha=sus.get("FechaNacimiento").getAsString();
+
+
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Throwable error,String content){
+                //showProgress(false);
+                Toast.makeText(getApplicationContext(), "Unexpected Error occcured! [Most common Error: Device might not be connected to Internet or remote server is not up and running]", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }

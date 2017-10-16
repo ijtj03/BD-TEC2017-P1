@@ -28,12 +28,28 @@ namespace Proyecto1.Controllers
             con.PostPersonaxRol(persona);
         }
 
+        [HttpPost]
+        [Route("UpdatePersonaxRol")]
+        public void UpdatePersonaxRol([FromBody]PersonaxRol pxr)
+        {
+            PersonaxRolService con = new PersonaxRolService();
+            con.UpdatePersonaxRol(pxr);
+        }
+
         [HttpGet]
         [Route("GetPersonaxRol")]
         public IHttpActionResult GetPersonaxRol(int id)
         {
             PersonaxRolService con = new PersonaxRolService();
             return Ok(con.GetPersonaxRol(id));
+        }
+
+        [HttpGet]
+        [Route("GetPersonaxRolId")]
+        public IHttpActionResult GetPersonaxRolId(int cedula)
+        {
+            PersonaxRolService con = new PersonaxRolService();
+            return Ok(con.GetPersonaxRolId(cedula));
         }
 
         [HttpPut]

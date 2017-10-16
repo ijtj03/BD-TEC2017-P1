@@ -85,6 +85,7 @@ enfermedades.controller("AgregarEnferemedadController", function ($scope, $http,
                 $http.post("http://localhost:64698/api/EnfermedadxPersona/PostEnfermedadxPersona", data)
                     .then(function successCallback(response) {
                         console.log(response);
+                        window.location = "http://localhost:64698/mywebsite/Administrador/GestionClientes/GestionClientes.html";
                     }, function errorCallback(response) {
                         console.log(response);
                     });
@@ -108,6 +109,7 @@ enfermedades.controller("EliminarEnferemedadController", function ($scope, $http
                 $http.put("http://localhost:64698/api/Enfermedad/PutLogicDelete?id=" + $scope.Idenfermedad + "&" + "cedula=" +$scope.cedula)
                     .then(function successCallback(response) {
                         console.log(response);
+                        window.location = "http://localhost:64698/mywebsite/Administrador/GestionClientes/GestionClientes.html";
                     }, function errorCallback(response) {
                         console.log(response);
                     });

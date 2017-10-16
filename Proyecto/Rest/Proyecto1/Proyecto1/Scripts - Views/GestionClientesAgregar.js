@@ -31,12 +31,25 @@ GestionUsuario.controller('GestionUsuarioController', function ($scope, $http) {
             FechaNacimiento: $scope.fecha,
         }
 
+        var rolUsuario = {
+            IdCedula: $scope.cedula,
+            IdRol: 1,
+        }
+
+
+
         console.log(usuario);
 
         $http.post("http://localhost:64698/api/Persona/PostPersona", usuario)
             .then(function successCallback(response) {
                 console.log(response);
-                window.location = "http://localhost:64698/mywebsite/Administrador/GestionClientes/GestionClientes.html";
+                $http.post("http://localhost:64698/api/PersonaxRol/PostPersonaxRol", rolUsuario)
+                    .then(function successCallback(response) {
+                        console.log(response);
+                        window.location = "http://localhost:64698/mywebsite/Administrador/GestionClientes/GestionClientes.html";
+                    }, function errorCallback(response) {
+                        console.log(response);
+                    });
             }, function errorCallback(response) {
                 console.log(response);
             });
@@ -45,13 +58,9 @@ GestionUsuario.controller('GestionUsuarioController', function ($scope, $http) {
 });
 
 GestionUsuario.controller("EliminarController", function ($scope, $http, $location) {
-    console.log("HOLA");
     $scope.cedula = $scope.cedula;
-    $scope.h = "HOLA";//window.localStorage.getItem("id");
-    console.log(window.localStorage.getItem("id"));
 
     $scope.eliminar = function () {
-        console.log("ENTRO AQUI");
         var IdCedula = $scope.cedula
 
         console.log(IdCedula);

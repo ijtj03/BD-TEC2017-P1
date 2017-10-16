@@ -61,29 +61,29 @@
                         <input type="number" class='field' value='' placeholder='Cedula' name='txtcedula' ng-model="cedula" required />
                         <button type="button" class="button button-primary" ng-click="buscar()">Buscar</button>
                         <br><br>
-                        <input type="text" class='field' value="{{buscar.Nombre}}" placeholder="Nombre" disabled />
+                        <input type="text" class='field' value="{{usuario.Nombre}}" placeholder="Nombre" disabled />
                         <br><br>
-                        <input type="text" class='field' value="{{buscar.Apellido1}}" placeholder='Primer Apellido' disabled />
+                        <input type="text" class='field' value="{{usuario.Apellido1}}" placeholder='Primer Apellido' disabled />
                         <br><br>
-                        <input type="text" class='field' value="{{buscar.Apellido2}}" placeholder='Segundo Apellido' disabled />
+                        <input type="text" class='field' value="{{usuario.Apellido2}}" placeholder='Segundo Apellido' disabled />
                         <br><br>
-                        <input type="text" class='field' value="{{buscar.Telefono}}" placeholder='Telefono' id="telefono" required />
+                        <input type="text" class='field' value="{{usuario.Telefono}}" placeholder='Telefono' id="telefono" required />
                         <br><br>
                         <input type="password" class='field' value='' placeholder='Password' name='txtpass' id="password" required />
                         <br><br>
-                        <input type="text" class='field' value="{{buscar.Provincia}}" placeholder='Provincia' name='txtprovincia' id="provincia" required />
+                        <input type="text" class='field' value="{{usuario.Provincia}}" placeholder='Provincia' name='txtprovincia' id="provincia" required />
                         <br><br>
-                        <input type="text" class='field' value="{{buscar.Canton}}" placeholder='Canton' name='txtcanton' id="canton" required />
+                        <input type="text" class='field' value="{{usuario.Canton}}" placeholder='Canton' name='txtcanton' id="canton" required />
                         <br><br>
-                        <input type="text" class='field' value="{{buscar.Distrito}}" placeholder='Distrito' name='txtdistrito' id="distrito" required />
+                        <input type="text" class='field' value="{{usuario.Distrito}}" placeholder='Distrito' name='txtdistrito' id="distrito" required />
                         <br><br>
-                        <input type="text" class='field' value="{{buscar.DescripcionDireccion}}" placeholder='Direccion' name='txtdir' id="direccion" required />
+                        <input type="text" class='field' value="{{usuario.DescripcionDireccion}}" placeholder='Direccion' name='txtdir' id="direccion" required />
                         <br><br>
-                        <input type="text" class='field' value="{{buscar.FechaNacimiento}}" placeholder='Fecha Nacimiento' disabled />
+                        <input type="text" class='field' value="{{usuario.FechaNacimiento}}" placeholder='Fecha Nacimiento' disabled />
                         <br><br>
-                        <input type="text" class='field' value="{{buscarRol.IdRol}}" placeholder='ID Rol' id="idRol" required />
+                        Rol: <select ng-model="rol" ng-options="x for x in roles"></select>
                         <br><br>
-                        <input type="text" class='field' value="{{buscarSucursal.SalarioHora}}" placeholder='Salario por Hora' id="salario" required />
+                        <input type="text" class='field' value="{{salarioUsuario.SalarioHora}}" placeholder='Salario por Hora' id="salario" required />
                         <br><br>
                         <button type="button" class="button button-primary" ng-click="modificar()">Modificar</button>
                     </center>

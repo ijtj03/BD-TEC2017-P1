@@ -59,6 +59,27 @@ namespace Proyecto1.Services
             return persona;
         }
 
+        public int GetPersonaxRolId(int cedula)
+        {
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+            SqlDataReader read;
+
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+            command = new SqlCommand("SELECT IdRol  from PersonaxRol where LogicDelete = 0 and IdCedula=" + cedula.ToString(), conn);
+            read = command.ExecuteReader();
+
+            int persona = -1;
+            while (read.Read())
+            {
+                persona = Convert.ToInt32(read["IdRol"]);
+            }
+            read.Close();
+            conn.Close();
+            return persona;
+        }
+
         public void PostPersonaxRol([FromBody] PersonaxRol persona)
         {
             System.Data.SqlClient.SqlConnection conn;
@@ -80,6 +101,23 @@ namespace Proyecto1.Services
             command.Parameters.Add(IdRol);
             command.ExecuteNonQuery();
 
+            conn.Close();
+
+        }
+
+        public void UpdatePersonaxRol([FromBody] PersonaxRol rol)
+        {
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+            String comm = "Update PersonaxRol SET IdRol=" + rol.IdRol +" WHERE IdCedula=" + rol.IdCedula;
+
+
+            command = new SqlCommand(comm, conn);
+
+            command.ExecuteNonQuery();
             conn.Close();
 
         }

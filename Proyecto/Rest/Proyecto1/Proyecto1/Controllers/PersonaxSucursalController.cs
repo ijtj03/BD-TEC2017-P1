@@ -29,6 +29,14 @@ namespace Proyecto1.Controllers
             con.PostPersonaxSucursal(pxs);
         }
 
+        [HttpPost]
+        [Route("UpdatePersonaxSucursal")]
+        public void UpdatePersonaxSucursal([FromBody]PersonaxSucursal pxs)
+        {
+            PersonaxSucursalService con = new PersonaxSucursalService();
+            con.UpdatePersonaxSucursal(pxs);
+        }
+
         [HttpGet]
         [Route("GetPersonaxSucursal")]
         public IHttpActionResult GetPersonaxSucursal(int id)

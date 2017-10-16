@@ -86,6 +86,64 @@ namespace Proyecto1.Services
 
         }
 
+        public List<String> GetAllRolesN()
+        {
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+            SqlDataReader read;
+
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+            command = new SqlCommand("SELECT Nombre  from Rol where LogicDelete = 0", conn);
+            read = command.ExecuteReader();
+            List<String> roles = new List<String>();
+            while (read.Read())
+            {
+                String Nombre = read["Nombre"].ToString();
+                roles.Add(Nombre);
+
+            }
+            return roles;
+        }
+
+        public int GetIdRol(string nombre)
+        {
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+            SqlDataReader read;
+
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+            command = new SqlCommand("SELECT IdRol  from Rol where  Nombre='" + nombre + "'", conn);
+            read = command.ExecuteReader();
+            int IdRol = -1;
+            while (read.Read())
+            {
+                IdRol = Convert.ToInt32(read["IdRol"]);
+
+            }
+            return IdRol;
+        }
+
+        public String GetNombreRol(int id)
+        {
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+            SqlDataReader read;
+
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+            command = new SqlCommand("SELECT Nombre  from Rol where  IdRol=" + id.ToString(), conn);
+            read = command.ExecuteReader();
+            String nombre = "";
+            while (read.Read())
+            {
+                nombre = read["Nombre"].ToString();
+
+            }
+            return nombre;
+        }
+
         public void DeleteRol([FromBody] int id)
         {
             System.Data.SqlClient.SqlConnection conn;
@@ -95,6 +153,23 @@ namespace Proyecto1.Services
             conn.Open();
 
             command = new SqlCommand("UPDATE Rol SET LogicDelete = 1  WHERE IdRol=" + id.ToString(), conn);
+            command.ExecuteNonQuery();
+            conn.Close();
+
+        }
+
+        public void UpdateRol([FromBody] Rol rol)
+        {
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+            String comm = "Update Rol SET Nombre=\'" + rol.Nombre + "\',Descripcion=\'" + rol.Descripcion ;
+
+
+            command = new SqlCommand(comm, conn);
+
             command.ExecuteNonQuery();
             conn.Close();
 

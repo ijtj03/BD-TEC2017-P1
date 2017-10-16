@@ -38,6 +38,29 @@ namespace Proyecto1.Services
             return ListPersonaxSucursal;
         }
 
+        public PersonaxSucursal GetPersonaxSucursal(int id)
+        {
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+            SqlDataReader read;
+
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+            command = new SqlCommand("SELECT *  from PersonaxSucursal where LogicDelete = 0 and IdCedula=" + id.ToString(), conn);
+            read = command.ExecuteReader();
+
+            PersonaxSucursal persona = new PersonaxSucursal();
+            while (read.Read())
+            {
+                persona.IdCedula = Convert.ToInt32(read["IdCedula"]);
+                persona.SalarioHora = Convert.ToInt32(read["SalarioHora"]);
+                persona.LogicDelete = Convert.ToBoolean(read["LogicDelete"]);
+            }
+            read.Close();
+            conn.Close();
+            return persona;
+        }
+
         public void PostPersonaxSucursal([FromBody] PersonaxSucursal personaxSucursal)
         {
             System.Data.SqlClient.SqlConnection conn;
@@ -55,12 +78,26 @@ namespace Proyecto1.Services
             SqlParameter SalarioHora = new SqlParameter("@SalarioHora", System.Data.SqlDbType.Int);
             SalarioHora.Value = personaxSucursal.SalarioHora;
 
-            command = new SqlCommand("insert into Rol(IdCedula,IdSucursal,SalarioHora) VALUES (@IdCedula,@IdSucursal,@SalarioHora)", conn);
+            command = new SqlCommand("insert into PersonaxSucursal(IdCedula,IdSucursal,SalarioHora) VALUES (@IdCedula,@IdSucursal,@SalarioHora)", conn);
             command.Parameters.Add(IdCedula);
             command.Parameters.Add(IdSucursal);
             command.Parameters.Add(SalarioHora);
             command.ExecuteNonQuery();
 
+            conn.Close();
+
+        }
+
+        public void DeletePersonaxSucursal([FromBody] int cedula)
+        {
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+
+            command = new SqlCommand("UPDATE PersonaxSucursal SET LogicDelete = 1  WHERE IdCedula=" + cedula.ToString(), conn);
+            command.ExecuteNonQuery();
             conn.Close();
 
         }

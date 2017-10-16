@@ -78,5 +78,37 @@ GestionUsuario.controller('ModificarContoller', function ($scope, $http, $locati
             console.log("Geted");
         });
     }
+    $scope.modificar = function () {
+        console.log("Modificar Usuario");
+        var tel = angular.element(document.getElementById("telefono")).val();
+        var prov = angular.element(document.getElementById("provincia")).val();
+        var can = angular.element(document.getElementById("canton")).val();
+        var dis = angular.element(document.getElementById("distrito")).val();
+        var dir = angular.element(document.getElementById("direccion")).val();
+        var pass = angular.element(document.getElementById("password")).val();
+        if (tel != '' && prov != '' && can != '' &&
+            dis != '' && dir != '' && pass != '') {
+            var editUsuario = {
+                Contraseña: pass,
+                Telefono: tel,
+                DescripcionDireccion: dir,
+                Provincia: prov,
+                Canton: can,
+                Distrito: dis,
+                IdCedula: $scope.cedula,
+            };
+            $http.post("http://localhost:64698/api/Persona/UpdatePersona", editUsuario)
+                .then(function successCallback(response) {
+                    console.log(response);
+                    window.location = "http://localhost:64698/mywebsite/Administrador/GestionClientes/GestionClientes.html";
+                }, function errorCallback(response) {
+                    console.log(response);
+                });
+        }
+        else {
+            alert("Rellene todos los campos");
+        }
+
+    };
 
 });

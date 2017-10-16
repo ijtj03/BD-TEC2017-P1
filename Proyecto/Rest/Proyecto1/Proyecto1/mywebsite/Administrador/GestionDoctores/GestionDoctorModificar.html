@@ -1,8 +1,8 @@
 ﻿<!DOCTYPE html>
-<html>
+<html ng-app="GestionEmpleado">
 <head>
     <meta charset="utf-8" />
-    <title>Gestion de Doctores</title>
+    <title>Gestion de Empleados</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -10,9 +10,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
     <link rel='stylesheet' href='/mywebsite/css/styles.css'>
 
-    <script src="../Scripts/angular.js"></script>
-    <script src="../Scripts/angular-route.js"></script>
-    <script src="../Scripts - Views/GestionClientes.js"></script>
+    <script src="../../../Scripts/angular.js"></script>
+    <script src="../../../Scripts - Views/GestionEmpleado.js"></script>
 
 </head>
 <body>
@@ -39,22 +38,60 @@
                     <div class="w3-row-padding w3-padding-16 w3-center" id="food">
                         <div class="w3-quarter">
                             <a href="#" onClick="href='GestionDoctorAgregar.html'"><img src="/mywebsite/rsc/imgs/agregarDoctor.jpg" alt="Agregar" style="width:100%"></a>
-                            <h3>Agregar nueva sucursal</h3>
-                            <p>Para agregar nuevas sucursales de cualquier farmacia.</p>
+                            <h3>Agregar un nuevo empleado.</h3>
+                            <p>Para agregar un nuevo empleado.</p>
                         </div>
                         <div class="w3-quarter">
                             <a href="#" onClick="href='GestionDoctorEliminar.html'"> <img src="/mywebsite/rsc/imgs/borrarCliente.png" alt="Borrar" style="width:100%"></a>
-                            <h3>Borrar Sucursal</h3>
-                            <p>Se borra una sucursal de la base de datos.</p>
+                            <h3>Borrar Empleado</h3>
+                            <p>Se borra un empleado de la base de datos.</p>
                         </div>
                         <div class="w3-quarter">
                             <a href="#" onClick="href='GestionDoctorModificar.html'"><img src="/mywebsite/rsc/imgs/modificarCliente.png" alt="Modificar" style="width:100%"></a>
-                            <h3>Modificar Sucursal</h3>
-                            <p>Se modificara los datos de una sucursal.</p>
+                            <h3>Modificar Empleado</h3>
+                            <p>Se modificara los datos de una empleado.</p>
                         </div>
                     </div>
                 </center>
             </div>
+
+            <section id='registro'>
+                <form action="" method="put" ng-controller="ModificarContoller">
+                    <center>
+                        <h2>Modificar</h2>
+                        <input type="number" class='field' value='' placeholder='Cedula' name='txtcedula' ng-model="cedula" required />
+                        <button type="button" class="button button-primary" ng-click="buscar()">Buscar</button>
+                        <br><br>
+                        <input type="text" class='field' value="{{buscar.Nombre}}" placeholder="Nombre" disabled />
+                        <br><br>
+                        <input type="text" class='field' value="{{buscar.Apellido1}}" placeholder='Primer Apellido' disabled />
+                        <br><br>
+                        <input type="text" class='field' value="{{buscar.Apellido2}}" placeholder='Segundo Apellido' disabled />
+                        <br><br>
+                        <input type="text" class='field' value="{{buscar.Telefono}}" placeholder='Telefono' id="telefono" required />
+                        <br><br>
+                        <input type="password" class='field' value='' placeholder='Password' name='txtpass' id="password" required />
+                        <br><br>
+                        <input type="text" class='field' value="{{buscar.Provincia}}" placeholder='Provincia' name='txtprovincia' id="provincia" required />
+                        <br><br>
+                        <input type="text" class='field' value="{{buscar.Canton}}" placeholder='Canton' name='txtcanton' id="canton" required />
+                        <br><br>
+                        <input type="text" class='field' value="{{buscar.Distrito}}" placeholder='Distrito' name='txtdistrito' id="distrito" required />
+                        <br><br>
+                        <input type="text" class='field' value="{{buscar.DescripcionDireccion}}" placeholder='Direccion' name='txtdir' id="direccion" required />
+                        <br><br>
+                        <input type="text" class='field' value="{{buscar.FechaNacimiento}}" placeholder='Fecha Nacimiento' disabled />
+                        <br><br>
+                        <input type="text" class='field' value="{{buscarRol.IdRol}}"  placeholder='ID Rol' id="idRol" required />
+                        <br><br>
+                        <input type="text" class='field' value="{{buscarSucursal.SalarioHora}}" placeholder='Salario por Hora' id="salario" required />
+                        <br><br>
+                        <button type="button" class="button button-primary" ng-click="modificar()">Modificar</button>
+                    </center>
+                </form>
+            </section>
+
+
         </section>
     </div>
 </body>

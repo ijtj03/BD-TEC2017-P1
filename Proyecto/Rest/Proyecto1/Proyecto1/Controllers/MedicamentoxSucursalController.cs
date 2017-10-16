@@ -40,5 +40,13 @@ namespace Proyecto1.Controllers
             MedicamentoxSucursalService con = new MedicamentoxSucursalService();
             con.UpdateCantidad(mxs);
         }
+
+        [HttpPut]
+        [Route("PutLogicDelete")]
+        public void DeleteMedicamentoxSucursal([FromBody] int id)
+        {
+            MedicamentoxSucursalService con = new MedicamentoxSucursalService();
+            con.DeleteMedicamentoxSucursal(id);
+        }
     }
 }

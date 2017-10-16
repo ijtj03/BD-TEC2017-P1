@@ -27,6 +27,7 @@ namespace Proyecto1.Services
                 mxs.IdSucursal = Convert.ToInt32(read["IdSucursal"]);
                 mxs.IdMedicamento = Convert.ToInt32(read["IdMedicamento"]);
                 mxs.PrecioSucursal = Convert.ToInt32(read["PrecioSucursal"]);
+                mxs.Cantidad = Convert.ToInt32(read["Cantidad"]);
                 mxs.Logicdelete = Convert.ToBoolean(read["LogicDelete"]);
 
                 ListMedicamentoxSucursal.Add(mxs);
@@ -34,6 +35,8 @@ namespace Proyecto1.Services
             }
             return ListMedicamentoxSucursal;
         }
+
+
         public List<MedicamentoId> GetMedicamentoxSucursal(int idSuc)
         {
             System.Data.SqlClient.SqlConnection conn;
@@ -58,6 +61,7 @@ namespace Proyecto1.Services
             }
             return ListMedicamentoxSucursal;
         }
+
         public void PostMedicamentoxSucursal([FromBody] MedicamentoxSucursal mxs)
         {
             System.Data.SqlClient.SqlConnection conn;
@@ -66,7 +70,7 @@ namespace Proyecto1.Services
             conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
             conn.Open();
 
-            SqlParameter IdSucursal = new SqlParameter("@IdCasaFarmaceutica", System.Data.SqlDbType.Int);
+            SqlParameter IdSucursal = new SqlParameter("@IdSucursal", System.Data.SqlDbType.Int);
             IdSucursal.Value = mxs.IdSucursal;
 
             SqlParameter IdMedicamento = new SqlParameter("@IdMedicamento", System.Data.SqlDbType.Int);
@@ -75,19 +79,25 @@ namespace Proyecto1.Services
             SqlParameter PrecioSucursal = new SqlParameter("@PrecioSucursal", System.Data.SqlDbType.Int);
             PrecioSucursal.Value = mxs.PrecioSucursal;
 
+            SqlParameter Cantidad = new SqlParameter("@Cantidad", System.Data.SqlDbType.Int);
+            Cantidad.Value = mxs.Cantidad;
 
 
-            command = new SqlCommand("insert into MedicamentoxCasaFarmaceutica(IdSucursal,IdMedicamento,PrecioSucursal) VALUES (@IdSucursal,@IdMedicamento,@PrecioSucursal)", conn);
+
+            command = new SqlCommand("insert into MedicamentoxSucursal(IdSucursal,IdMedicamento,PrecioSucursal, Cantidad) VALUES (@IdSucursal,@IdMedicamento,@PrecioSucursal,@Cantidad)", conn);
 
             command.Parameters.Add(IdSucursal);
             command.Parameters.Add(IdMedicamento);
             command.Parameters.Add(PrecioSucursal);
+            command.Parameters.Add(Cantidad);
 
             command.ExecuteNonQuery();
 
             conn.Close();
 
         }
+
+
         public void UpdateCantidad([FromBody] UpdateCantidad mxs)
         { 
             System.Data.SqlClient.SqlConnection conn;
@@ -108,6 +118,21 @@ namespace Proyecto1.Services
             conn.Close();
 
         }
+
+        public void DeleteMedicamentoxSucursal([FromBody] int id)
+        {
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+
+            command = new SqlCommand("UPDATE MedicamentoxSucursal SET LogicDelete = 1  WHERE IdMedicamento=" + id.ToString(), conn);
+            command.ExecuteNonQuery();
+            conn.Close();
+
+        }
+
 
     }
 }

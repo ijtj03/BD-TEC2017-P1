@@ -11,9 +11,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
     <link rel='stylesheet' href='/mywebsite/css/styles.css'>
 
-    <script src="/Scripts/angular.js"></script>
-    <script src="/Scripts/angular-route.js"></script>
-    <script src="/Scripts - Views/GestionMedicamento.js"></script>
+    <script src="../../../Scripts/angular.js"></script>
+    <script src="../../../Scripts - Views/GestionMedicamento.js"></script>
 
 </head>
 <body>
@@ -54,16 +53,16 @@
                             <h3>Modificar informacion de medicamento.</h3>
                             <p>Se modificara la informacion de un medicamento en la base de datos.</p>
                         </div>
-                        <!--<div class="w3-quarter">
+                        <div class="w3-quarter">
                             <a href="#" onClick="href='ConsultaMedicamento.html'"><img src="/mywebsite/rsc/imgs/modificarCliente.png" alt="Modificar" style="width:100%"></a>
                             <h3>Consulta Medicamento</h3>
                             <p>Se podra obtener la informacion de un medicamento en especifico.</p>
-                        </div>-->
+                        </div>
                     </div>
                 </center>
             </div>
 
-            <section id='registro'>
+            <section id='registro' class="form-group">
                 <form action="" method="post" ng-controller="GestionMedicamentoController">
                     <center>
                         <h2>Agregar</h2>
@@ -71,12 +70,15 @@
                         <br><br>
                         <input type="number" class='field' value='' placeholder='Casa Farmaceutica' ng-model="idCasaFarmaceutica" required />
                         <br><br>
-                        <input type="number" class='field' value='' placeholder='Precio Proveedor' ng-model="precioProveedor" required />
-                        <br><br>
                         <input type="number" class='field' value='' placeholder='Requiere Prescripcion' ng-model="prescripcion" required />
                         <br><br>
                         <input type="number" class='field' value='' placeholder='Cantidad Disponible' ng-model="cantidad" required />
                         <br><br>
+                        <input type="number" class='field' value='' placeholder='Precio Proveedor' ng-model="pProveedor" required />
+                        <br><br>
+                        <input type="number" class='field' value='' placeholder='Precio Sucursal' ng-model="pSucursal" required />
+                        <br><br>
+
                         <button type="button" class="button button-primary" ng-click="agregar()">Agregar</button>
                     </center>
                 </form>

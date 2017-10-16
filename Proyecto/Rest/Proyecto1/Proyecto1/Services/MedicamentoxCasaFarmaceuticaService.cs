@@ -33,6 +33,7 @@ namespace Proyecto1.Services
             }
             return ListMedicamentoxCasaFarmaceutica;
         }
+
         public void PostMedicamentoxCasaFarmaceutica([FromBody] MedicamentoxCasaFarmaceutica mxcf)
         {
             System.Data.SqlClient.SqlConnection conn;
@@ -49,7 +50,7 @@ namespace Proyecto1.Services
 
             SqlParameter PrecioProveedor = new SqlParameter("@PrecioProveedor", System.Data.SqlDbType.Int);
             PrecioProveedor.Value = mxcf.PrecioProveedor;
-            
+
 
             command = new SqlCommand("insert into MedicamentoxCasaFarmaceutica(IdCasaFarmaceutica,IdMedicamento,PrecioProveedor) VALUES (@IdCasaFarmaceutica,@IdMedicamento,@PrecioProveedor)", conn);
 
@@ -59,6 +60,20 @@ namespace Proyecto1.Services
 
             command.ExecuteNonQuery();
 
+            conn.Close();
+
+        }
+
+        public void DeleteMedicamentoxCasaFarmaceutica([FromBody] int id)
+        {
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+
+            command = new SqlCommand("UPDATE MedicamentoxCasaFarmaceutica SET LogicDelete = 1  WHERE IdMedicamento=" + id.ToString(), conn);
+            command.ExecuteNonQuery();
             conn.Close();
 
         }

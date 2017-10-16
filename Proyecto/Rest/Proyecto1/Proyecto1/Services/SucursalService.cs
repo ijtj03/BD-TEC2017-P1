@@ -116,6 +116,8 @@ namespace Proyecto1.Services
             conn.Close();
 
         }
+
+
         public void DeleteSucursal([FromBody] int IdSucursal)
         {
             System.Data.SqlClient.SqlConnection conn;

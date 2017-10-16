@@ -15,5 +15,6 @@ namespace Proyecto1.Classes
         public bool NecesitaReceta { get; set; }
         public int Cantidad { get; set; }
         public int PrecioSucursal { get; set; }
+        public int PrecioProveedor { get; set; }
     }
 }

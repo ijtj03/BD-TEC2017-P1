@@ -28,5 +28,21 @@ namespace Proyecto1.Controllers
             PersonaxSucursalService con = new PersonaxSucursalService();
             con.PostPersonaxSucursal(pxs);
         }
+
+        [HttpGet]
+        [Route("GetPersonaxSucursal")]
+        public IHttpActionResult GetPersonaxSucursal(int id)
+        {
+            PersonaxSucursalService con = new PersonaxSucursalService();
+            return Ok(con.GetPersonaxSucursal(id));
+        }
+
+        [HttpPut]
+        [Route("PutLogicDelete")]
+        public void DeletePersonaxSucursal([FromBody] int cedula)
+        {
+            PersonaxSucursalService con = new PersonaxSucursalService();
+            con.DeletePersonaxSucursal(cedula);
+        }
     }
 }

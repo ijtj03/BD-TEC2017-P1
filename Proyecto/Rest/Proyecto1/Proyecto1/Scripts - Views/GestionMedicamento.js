@@ -6,7 +6,8 @@ GestionMedicamento.controller('GestionMedicamentoController', function ($scope, 
     $scope.idCasaFarmaceutica = $scope.idCasaFarmaceutica;
     $scope.prescripcion = $scope.prescripcion;
     $scope.cantidad = $scope.cantidad;
-    $scope.precioProveedor = $scope.precioProveedor;
+    $scope.pProveedor = $scope.pProveedor;
+    $scope.pSucursal = $scope.pSucursal;
 
 
     $scope.agregar = function () {
@@ -16,23 +17,36 @@ GestionMedicamento.controller('GestionMedicamentoController', function ($scope, 
             NecesitaReceta: $scope.prescripcion,
         }
 
-        console.log(Rol);
-
         $http.post("http://localhost:64698/api/Medicamento/PostMedicamento", Medicamento)
             .then(function successCallback(response) {
-                var medicamento = response.data;
-                var medicamentoxCasaFarmaceutica = {
-                    IdMedicamento: medicamento.IdMedicamento,
-                    IdCasaFarmaceutica: $scope.idCasaFarmaceutica,
-                    PrecioProveedor: $scope.precioProveedor,
-                }
-                $http.post("http://localhost:64698/api/MedicamentoxCasaFarmaceutica/PostMedicamentoxCasaFarmaceutica", medicamentoxCasaFarmaceutica)
-                    .then(function successCallback(response) {
-                        console.log(response);
-                        window.location = "http://localhost:64698/Administrador/GestionMedicamento/GestionMedicamento.html";
-                    }, function errorCallback(response) {
-                        console.log(response);
+                $http.get('http://localhost:64698/api/Medicamento/GetLastMedicamentoId')
+                    .then(function successCallback(responseget) {
+                        var idData = responseget.data;
+                        console.log(idData);
+                        var medicamentoxCasaFarmaceutica = {
+                            IdMedicamento: idData,
+                            IdCasaFarmaceutica: $scope.idCasaFarmaceutica,
+                            PrecioProveedor: $scope.pProveedor,
+                        }
+                        console.log(medicamentoxCasaFarmaceutica)
+                        var medicamentoxSucursal = {
+                            IdMedicamento: idData,
+                            IdSucursal: Number(window.localStorage.getItem("idSucursal")),
+                            PrecioSucursal: $scope.pSucursal,
+                            Cantidad: $scope.cantidad,
+                        }
+                        console.log(medicamentoxSucursal)
+                        $http.post("http://localhost:64698/api/MedicamentoxCasaFarmaceutica/PostMedicamentoxCasaFarmaceutica", medicamentoxCasaFarmaceutica)
+                            .then(function successCallback(response1) {
+                                $http.post("http://localhost:64698/api/MedicamentoxSucursal/PostMedicamentoxSucursal", medicamentoxSucursal)
+                                    .then(function successCallback(response2) {
+                                        window.location = "http://localhost:64698/mywebsite/Administrador/GestionMedicamento/GestionMedicamento.html";
+                                    }, function errorCallback(response) {
+                                    });
+                            }, function errorCallback(response) {
+                            });
                     });
+                
             }, function errorCallback(response) {
                 console.log(response);
             });
@@ -41,16 +55,24 @@ GestionMedicamento.controller('GestionMedicamentoController', function ($scope, 
 });
 
 GestionMedicamento.controller("EliminarController", function ($scope, $http, $location) {
-    $scope.IdRol = $scope.IdRol;
+    $scope.medicamentoId = $scope.medicamentoId;
 
     $scope.eliminar = function () {
-        var IdRol = $scope.IdRol;
+        var IdMedicamento = $scope.medicamentoId;
 
-        console.log(IdRol);
-
-        $http.put("http://localhost:64698/api/Rol/PutLogicDelete", IdRol).then(function successCallback(response) {
+        $http.put("http://localhost:64698/api/Medicamento/PutLogicDelete", IdMedicamento).then(function successCallback(response) {
             console.log(response);
-            window.location = "http://localhost:64698/Administrador/GestionRoles/GestionRoles.html";
+            $http.put("http://localhost:64698/api/MedicamentoxSucursal/PutLogicDelete", IdMedicamento).then(function successCallback(response) {
+                console.log(response);
+                $http.put("http://localhost:64698/api/MedicamentoxCasaFarmaceutica/PutLogicDelete", IdMedicamento).then(function successCallback(response) {
+                    console.log(response);
+                    window.location = 'http://localhost:64698/mywebsite/Administrador/GestionMedicamentos/GestionMedicamentos.html';
+                }, function errorCallback(response) {
+                    console.log(response);
+                });
+            }, function errorCallback(response) {
+                console.log(response);
+            });
         }, function errorCallback(response) {
             console.log(response);
         });
@@ -60,17 +82,20 @@ GestionMedicamento.controller("EliminarController", function ($scope, $http, $lo
 
 GestionMedicamento.controller('ModificarController', function ($scope, $http, $location) {
     console.log("Buscar Usurario");
-    $scope.IdRol = $scope.IdRol;
-    $scope.nombre = $scope.nombre;
-    $scope.descripcion = $scope.descripcion;
+    $scope.IDM = $scope.IDM;
+    $scope.IDC = $scope.IDC;
 
     $scope.buscar = function () {
-        var IdRol = $scope.IdRol;
-        console.log(IdRol);
-        $http.Get('http://localhost:64698/api/Rol/GetRol?id=' + window.localStorage.getItem("idRol"))
-            .then(function successCallback(response) {
-                console.log("Encontro el data");
-                $scope.buscar = response.data;
+        var data = {
+            IdMedicamento: $scope.IDM,
+            IdSucursal: Number(window.localStorage.getItem("idSucursal")),
+            IdCasaFarmaceutica: $scope.IDC,
+        }
+        $http.get("http://localhost:64698/api/Medicamento/GetMedicamentosxRelacion?idm=" + data.IdMedicamento + "&" + "ids=" + data.IdSucursal + "&" + "idc=" + data.IdCasaFarmaceutica)
+            .then(function (response) {
+                console.log("Geting");
+                $scope.DatosMedicamentos = response.data;
+                console.log("Geted", response.data);
             }, function errorCallback(response) {
                 console.log(response);
             });

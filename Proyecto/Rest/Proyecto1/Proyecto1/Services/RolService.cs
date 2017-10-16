@@ -26,7 +26,6 @@ namespace Proyecto1.Services
             {
                 Rol rol = new Rol();
                 rol.IdRol = Convert.ToInt32(read["IdRol"]);
-                rol.IdCedula = Convert.ToInt32(read["IdCedula"]);
                 rol.Nombre = read["Nombre"].ToString();
                 rol.Descripcion = read["Descripcion"].ToString();
                 rol.LogicDelete = Convert.ToBoolean(read["LogicDelete"]);
@@ -38,6 +37,7 @@ namespace Proyecto1.Services
             conn.Close();
             return ListRoles;
         }
+
 
         public Rol GetRol(int id)
         {

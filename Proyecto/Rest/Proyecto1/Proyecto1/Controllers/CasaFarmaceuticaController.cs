@@ -19,6 +19,32 @@ namespace Proyecto1.Controllers
             CasaFarmaceuticaService con = new CasaFarmaceuticaService();
             return Ok(con.GetAllCasasFarmaceuticas());
         }
+
+        [HttpGet]
+        [Route("GetAllNombresCasasFarmaceuticas")]
+        public IHttpActionResult GetAllNombresCasasFarmaceuticas()
+        {
+            CasaFarmaceuticaService con = new CasaFarmaceuticaService();
+            return Ok(con.GetAllNombresCasasFarmaceuticas());
+        }
+
+        [HttpGet]
+        [Route("GetAllNombresCasasFarmaceuticasxMedicamento")]
+        public IHttpActionResult GetAllNombresCasasFarmaceuticasxMedicamento(String nombre)
+        {
+            CasaFarmaceuticaService con = new CasaFarmaceuticaService();
+            return Ok(con.GetAllNombresCasasFarmaceuticasxMedicamento(nombre));
+        }
+        
+
+        [HttpGet]
+        [Route("GetIdCasaFarmaceutica")]
+        public IHttpActionResult GetIdCasaFarmaceutica(String nombre)
+        {
+            CasaFarmaceuticaService con = new CasaFarmaceuticaService();
+            return Ok(con.GetIdCasaFarmaceutica(nombre));
+        }
+
         [HttpPost]
         [Route("PostCasaFarmaceutica")]
         public void PostCasaFarmaceutica([FromBody] CasaFarmaceutica cFar)

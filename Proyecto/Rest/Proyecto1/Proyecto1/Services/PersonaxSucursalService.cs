@@ -101,5 +101,22 @@ namespace Proyecto1.Services
             conn.Close();
 
         }
+
+        public void UpdatePersonaxSucursal([FromBody] PersonaxSucursal rol)
+        {
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+            String comm = "Update PersonaxSucursal SET IdSucursal=" + rol.IdSucursal + ", SalarioHora=" + rol.SalarioHora + " WHERE IdCedula=" + rol.IdCedula;
+
+
+            command = new SqlCommand(comm, conn);
+
+            command.ExecuteNonQuery();
+            conn.Close();
+
+        }
     }
 }

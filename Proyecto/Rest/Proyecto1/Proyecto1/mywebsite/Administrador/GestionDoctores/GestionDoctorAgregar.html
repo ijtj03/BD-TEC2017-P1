@@ -83,7 +83,7 @@
                         <br><br>
                         <input type="date" class='field' value='' placeholder='Fecha Nacimiento'  ng-model="fecha" required />
                         <br><br>
-                        <input type="number" class='field' value='' placeholder='ID Rol' ng-model="IdRol" required />
+                        Rol: <select ng-model="rol" ng-options="x for x in roles"></select>
                         <br><br>
                         <input type="number" class='field' value='' placeholder='Salario por Hora' ng-model="salario" required />
                         <br><br>

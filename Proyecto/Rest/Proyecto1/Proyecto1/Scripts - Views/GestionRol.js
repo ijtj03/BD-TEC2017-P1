@@ -18,7 +18,7 @@ GestionRol.controller('GestionRolController', function ($scope, $http) {
         $http.post("http://localhost:64698/api/Rol/PostRol", Rol)
             .then(function successCallback(response) {
                 console.log(response);
-                window.location = "http://localhost:64698/Administrador/GestionRoles/GestionRoles.html";
+                window.location = "http://localhost:64698/mywebsite/Administrador/GestionRoles/GestionRoles.html";
             }, function errorCallback(response) {
                 console.log(response);
             });
@@ -27,49 +27,73 @@ GestionRol.controller('GestionRolController', function ($scope, $http) {
 });
 
 GestionRol.controller("EliminarController", function ($scope, $http, $location) {
-    $scope.IdRol = $scope.IdRol;
+    $http.get("http://localhost:64698/api/Rol/GetAllRolN")
+        .then(function (response) {
+            console.log("Getting");
+            $scope.roles = response.data;
+            console.log("Getted");
+        });
 
     $scope.eliminar = function () {
-        var IdRol = $scope.IdRol;
-
-        console.log(IdRol);
-
-        $http.put("http://localhost:64698/api/Rol/PutLogicDelete", IdRol).then(function successCallback(response) {
-            console.log(response);
-            window.location = "http://localhost:64698/Administrador/GestionRoles/GestionRoles.html";
-        }, function errorCallback(response) {
-            console.log(response);
-        });
+        $http.get("http://localhost:64698/api/Rol/GetIdRol?nombre=" + $scope.rol)
+            .then(function (response) {
+                $scope.rolId = response.data;
+                console.log($scope.rolId)
+                $http.put("http://localhost:64698/api/Rol/PutLogicDelete", $scope.rolId).then(function successCallback(response) {
+                    console.log(response);
+                    window.location = "http://localhost:64698/mywebsite/Administrador/GestionRoles/GestionRoles.html";
+                }, function errorCallback(response) {
+                    console.log(response);
+                });
+            });
     }
 
 });
 
 GestionRol.controller('ModificarController', function ($scope, $http, $location) {
-    console.log("Buscar Usurario");
-    $scope.IdRol = $scope.IdRol;
-    $scope.nombre = $scope.nombre;
-    $scope.descripcion = $scope.descripcion;
+    $http.get("http://localhost:64698/api/Rol/GetAllRolN")
+        .then(function (response) {
+            console.log("Getting");
+            $scope.roles = response.data;
+            console.log("Getted");
+        });
 
     $scope.buscar = function () {
-        var IdRol = $scope.IdRol;
-        console.log(IdRol);
-        $http.get('http://localhost:64698/api/Rol/GetRol?id=' + IdRol)
-            .then(function successCallback(response) {
-            console.log("Encontro el data");
-            $scope.buscar = response.data;
-        }, function errorCallback(response) {
-            console.log(response);
-        });
+        $http.get("http://localhost:64698/api/Rol/GetIdRol?nombre=" + $scope.rol)
+            .then(function (response) {
+                $scope.rolId = response.data;
+                console.log($scope.rolId)
+                $http.get('http://localhost:64698/api/Rol/GetRol?id=' + $scope.rolId)
+                    .then(function successCallback(response) {
+                        $scope.buscar = response.data;
+                    }, function errorCallback(response) {
+                        console.log(response);
+                    });
+            });
+        
     }
 
     $scope.modificar = function () {
-        $http.get('http://localhost:64698/api/Rol/GetRol?id=' + IdRol)
-            .then(function successCallback(response) {
-                $scope.buscar = response.data;
-                console.log("Encontro el data", $scope.buscar);
-            }, function errorCallback(response) {
-                console.log(response);
-            });
-    }
+        console.log("Modificar Usuario");
+        var nom = angular.element(document.getElementById("nombre")).val();
+        var desc = angular.element(document.getElementById("descripcion")).val();
+        if (nom != '' && desc != '' ) {
+            var editRol = {
+                Nombre: nom,
+                Descripcion: desc,
+                IdRol: $scope.rolId,
+            };
+            $http.post("http://localhost:64698/api/Rol/UpdateRol", editRol)
+                .then(function successCallback(response) {
+                    console.log(response);
+                    window.location = "http://localhost:64698/mywebsite/Administrador/GestionRoles/GestionRoles.html";
+                }, function errorCallback(response) {
+                    console.log(response);
+                });
+        }
+        else {
+            alert("Rellene todos los campos");
+        }
+    };
 
 });

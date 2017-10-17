@@ -22,6 +22,34 @@ namespace Proyecto1.Controllers
         }
 
         [HttpGet]
+        [Route("GetAllRolN")]
+        public IHttpActionResult GetAllRolesN()
+        {
+            RolService con = new RolService();
+            return Ok(con.GetAllRolesN());
+        }
+
+
+        [HttpGet]
+        [Route("GetIdRol")]
+        public IHttpActionResult GetIdRol(String nombre)
+        {
+            RolService con = new RolService();
+            return Ok(con.GetIdRol(nombre));
+        }
+
+        [HttpGet]
+        [Route("GetNombreRol")]
+        public IHttpActionResult GetNombreRol(int id)
+        {
+            RolService con = new RolService();
+            return Ok(con.GetNombreRol(id));
+        }
+
+        
+
+
+        [HttpGet]
         [Route("GetRol")]
         public IHttpActionResult GetRoll(int id)
         {
@@ -43,6 +71,14 @@ namespace Proyecto1.Controllers
         {
             RolService con = new RolService();
             con.PostRol(rol);
+        }
+
+        [HttpPost]
+        [Route("UpdateRol")]
+        public void UpdateRol([FromBody] Rol rol)
+        {
+            RolService con = new RolService();
+            con.UpdateRol(rol);
         }
 
     }

@@ -29,6 +29,14 @@ namespace Proyecto1.Controllers
             con.PostMedicamentoxCasaFarmaceutica(mxcf);
         }
 
+        [HttpPost]
+        [Route("UpdateMedicamentoxCasaFarmaceutica")]
+        public void UpdateMedicamentoxCasaFarmaceutica([FromBody]MedicamentoxCasaFarmaceutica mxcf)
+        {
+            MedicamentoxCasaFarmaceuticaService con = new MedicamentoxCasaFarmaceuticaService();
+            con.UpdateMedicamentoxCasaFarmaceutica(mxcf);
+        }
+
         [HttpPut]
         [Route("PutLogicDelete")]
         public void DeleteMedicamentoxCasaFarmaceutica([FromBody] int id)

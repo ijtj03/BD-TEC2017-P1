@@ -60,12 +60,13 @@
                 <form action="" method="put" ng-controller="ModificarController">
                     <center>
                         <h2>Modificar Rol</h2>
-                        <input type="number" class='field' value='' placeholder='IdRol' name='txtcedula' ng-model="IdRol" required />
+                        Rol: <select ng-model="rol" ng-options="x for x in roles"></select>
+                        <br><br>
                         <button type="button" class="button button-primary" ng-click="buscar()">Buscar</button>
                         <br><br>
-                        <input type="text" class='field' value="{{buscar.Nombre}}"  required />
+                        <input type="text" class='field' value="{{buscar.Nombre}}"  placeholder='Nombre' id="nombre" required />
                         <br><br>
-                        <input type="text" class='field' value="{{buscar.Descripcion}}"  required />
+                        <input type="text" class='field' value="{{buscar.Descripcion}}" placeholder='Descripcion' id="descripcion" required />
                         <br><br>
                         <button type="button" class="button button-primary" ng-click="modificar()">Modificar</button>
                     </center>

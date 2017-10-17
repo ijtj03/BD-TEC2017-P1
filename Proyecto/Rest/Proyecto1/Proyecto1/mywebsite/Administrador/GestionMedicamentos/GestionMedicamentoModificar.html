@@ -65,21 +65,22 @@
                 <form  action="" method="put" ng-controller="ModificarController">
                     <center>
                         <h2>Modificar</h2>
-                        <input type="number" class='field' value='' placeholder='ID Medicamento' ng-model="IDM" required />
+                        Escoga el medicamento: <select ng-model="medicamento" ng-options="x for x in medicamentos"></select>
+                        <button type="button" class="button button-primary" ng-click="buscarCasa()">Buscar Proveedor</button>
                         <br><br>
-                        <input type="number" class='field' value='' placeholder='ID Casa Faramaceutica' ng-model="IDC" required />
+                        Casa Farmaceutica: <select ng-model="casa" ng-options="x for x in casas"></select>
                         <br><br>
                         <button type="button" class="button button-primary" ng-click="buscar()">Buscar</button>
                         <br><br>
-                        <input type="text" class='field' value="{{DatosMedicamentos.Nombre}}" placeholder='Nombre' id="nombre" disabled />
+                        <input type="text" class='field' value="{{DatosMedicamentos.Nombre}}" placeholder='Nombre' disabled />
                         <br><br>
-                        <input type="number" class='field' value="{{DatosMedicamentos.NecesitaReceta}}" placeholder='Requiere Prescripcion' id="prescripcion" required />
+                        <input type="text" class='field' value="{{DatosMedicamentos.NecesitaReceta}}" placeholder='Requiere Prescripcion' id="prescripcion" required />
                         <br><br>
-                        <input type="number" class='field' value="{{DatosMedicamentos.Cantidad}}" placeholder='Cantidad Disponible' id="cantidad" required />
+                        <input type="text" class='field' value="{{DatosMedicamentos.Cantidad}}" placeholder='Cantidad Disponible' id="cantidad" required />
                         <br><br>
-                        <input type="number" class='field' value="{{DatosMedicamentos.PrecioProveedor}}" placeholder='Precio Proveedor' id="pProveedor" required />
+                        <input type="text" class='field' value="{{DatosMedicamentos.PrecioProveedor}}" placeholder='Precio Proveedor' id="pProveedor" required />
                         <br><br>
-                        <input type="number" class='field' value="{{DatosMedicamentos.PrecioSucursal}}" placeholder='Precio Sucursal' id="pSucursal" required />
+                        <input type="text" class='field' value="{{DatosMedicamentos.PrecioSucursal}}" placeholder='Precio Sucursal' id="pSucursal" required />
                         <br><br>
                         <button type="button" class="button button-primary" ng-click="modificar()">Modificar elemento</button>
                     </center>

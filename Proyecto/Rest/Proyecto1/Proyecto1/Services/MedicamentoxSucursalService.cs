@@ -36,6 +36,21 @@ namespace Proyecto1.Services
             return ListMedicamentoxSucursal;
         }
 
+        public void UpdateMedicamentoxSucursal([FromBody]MedicamentoxSucursal medicamento)
+        {
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+            String comm = "Update MedicamentoxSucursal SET PrecioSucursal='" + medicamento.PrecioSucursal + ", Cantidad= "+ medicamento.Cantidad+ "WHERE IdSucursal=" + medicamento.IdSucursal + "and IdMedicamento=" + medicamento.IdMedicamento;
+
+
+            command = new SqlCommand(comm, conn);
+
+            command.ExecuteNonQuery();
+            conn.Close();
+        }
+
 
         public List<MedicamentoId> GetMedicamentoxSucursal(int idSuc)
         {

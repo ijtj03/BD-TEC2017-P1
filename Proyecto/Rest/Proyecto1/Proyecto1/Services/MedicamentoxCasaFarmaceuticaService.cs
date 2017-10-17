@@ -34,6 +34,22 @@ namespace Proyecto1.Services
             return ListMedicamentoxCasaFarmaceutica;
         }
 
+
+        public void UpdateMedicamentoxCasaFarmaceutica([FromBody]MedicamentoxCasaFarmaceutica medicamento)
+        {
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+            String comm = "Update MedicamentoxCasaFarmaceutica SET PrecioProveedor='" + medicamento.PrecioProveedor + "WHERE IdMedicamento=" + medicamento.IdMedicamento +"and IdCasaFarmaceutica"+medicamento.IdCasaFarmaceutica;
+
+
+            command = new SqlCommand(comm, conn);
+
+            command.ExecuteNonQuery();
+            conn.Close();
+        }
+
         public void PostMedicamentoxCasaFarmaceutica([FromBody] MedicamentoxCasaFarmaceutica mxcf)
         {
             System.Data.SqlClient.SqlConnection conn;

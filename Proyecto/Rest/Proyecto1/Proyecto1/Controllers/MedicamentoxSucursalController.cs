@@ -48,5 +48,14 @@ namespace Proyecto1.Controllers
             MedicamentoxSucursalService con = new MedicamentoxSucursalService();
             con.DeleteMedicamentoxSucursal(id);
         }
+
+        [HttpPost]
+        [Route("UpdateMedicamentoxSucursal")]
+        public void UpdateMedicamentoxSucursal([FromBody]MedicamentoxSucursal mxs)
+        {
+            MedicamentoxSucursalService con = new MedicamentoxSucursalService();
+            con.UpdateMedicamentoxSucursal(mxs);
+        }
+        
     }
 }

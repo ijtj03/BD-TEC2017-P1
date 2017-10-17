@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
     <link rel='stylesheet' href='/mywebsite/css/styles.css'>
 
-
     <script src="../../../Scripts/angular.js"></script>
     <script src="../../../Scripts - Views/GestionMedicamento.js"></script>
 
@@ -21,6 +20,7 @@
             <div id='logo'><img src="/mywebsite/rsc/imgs/bot.png" alt="picture" width="190" /></div>
             <nav id='menu'>
                 <ul>
+                    li>
                     <li><a href='/mywebsite/Administrador/HomeAdministrador.html' title="INICIO">INICIO</a></li>
                     <li><a href='/mywebsite/Administrador/GestionClientes/GestionClientes.html' title="GESTIONCLIENTES">GESTION CLIENTES</a></li>
                     <li><a href='/mywebsite/Administrador/GestionDoctores/GestionDoctores.html' title="GESTIONEMPLEADOS">GESTION EMPLEADOS</a></li>
@@ -61,19 +61,29 @@
                 </center>
             </div>
 
-            <h1>Seleciona las medicinas</h1><br>
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-3" style="background-color:lavenderblush;" ng-repeat="med in medicamentosid">
-                        <center>
-                            <h3>{{med.Nombre}}</h3>
-                            <h4>Precio: {{med.Precio}}</h4>
-                            <h5>Cantida disponible: {{med.Cantidad}}</h5>
-                            <input type="number" min="0" class='field' ng-attr-id="{{'med'+med.IdMedicamento}}" value='' placeholder='Cantidad Solicitada' />
-                        </center>
-                    </div>
-                </div>
-            </div>
+            <section id='registro' class="form-group">
+                <form action="" method="put" ng-controller="ModificarController">
+                    <center>
+                        <h2>Modificar</h2>
+                        Escoga el medicamento: <select ng-model="medicamento" ng-options="x for x in medicamentos"></select>
+                        <button type="button" class="button button-primary" ng-click="buscarCasa()">Buscar Proveedor</button>
+                        <br><br>
+                        Casa Farmaceutica: <select ng-model="casa" ng-options="x for x in casas"></select>
+                        <br><br>
+                        <button type="button" class="button button-primary" ng-click="buscar()">Buscar</button>
+                        <br><br>
+                        <input type="text" class='field' value="{{DatosMedicamentos.Nombre}}" placeholder='Nombre' disabled />
+                        <br><br>
+                        <input type="text" class='field' value="{{DatosMedicamentos.NecesitaReceta}}" placeholder='Requiere Prescripcion' id="prescripcion" required />
+                        <br><br>
+                        <input type="text" class='field' value="{{DatosMedicamentos.Cantidad}}" placeholder='Cantidad Disponible' id="cantidad" required />
+                        <br><br>
+                        <input type="text" class='field' value="{{DatosMedicamentos.PrecioProveedor}}" placeholder='Precio Proveedor' id="pProveedor" required />
+                        <br><br>
+                        <input type="text" class='field' value="{{DatosMedicamentos.PrecioSucursal}}" placeholder='Precio Sucursal' id="pSucursal" required />
+                    </center>
+                </form>
+            </section>
 
 
         </section>

@@ -50,7 +50,7 @@ GestionMedicamento.controller('GestionMedicamentoController', function ($scope, 
                                     .then(function successCallback(response1) {
                                         $http.post("http://localhost:64698/api/MedicamentoxSucursal/PostMedicamentoxSucursal", medicamentoxSucursal)
                                             .then(function successCallback(response2) {
-                                                window.location = "http://localhost:64698/mywebsite/Administrador/GestionMedicamentos/GestionMedicamentos.htm";
+                                                window.location = "http://localhost:64698/mywebsite/Administrador/GestionMedicamentos/GestionMedicamentos.html";
                                             }, function errorCallback(response) {
                                             });
                                     }, function errorCallback(response) {
@@ -78,15 +78,22 @@ GestionMedicamento.controller("EliminarController", function ($scope, $http, $lo
             .then(function (response) {
                 console.log("Getting");
                 $scope.IDM = response.data;
-                console.log("Getted");
+                console.log("Getted", $scope.IDM);
+
+                $http.put("http://localhost:64698/api/MedicamentoxSucursal/PutLogicDelete", $scope.IDM).then(function successCallback(response) {
+                    console.log(response);
+                }, function errorCallback(response) {
+                    console.log(response);
+                });
+                $http.put("http://localhost:64698/api/Medicamento/PutLogicDelete", $scope.IDM).then(function successCallback(response) {
+                    console.log(response);
+                    window.location = "http://localhost:64698/mywebsite/Administrador/GestionMedicamentos/GestionMedicamentos.html";
+                }, function errorCallback(response) {
+                    console.log(response);
+                });
             });
 
-        $http.put("http://localhost:64698/api/MedicamentoxSucursal/PutLogicDelete", $scope.IDM).then(function successCallback(response) {
-            console.log(response);
-            window.location = "http://localhost:64698/mywebsite/Administrador/GestionMedicamentos/GestionMedicamentos.html";
-        }, function errorCallback(response) {
-            console.log(response);
-        });
+        
     }
 
 });
@@ -160,7 +167,7 @@ GestionMedicamento.controller('ModificarController', function ($scope, $http, $l
             var editMXCF = {
                 IdMedicamento: $scope.IDM,
                 IdCasaFarmaceutica: $scope.IdCasa,
-                PrecioProveedor: Number(pP),
+                PrecioProveedor: pP,
             }
             var editMXS = {
                 IdMedicamento: $scope.IDM,
@@ -171,13 +178,14 @@ GestionMedicamento.controller('ModificarController', function ($scope, $http, $l
             console.log(editMedicamento)
             console.log(editMXCF)
             console.log(editMXS)
+
             $http.post("http://localhost:64698/api/Medicamento/UpdateReceta", editMedicamento)
                 .then(function successCallback(response) {
                     console.log(response);
                     $http.post("http://localhost:64698/api/MedicamentoxCasaFarmaceutica/UpdateMedicamentoxCasaFarmaceutica", editMXCF)
                         .then(function successCallback(response) {
                             console.log(response);
-                            $http.post("http://localhost:64698/api/MedicamentoxSucursal/UpdateMedicamentoxSucursal", editSucursal)
+                            $http.post("http://localhost:64698/api/MedicamentoxSucursal/UpdateMedicamentoxSucursal", editMXS)
                                 .then(function successCallback(response) {
                                     console.log(response);
                                     window.location = "http://localhost:64698/mywebsite/Administrador/GestionClientes/GestionClientes.html";

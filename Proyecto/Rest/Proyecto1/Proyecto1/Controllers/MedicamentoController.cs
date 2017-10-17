@@ -32,6 +32,7 @@ namespace Proyecto1.Controllers
         [Route("UpdateReceta")]
         public void UpdateReceta([FromBody]Medicamento medicamento)
         {
+            Console.WriteLine(medicamento.NecesitaReceta);
             MedicamentoService con = new MedicamentoService();
             con.UpdateReceta(medicamento);
         }

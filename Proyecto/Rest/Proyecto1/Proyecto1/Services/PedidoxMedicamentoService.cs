@@ -30,7 +30,6 @@ namespace Proyecto1.Services
                 pedidoxMedicamento.IdMedicamento = Convert.ToInt32(read["IdMedicamento"]);
                 pedidoxMedicamento.IdPedido = Convert.ToInt32(read["IdPedido"]);
                 pedidoxMedicamento.Cantidad = Convert.ToInt32(read["Cantidad"]);
-                pedidoxMedicamento.RecetaImg = read["RecetaImg"].ToString();
                 pedidoxMedicamento.LogicDelete = Convert.ToBoolean(read["LogicDelete"]);
 
                 ListPedidosxMedicamento.Add(pedidoxMedicamento);

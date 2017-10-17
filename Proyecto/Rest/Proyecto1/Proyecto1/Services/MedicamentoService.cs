@@ -103,12 +103,23 @@ namespace Proyecto1.Services
 
         public void UpdateReceta([FromBody]Medicamento medicamento)
         {
+            Console.WriteLine(medicamento.NecesitaReceta);
             System.Data.SqlClient.SqlConnection conn;
             SqlCommand command;
             //conn = new SqlConnection("Data Source=MELENDEZ-JEISON\\SQLEXPRESS;Initial Catalog=Proyecto1;Integrated Security=True");
             conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
             conn.Open();
-            String comm = "Update Medicamento SET NecesitaReceta=" + medicamento.NecesitaReceta.ToString() + "WHERE IdMedicamento=" + medicamento.IdMedicamento.ToString();
+            Console.WriteLine(medicamento.NecesitaReceta);
+            String comm;
+            if (medicamento.NecesitaReceta==true)
+            {
+                comm = "Update Medicamento SET NecesitaReceta=" + 1 + "WHERE IdMedicamento=" + medicamento.IdMedicamento.ToString();
+
+            }
+            else
+            {
+                comm = "Update Medicamento SET NecesitaReceta=" + 0 + "WHERE IdMedicamento=" + medicamento.IdMedicamento.ToString();
+            }
 
 
             command = new SqlCommand(comm, conn);

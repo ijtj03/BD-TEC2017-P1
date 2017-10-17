@@ -103,6 +103,14 @@ namespace Proyecto1.Controllers
         }
 
         [HttpGet]
+        [Route("GetSucursalEmpleado")]
+        public IHttpActionResult GetSucursalEmpleado(int id)
+        {
+            PersonaService con = new PersonaService();
+            return Ok(con.GetSucursalEmpleado(id));
+        }
+
+        [HttpGet]
         [Route("GetAllAdministrador")]
         public IHttpActionResult GetAllAdministrador()
         {

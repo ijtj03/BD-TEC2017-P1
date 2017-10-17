@@ -189,7 +189,7 @@ namespace Proyecto1.Services
 
             conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
             conn.Open();
-            String comm = "Update Sucursal SET Nombre=\'" + sucursal.Nombre + "\',Administrador=\'" + sucursal.Administrador +
+            String comm = "Update Sucursal SET Nombre=\'" + sucursal.Nombre +
                 "\',DescripcionDireccion=\'" + sucursal.DescripcionDireccion + "\',Provincia=\'" + sucursal.Provincia + "\'" +
                 ",Canton=\'" + sucursal.Canton + "\',Distrito=\'" + sucursal.Distrito + "\' WHERE IdSucursal=" + sucursal.IdSucursal;
 

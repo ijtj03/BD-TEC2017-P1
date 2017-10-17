@@ -29,6 +29,7 @@ public class MedicamentosActivity extends AppCompatActivity implements OnListFra
     private RecetasFragment recetasFragment;
     private String SucursalName;
     private String SucursalId;
+    private String Recetaimg=null;
     private FrameLayout container;
     private boolean backstate=true;
     private AlertDialog.Builder builder;
@@ -117,6 +118,7 @@ public class MedicamentosActivity extends AppCompatActivity implements OnListFra
         intent.putExtra("medicinas",PedidoList);
         intent.putExtra("Su_name",SucursalName);
         intent.putExtra("Su_id",SucursalId);
+        intent.putExtra("Imagen",Recetaimg);
         Log.i("Information","hola estoy aqui");
         startActivity(intent);
     }
@@ -128,9 +130,10 @@ public class MedicamentosActivity extends AppCompatActivity implements OnListFra
     }
 
     @Override
-    public void onRecetaSelected(ArrayList<Medicinas> medicinases) {
+    public void onRecetaSelected(ArrayList<Medicinas> medicinases,String imagen) {
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_container,medicinasFragment)
                 .addToBackStack(null).commit();
+        Recetaimg=imagen;
         ArrayList<String> nohay=new ArrayList<>();
         HashMap<String,Medicinas> map=medicinasFragment.Amedicinas.mMapa;
         for(int i=0;i<medicinases.size();++i) {

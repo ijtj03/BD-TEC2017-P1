@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -82,6 +83,10 @@ public class Acount extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
+                JsonObject obj=new JsonObject();
+                obj.addProperty("IdCedula",Client.getInstance().id);
+                DeleteUser(obj.toString());
+
             }
         });
         builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -293,6 +298,32 @@ public class Acount extends AppCompatActivity {
             public void onSuccess(String response){
                 showProgress(false);
                 Toast.makeText(getApplicationContext(), "Actualizacion Exitosa", Toast.LENGTH_LONG).show();
+            }
+            @Override
+            public void onFailure(int statusCode, Throwable error,String content){
+                showProgress(false);
+                Toast.makeText(getApplicationContext(), "Unexpected Error occcured! [Most common Error: Device might not be connected to Internet or remote server is not up and running]", Toast.LENGTH_LONG).show();
+            }
+        });
+
+    }
+    public void DeleteUser(String datos){
+        AsyncHttpClient client = new AsyncHttpClient();
+        Log.i("Json",datos);
+        ByteArrayEntity entity = null;
+        try {
+            entity = new ByteArrayEntity(datos.getBytes("UTF-8"));
+            entity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        Log.d("Entity",entity.toString());
+        client.post(getApplicationContext(),"http://"+Client.getInstance().ip+":64698/api/Persona/DeletePersona",entity,"application/json",new AsyncHttpResponseHandler(){
+            @Override
+            public void onSuccess(String response){
+                showProgress(false);
+                finish();
+                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
             }
             @Override
             public void onFailure(int statusCode, Throwable error,String content){

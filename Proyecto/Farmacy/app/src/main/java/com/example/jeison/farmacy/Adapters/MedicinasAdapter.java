@@ -45,8 +45,8 @@ public class MedicinasAdapter extends RecyclerView.Adapter<MedicinasAdapter.View
         mMapa.put(item.mName,item);
         holder.mItem = item;
         holder.mName.setText(item.mName);
-        holder.mPrice.setText(item.mPrice);
-        holder.mCantidad.setText(item.mCantidad);
+        holder.mPrice.setText("Precio:"+item.mPrice);
+        holder.mCantidad.setText("Cantidad:"+item.mCantidad);
         mValues.get(position).mViewm=holder.mView;
 
         holder.mAdd.setOnClickListener(new View.OnClickListener() {

@@ -57,8 +57,8 @@ public class PedidosAdapter extends RecyclerView.Adapter<PedidosAdapter.ViewHold
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         holder.mName.setText(mValues.get(position).mName);
-        holder.mPrice.setText(mValues.get(position).mPrice);
-        holder.mCantidad.setText(mValues.get(position).mCantidad);
+        holder.mPrice.setText("Precio:"+mValues.get(position).mPrice);
+        holder.mCantidad.setText("Cantidad:"+mValues.get(position).mCantidad);
 
         holder.mAdd.setOnClickListener(new View.OnClickListener() {
             @Override

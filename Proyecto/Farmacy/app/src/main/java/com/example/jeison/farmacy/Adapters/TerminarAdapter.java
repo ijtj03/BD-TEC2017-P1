@@ -51,9 +51,10 @@ public class TerminarAdapter extends RecyclerView.Adapter<TerminarAdapter.ViewHo
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         Medicinas item = mMedicinas.get(position);
         holder.mItem = item;
+        holder.mItem.mCantidad="1";
         holder.mName.setText(item.mName);
-        holder.mPrice.setText(item.mPrice);
-
+        holder.mPrice.setText("Precio:"+item.mPrice);
+        holder.mTotal.setText("Total:"+item.mPrice);
         holder.mAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,7 +75,8 @@ public class TerminarAdapter extends RecyclerView.Adapter<TerminarAdapter.ViewHo
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                Medicinas item=mMedicinas.get(position);
+                holder.mTotal.setText("Total:"+multi(item.mCantidad,item.mPrice));
             }
         });
     }
@@ -83,12 +85,23 @@ public class TerminarAdapter extends RecyclerView.Adapter<TerminarAdapter.ViewHo
         return mMedicinas.size();
     }
 
+    public String multi(String a,String B){
+        if(!a.equals("") && !B.equals("")){
+            int result=Integer.parseInt(a)*Integer.parseInt(B);
+            return Integer.toString(result);
+        }else {
+            return null;
+        }
+
+    }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mName;
         public final TextView mPrice;
         public final EditText mCantidad;
         public final Button mAdd;
+        public final TextView mTotal;
         public Medicinas mItem;
 
         public ViewHolder(View view) {
@@ -97,6 +110,7 @@ public class TerminarAdapter extends RecyclerView.Adapter<TerminarAdapter.ViewHo
             mName = (TextView) view.findViewById(R.id.name);
             mPrice = (TextView) view.findViewById(R.id.price);
             mAdd= (Button) view.findViewById(R.id.check_add);
+            mTotal= (TextView) view.findViewById(R.id.total);
             mCantidad= (EditText) view.findViewById(R.id.cantidad);
             mCantidad.setText("1");
         }

@@ -2,9 +2,9 @@
 
 mainsucursal.controller('MainSucursalController', function ($scope, $http) {
     console.log(window.localStorage.getItem("id"));
-    $http.get('http://localhost:64698/api/Persona/GetSucursalPersona?id=' + window.localStorage.getItem("id"))
+    $http.get('http://localhost:64698/api/Persona/GetSucursalEmpleado?id=' + window.localStorage.getItem("id"))
         .then(function (response) {
-            console.log(response.data);
+            console.log("idsucu",response.data);
             window.localStorage.setItem("idsucursal", response.data);
 
 

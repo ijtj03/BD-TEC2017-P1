@@ -10,16 +10,17 @@ import java.util.List;
 
 public class Pedidos {
     public List<Medicinas> medicamentos;
-    public boolean receta;
-    String numPedido;
-    String Sucursal;
-    String Dater;
-    String Direccion;
+    public String mRecetaimg;
+    public String numPedido;
+    public String Sucursal;
+    public String Dater;
+    public String Direccion;
 
-    public Pedidos(String numpedido,String sucursal,String drecojo,String direccion){
+    public Pedidos(String numpedido,String sucursal,String drecojo,String direccion,String receta){
         this.numPedido=numpedido;
         this.Sucursal=sucursal;
         this.Dater=drecojo;
         this.Direccion=direccion;
+        this.mRecetaimg=receta;
     }
 }

@@ -3,17 +3,24 @@ package com.example.jeison.farmacy;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +58,7 @@ public class PedidosConfigActivity extends AppCompatActivity {
     private static final int REQUEST_READ_CONTACTS = 0;
     private JsonParser mParser=new JsonParser();
     private String Peidoid=null;
+    private AlertDialog.Builder builder;
 
     /**
      * A dummy authentication store containing known user names and passwords.
@@ -74,6 +82,9 @@ public class PedidosConfigActivity extends AppCompatActivity {
     private OnListener mListener;
     private String SuId;
     private String fecha;
+    private ImageView mRecetaImg;
+    private String Receta;
+    private Button SelectReceta;
     private ArrayList<Medicinas> medicinases;
     private String SucursalName;
 
@@ -86,14 +97,18 @@ public class PedidosConfigActivity extends AppCompatActivity {
         // Set up the login form.
         mListener=new OnListener();
         medicinases=new ArrayList<Medicinas>();
-
+        builder=new AlertDialog.Builder(this);
         SucursalName=getIntent().getStringExtra("Su_name");
         SuId=getIntent().getStringExtra("Su_id");
         fecha=getIntent().getStringExtra("Fecha");
+        Peidoid=getIntent().getStringExtra("PedidoId");
+        Receta=getIntent().getStringExtra("Imagen");
         String medicinas=getIntent().getExtras().getString("medicinas");
         stringtoArr(medicinas);
         mDateView=(EditText) findViewById(R.id.dirreccion);
         mDateView.setText(fecha);
+        mRecetaImg=(ImageView) findViewById(R.id.imagen);
+        mRecetaImg.setImageBitmap(decodeBase64(Receta));
         mSucursalView= (TextView) findViewById(R.id.Sucursal);
         mSucursalView.setText("Sucursal de recojo:"+SucursalName);
         mTelefonoView=(EditText) findViewById(R.id.telefono);
@@ -190,6 +205,11 @@ public class PedidosConfigActivity extends AppCompatActivity {
         return match.matches();
     }
 
+    public static Bitmap decodeBase64(String input) {
+        byte[] decodedBytes = Base64.decode(input.getBytes(), Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         int id=item.getItemId();
@@ -197,6 +217,11 @@ public class PedidosConfigActivity extends AppCompatActivity {
             this.finish();
         }else if(id==R.id.action_done){
             showProgress(true);
+            JsonObject obj=new JsonObject();
+            obj.addProperty("FechaRecojo",mDateView.getText().toString());
+            obj.addProperty("IdPedido",Peidoid);
+            obj.addProperty("RecetaImg",Receta);
+            UpdatePedido(obj.toString());
         }
         return super.onOptionsItemSelected(item);
     }
@@ -236,16 +261,42 @@ public class PedidosConfigActivity extends AppCompatActivity {
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
-
-    public void GetPedidoId(){
-        RequestParams params=new RequestParams();
+    public void UpdatePedido(String datos){
         AsyncHttpClient client = new AsyncHttpClient();
-        client.get("http://"+Client.getInstance().ip+":64698/api/Pedido/GetLastPedidoId",params,new AsyncHttpResponseHandler(){
+        ByteArrayEntity entity = null;
+        try {
+            entity = new ByteArrayEntity(datos.getBytes("UTF-8"));
+            entity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        client.post(getApplicationContext(),"http://"+Client.getInstance().ip+":64698/api/Pedido/UpdatePedido",entity,"application/json",new AsyncHttpResponseHandler(){
             @Override
             public void onSuccess(String response){
-                Peidoid=response;
+                UpdateMedicinas();
             }
+            @Override
+            public void onFailure(int statusCode, Throwable error,String content){
+                showProgress(false);
+                Toast.makeText(getApplicationContext(), "Unexpected Error occcured! [Most common Error: Device might not be connected to Internet or remote server is not up and running]", Toast.LENGTH_LONG).show();
+            }
+        });
 
+    }
+    public void updatemedicina(String datos){
+        AsyncHttpClient client = new AsyncHttpClient();
+        ByteArrayEntity entity = null;
+        try {
+            entity = new ByteArrayEntity(datos.getBytes("UTF-8"));
+            entity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        client.post(getApplicationContext(),"http://"+Client.getInstance().ip+":64698/api/PedidoxMedicamento/UpdatePedidoxMedicamento",entity,"application/json",new AsyncHttpResponseHandler(){
+            @Override
+            public void onSuccess(String response){
+
+            }
             @Override
             public void onFailure(int statusCode, Throwable error,String content){
                 showProgress(false);
@@ -253,9 +304,27 @@ public class PedidosConfigActivity extends AppCompatActivity {
             }
         });
     }
-    public void PostMedicinas(){
-        List<Medicinas> medicinases=madapter.getmMedicinas();
+
+    public void UpdateMedicinas(){
+        List<Medicinas> items=madapter.getmMedicinas();
+        for(int i=0;i<items.size();++i){
+            Medicinas item=items.get(i);
+            JsonObject obj=new JsonObject();
+            obj.addProperty("IdPedido",Peidoid);
+            obj.addProperty("IdMedicamento",item.ID);
+            obj.addProperty("Cantidad",item.mCantidad);
+            updatemedicina(obj.toString());
+        }
         showProgress(false);
+        builder.setTitle("Modificacion de Pedido").setMessage("Modificacion de Pedido exitosa");
+        builder.setPositiveButton("Finalizar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+                finish();
+            }
+        });
+        builder.show();
     }
 
 

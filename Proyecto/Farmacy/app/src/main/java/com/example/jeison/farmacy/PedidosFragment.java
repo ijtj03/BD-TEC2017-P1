@@ -68,7 +68,8 @@ public class PedidosFragment extends Fragment {
                     JsonObject obj=sus.get(i).getAsJsonObject();
                     String direccion=obj.get("Provincia").getAsString()+", "+obj.get("Canton").getAsString()+", "+obj.get("Distrito").getAsString();
                     pedidoses.add(new Pedidos(obj.get("IdPedido").getAsString(),
-                            obj.get("NombreSucursal").getAsString(),obj.get("FechaRecojo").getAsString(),direccion));
+                            obj.get("NombreSucursal").getAsString(),obj.get("FechaRecojo").getAsString(),direccion
+                            ,""));
                 }
                 //showProgress(false);
                 mPedidos.setAdapter(new ListPedidosAdapter(pedidoses,mListener));
@@ -100,6 +101,8 @@ public class PedidosFragment extends Fragment {
                     intent.putExtra("Su_name",sucursal);
                     intent.putExtra("Su_id","4");
                     intent.putExtra("Fecha",item.Dater);
+                    intent.putExtra("PedidoId",item.numPedido);
+                    intent.putExtra("Imagen",item.mRecetaimg);
                     startActivity(intent);
 
                 }

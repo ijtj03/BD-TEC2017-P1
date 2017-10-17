@@ -1,0 +1,7 @@
+#Fri Oct 27 17:50:53 CST 2017
+base.0=C\:\\Users\\luism\\git\\Farmacy\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_88e26f327e12f28374dc591104ab1a3c15943620
+renamed.1=classes.dex
+renamed.0=classes2.dex
+file.1=C\:\\Users\\luism\\git\\Farmacy\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_5735b535792962ba9b08c5b026e5c88ed624e20b\\classes.dex
+base.1=C\:\\Users\\luism\\git\\Farmacy\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_5735b535792962ba9b08c5b026e5c88ed624e20b
+file.0=C\:\\Users\\luism\\git\\Farmacy\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_88e26f327e12f28374dc591104ab1a3c15943620\\classes.dex

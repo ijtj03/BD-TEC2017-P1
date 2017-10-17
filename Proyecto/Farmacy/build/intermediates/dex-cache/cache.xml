@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="C:\Users\luism\git\Farmacy\app\libs\httpcore-4.2.3.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="5e92ec56abe188b865642a14e1a037c1253fc42e">
+        <dex dex="C:\Users\luism\git\Farmacy\app\build\intermediates\transforms\dex\debug\folders\1000\2\httpcore-4.2.3_103916ae2cf53d05b5e7c40ae79effe979bdc5fc\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\luism\.android\build-cache\b20159807bf0ad0c214e2eb5329033cc0a64919d\output\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="42dd7a8aa383b6967e640be8149e11b8ada22944">
+        <dex dex="C:\Users\luism\git\Farmacy\app\build\intermediates\transforms\dex\debug\folders\1000\10\classes_b61c7b921dc34f9d7b8652a27770ec8286aefa75\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\luism\git\Farmacy\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="6551817a4cca3463ab4c2b955f1f81040106ebb3">
+        <dex dex="C:\Users\luism\git\Farmacy\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_5735b535792962ba9b08c5b026e5c88ed624e20b\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\luism\git\Farmacy\app\libs\android-async-http-1.4.4.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="3bae85a076241828810bf8fbcc12e5891d5fc34c">
+        <dex dex="C:\Users\luism\git\Farmacy\app\build\intermediates\transforms\dex\debug\folders\1000\2\android-async-http-1.4.4_cb2d8e24eda7b17e1dab30874525ee79127d08c5\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\luism\git\Farmacy\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.1"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="C:\Users\luism\git\Farmacy\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_88e26f327e12f28374dc591104ab1a3c15943620\classes.dex" />
+    </item>
+
+</items>

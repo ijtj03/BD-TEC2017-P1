@@ -41,7 +41,7 @@ namespace Proyecto1.Services
             SqlCommand command;
             conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
             conn.Open();
-            String comm = "Update MedicamentoxCasaFarmaceutica SET PrecioProveedor='" + medicamento.PrecioProveedor + "WHERE IdMedicamento=" + medicamento.IdMedicamento +"and IdCasaFarmaceutica"+medicamento.IdCasaFarmaceutica;
+            String comm = "Update MedicamentoxCasaFarmaceutica SET PrecioProveedor=" + medicamento.PrecioProveedor.ToString() + "WHERE IdMedicamento=" + medicamento.IdMedicamento.ToString() +"and IdCasaFarmaceutica="+medicamento.IdCasaFarmaceutica.ToString();
 
 
             command = new SqlCommand(comm, conn);

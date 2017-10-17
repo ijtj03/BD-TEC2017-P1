@@ -76,7 +76,7 @@ public class SingupActivity extends AppCompatActivity {
         mCedulaView= (EditText) findViewById(R.id.cedula);
         mApellido1= (EditText) findViewById(R.id.apellido1);
         mApellido2=(EditText) findViewById(R.id.apellido2);
-        mDate=(EditText) findViewById(R.id.dirreccion);
+        mDate=(EditText) findViewById(R.id.fecha);
         mNombreView= (EditText) findViewById(R.id.nombre);
         mTelefono= (EditText) findViewById(R.id.telefono);
         mProvincia= (EditText) findViewById(R.id.provincia);

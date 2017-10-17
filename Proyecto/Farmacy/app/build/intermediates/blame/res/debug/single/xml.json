@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "C:\\Users\\luism\\git\\Farmacy\\app\\build\\intermediates\\res\\merged\\debug\\xml\\pref_general.xml",
+        "source": "C:\\Users\\luism\\git\\Farmacy\\app\\src\\main\\res\\xml\\pref_general.xml"
+    },
+    {
+        "merged": "C:\\Users\\luism\\git\\Farmacy\\app\\build\\intermediates\\res\\merged\\debug\\xml\\pref_notification.xml",
+        "source": "C:\\Users\\luism\\git\\Farmacy\\app\\src\\main\\res\\xml\\pref_notification.xml"
+    },
+    {
+        "merged": "C:\\Users\\luism\\git\\Farmacy\\app\\build\\intermediates\\res\\merged\\debug\\xml\\pref_data_sync.xml",
+        "source": "C:\\Users\\luism\\git\\Farmacy\\app\\src\\main\\res\\xml\\pref_data_sync.xml"
+    }
+]

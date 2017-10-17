@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,27 +32,31 @@ public class MainActivity extends AppCompatActivity
     private HistorialFragment historialFragment;
     private boolean first_fragment=true;
     private TextView name;
+    private DrawerLayout drawer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        name=(TextView) findViewById(R.id.nombreUs);
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        View nview=navigationView.getHeaderView(0);
+        name=(TextView) nview.findViewById(R.id.nombreUs);
 
         GetUser();
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+
         sucursalesFragment=new SucursalesFragment();
         pedidosFragment=new PedidosFragment();
         historialFragment=new HistorialFragment();
-        //name.setText(Client.getInstance().Name+" "+Client.getInstance().Apellido1+" "+Client.getInstance().Apellido2);
+
     }
 
     @Override
@@ -132,7 +137,6 @@ public class MainActivity extends AppCompatActivity
         }else{
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -157,7 +161,7 @@ public class MainActivity extends AppCompatActivity
                 Client.getInstance().Direccion=sus.get("DescripcionDireccion").getAsString();
                 Client.getInstance().Fecha=sus.get("FechaNacimiento").getAsString();
 
-
+                name.setText(Client.getInstance().Name+" "+Client.getInstance().Apellido1+" "+Client.getInstance().Apellido2);
 
             }
 

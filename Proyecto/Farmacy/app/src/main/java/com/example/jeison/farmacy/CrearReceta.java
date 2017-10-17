@@ -4,16 +4,25 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Build;
+import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -35,6 +44,9 @@ import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +58,10 @@ public class CrearReceta extends AppCompatActivity {
     private RecyclerView recyclerView;
     private NewRecetaAdapter adapter;
     private String RecetaId;
+    private ImageView RecetaImg;
+    private Button SelButton;
+    private String Receta="";
+    private final int GALERY=200;
     private AlertDialog.Builder builder;
     private ArrayList<Medicinas> toAdd=new ArrayList<Medicinas>();
     private OnListener mListener=new OnListener();
@@ -57,7 +73,29 @@ public class CrearReceta extends AppCompatActivity {
         setContentView(R.layout.activity_crear_receta);
 
         builder=new AlertDialog.Builder(this);
-        builder.setTitle("Creacion de Receta");
+        RecetaImg=(ImageView) findViewById(R.id.img);
+        SelButton=(Button) findViewById(R.id.sel_img);
+        SelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final CharSequence[] options={"Tomar Foto","Elejir de Galeria","Cancelar"};
+                builder.setTitle("Seleccionar fuente").setItems(options, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(options[which]=="Tomar Foto"){
+
+                        }else if(options[which]=="Elejir de Galeria"){
+                            Intent intent=new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            intent.setType("image/*");
+                            startActivityForResult(intent.createChooser(intent,"Seleciona app de imagen"),GALERY);
+                        } else if (options[which]=="Cancelar") {
+                            dialog.cancel();
+                        }
+                    }
+                });
+                builder.show();
+            }
+        });
         mProgressView=(ProgressBar) findViewById(R.id.progressBar);
         mLinearView=(LinearLayout) findViewById(R.id.imagen);
         recyclerView=(RecyclerView) findViewById(R.id.lista);
@@ -67,6 +105,32 @@ public class CrearReceta extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode==GALERY && resultCode==RESULT_OK){
+            Uri path=data.getData();
+            try {
+                final InputStream imageStream = getContentResolver().openInputStream(path);
+                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                Receta=encodeImage(selectedImage);
+                RecetaImg.setImageBitmap(selectedImage);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public String encodeImage(Bitmap bm){
+        String endodeString=null;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.PNG,100,baos);
+        byte[] b = baos.toByteArray();
+        endodeString= Base64.encodeToString(b, Base64.DEFAULT);
+        return endodeString;
     }
 
     @Override
@@ -84,7 +148,7 @@ public class CrearReceta extends AppCompatActivity {
             showProgress(true);
             JsonObject pedido=new JsonObject();
             pedido.addProperty("IdCedula",Client.getInstance().id);
-            pedido.addProperty("RecetaImage","mi imagen");
+            pedido.addProperty("RecetaImage",Receta);
             PostReceta(pedido.toString());
         }
         return super.onOptionsItemSelected(item);
@@ -176,6 +240,7 @@ public class CrearReceta extends AppCompatActivity {
             PostMedicina(medicinaxpedido.toString());
         }
         showProgress(false);
+        builder.setTitle("Creacion de Receta");
         builder.setMessage("Creacion de Receta Exitosa");
         builder.setPositiveButton("Finalizar", new DialogInterface.OnClickListener() {
             @Override

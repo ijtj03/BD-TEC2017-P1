@@ -53,8 +53,9 @@ public class ConfigAdapter extends RecyclerView.Adapter<ConfigAdapter.ViewHolder
         Medicinas item = mMedicinas.get(position);
         holder.mItem = item;
         holder.mName.setText(item.mName);
-        holder.mPrice.setText(item.mPrice);
+        holder.mPrice.setText("Precio:"+item.mPrice);
         holder.mCantidad.setText(item.mCantidad);
+        holder.mTotal.setText("Total:"+multi(item.mCantidad,item.mPrice));
 
         holder.mAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +77,8 @@ public class ConfigAdapter extends RecyclerView.Adapter<ConfigAdapter.ViewHolder
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                Medicinas item=mMedicinas.get(position);
+                holder.mTotal.setText("Total:"+multi(item.mCantidad,item.mPrice));
             }
         });
     }
@@ -85,11 +87,20 @@ public class ConfigAdapter extends RecyclerView.Adapter<ConfigAdapter.ViewHolder
         return mMedicinas.size();
     }
 
+    public String multi(String a,String B){
+        if(!a.equals("") && !B.equals("")){
+            int result=Integer.parseInt(a)*Integer.parseInt(B);
+            return Integer.toString(result);
+        }else {
+            return null;
+        }
+    }
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mName;
         public final TextView mPrice;
         public final EditText mCantidad;
+        public final TextView mTotal;
         public final Button mAdd;
         public Medicinas mItem;
 
@@ -99,6 +110,7 @@ public class ConfigAdapter extends RecyclerView.Adapter<ConfigAdapter.ViewHolder
             mName = (TextView) view.findViewById(R.id.name);
             mPrice = (TextView) view.findViewById(R.id.price);
             mAdd= (Button) view.findViewById(R.id.check_add);
+            mTotal= (TextView) view.findViewById(R.id.total);
             mCantidad= (EditText) view.findViewById(R.id.cantidad);
         }
 

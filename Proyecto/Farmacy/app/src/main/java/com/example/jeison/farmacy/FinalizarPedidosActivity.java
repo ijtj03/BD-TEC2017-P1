@@ -3,6 +3,13 @@ package com.example.jeison.farmacy;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Build;
@@ -10,11 +17,14 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +43,9 @@ import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
@@ -72,8 +85,13 @@ public class FinalizarPedidosActivity extends AppCompatActivity {
     private TerminarAdapter madapter;
     private OnListener mListener;
     private String SuId;
+    private String RecetaImg;
+    private ImageView mReceta;
+    private Button SelectImg;
     private ArrayList<Medicinas> medicinases;
     private String SucursalName;
+    private AlertDialog.Builder builder;
+    private final int GALERY=200;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,16 +100,45 @@ public class FinalizarPedidosActivity extends AppCompatActivity {
 
 
         // Set up the login form.
-        mListener=new OnListener();
-        medicinases=new ArrayList<Medicinas>();
+        mListener = new OnListener();
+        medicinases = new ArrayList<Medicinas>();
 
-        SucursalName=getIntent().getStringExtra("Su_name");
-        SuId=getIntent().getStringExtra("Su_id");
-        String medicinas=getIntent().getExtras().getString("medicinas");
+        builder=new AlertDialog.Builder(this);
+        SucursalName = getIntent().getStringExtra("Su_name");
+        SuId = getIntent().getStringExtra("Su_id");
+        RecetaImg=null;
+        String medicinas = getIntent().getExtras().getString("medicinas");
         stringtoArr(medicinas);
+        builder=new AlertDialog.Builder(this);
+        mReceta=(ImageView) findViewById(R.id.imagen);
+        if(RecetaImg!=null){
+            mReceta.setImageBitmap(decodeBase64(RecetaImg));
+        }
+        SelectImg=(Button) findViewById(R.id.sel_img);
+        SelectImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final CharSequence[] options={"Tomar Foto","Elejir de Galeria","Cancelar"};
+                builder.setTitle("Seleccionar fuente").setItems(options, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if(options[which]=="Tomar Foto"){
+
+                        }else if(options[which]=="Elejir de Galeria"){
+                            Intent intent=new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            intent.setType("image/*");
+                            startActivityForResult(intent.createChooser(intent,"Seleciona app de imagen"),GALERY);
+                        } else if (options[which]=="Cancelar") {
+                            dialog.cancel();
+                        }
+                    }
+                });
+                builder.show();
+            }
+        });
         mDateView=(EditText) findViewById(R.id.dirreccion);
         mSucursalView= (TextView) findViewById(R.id.Sucursal);
-        mSucursalView.setText("Sucursal de recojo:"+SucursalName);
+        mSucursalView.setText("Sucursal de recojo: "+SucursalName);
         mTelefonoView=(EditText) findViewById(R.id.telefono);
         mTelefonoView.setText(Client.getInstance().Telefono);
 
@@ -129,6 +176,36 @@ public class FinalizarPedidosActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode==GALERY && resultCode==RESULT_OK){
+            Uri path=data.getData();
+            try {
+                final InputStream imageStream = getContentResolver().openInputStream(path);
+                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                RecetaImg=encodeImage(selectedImage);
+                mReceta.setImageBitmap(selectedImage);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static Bitmap decodeBase64(String input) {
+        byte[] decodedBytes = Base64.decode(input.getBytes(), Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+    }
+    public String encodeImage(Bitmap bm){
+        String endodeString=null;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.PNG,100,baos);
+        byte[] b = baos.toByteArray();
+        endodeString= Base64.encodeToString(b, Base64.DEFAULT);
+        return endodeString;
     }
 
     /**
@@ -204,6 +281,7 @@ public class FinalizarPedidosActivity extends AppCompatActivity {
             pedido.addProperty("IdSucursal",SuId);
             pedido.addProperty("Estado","0");
             pedido.addProperty("FechaRecojo",mDateView.getText().toString());
+            pedido.addProperty("RecetaImg","");
             PostPedido(pedido.toString());
         }
         return super.onOptionsItemSelected(item);
@@ -246,6 +324,7 @@ public class FinalizarPedidosActivity extends AppCompatActivity {
     }
 
     public void PostPedido(String datos){
+        Log.d("Json",datos);
         AsyncHttpClient client = new AsyncHttpClient();
         ByteArrayEntity entity = null;
         try {
@@ -296,6 +375,15 @@ public class FinalizarPedidosActivity extends AppCompatActivity {
             PostMedicina(medicinaxpedido.toString());
         }
         showProgress(false);
+        builder.setTitle("Creacion de Pedido").setMessage("Crecion de Pedido Exitosa");
+        builder.setPositiveButton("Finalizar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                finish();
+            }
+        });
+        builder.show();
     }
 
     public void PostMedicina(String datos){

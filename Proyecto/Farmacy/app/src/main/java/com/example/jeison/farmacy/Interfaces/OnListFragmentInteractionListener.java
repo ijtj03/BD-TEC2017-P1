@@ -17,5 +17,5 @@ public interface OnListFragmentInteractionListener {
     void onPedidoFragmentInteration(Medicinas item,boolean checked,View view);
     void onTerminarPedidoInteration(String PedidoList);
     void onBorrarReceta(Recetas item,View view);
-    void onRecetaSelected(ArrayList<Medicinas> medicinases);
+    void onRecetaSelected(ArrayList<Medicinas> medicinases,String imagen);
 }

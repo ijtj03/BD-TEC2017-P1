@@ -1,5 +1,7 @@
 insert PersonaxRol(IdCedula,IdRol) values (111111111,3);
 insert PersonaxRol(IdCedula,IdRol) values (222222222,3);
+insert PersonaxRol(IdCedula,IdRol) values (444444444,3);
+insert PersonaxRol(IdCedula,IdRol) values (555555555,3);
 insert PersonaxRol(IdCedula,IdRol) values (0,2);
 insert PersonaxRol(IdCedula,IdRol) values (116820975,1);
 insert PersonaxRol(IdCedula,IdRol) values (116880380,1);

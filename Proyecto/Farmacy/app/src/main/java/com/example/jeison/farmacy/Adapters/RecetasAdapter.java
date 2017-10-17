@@ -1,6 +1,9 @@
 package com.example.jeison.farmacy.Adapters;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,11 +71,12 @@ public class RecetasAdapter extends RecyclerView.Adapter<RecetasAdapter.ViewHold
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).mId);
         holder.mContentView.setText(mValues.get(position).mContent);
+        holder.mImageView.setImageBitmap(decodeBase64(mValues.get(position).mImagen));
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GetMedicinas(holder.mItem.mId);
+                GetMedicinas(holder.mItem.mId,holder.mItem.mImagen);
             }
         });
         holder.mBorrar.setOnClickListener(new View.OnClickListener() {
@@ -84,7 +88,7 @@ public class RecetasAdapter extends RecyclerView.Adapter<RecetasAdapter.ViewHold
             }
         });
     }
-    public void GetMedicinas(String id){
+    public void GetMedicinas(String id,final String img){
         RequestParams params=new RequestParams();
         params.put("id",id);
         AsyncHttpClient client = new AsyncHttpClient();
@@ -99,7 +103,7 @@ public class RecetasAdapter extends RecyclerView.Adapter<RecetasAdapter.ViewHold
                     medicinases.add(new Medicinas(obj.get("Nombre").getAsString(),obj.get("Precio").getAsString(),
                             obj.get("Cantidad").getAsString(),obj.get("IdMedicamento").getAsString()));
                 }
-                mListener.onRecetaSelected(medicinases);
+                mListener.onRecetaSelected(medicinases,img);
 
 
 
@@ -112,6 +116,11 @@ public class RecetasAdapter extends RecyclerView.Adapter<RecetasAdapter.ViewHold
             }
         });
     }
+    public static Bitmap decodeBase64(String input) {
+        byte[] decodedBytes = Base64.decode(input.getBytes(), Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+    }
+
     public void DelReceta(String datos, final View view, final ViewHolder viewHolder){
         AsyncHttpClient client = new AsyncHttpClient();
         Log.i("Json",datos);

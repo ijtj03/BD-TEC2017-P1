@@ -115,16 +115,12 @@ namespace Proyecto1.Services
 
         }
 
-<<<<<<< HEAD
-        public void EliminarEmpleadosxSucursal([FromBody]int id)
-=======
-        public void BorrarPersona([FromBody]Persona persona)
->>>>>>> f54da4c74268aa80f1346dcc55954139c7d5bb5a
-        {
+
+        public void EliminarEmpleadosxSucursal([FromBody]int id) {
+
             System.Data.SqlClient.SqlConnection conn;
             SqlCommand command;
 
-<<<<<<< HEAD
             conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
             conn.Open();
 
@@ -134,7 +130,13 @@ namespace Proyecto1.Services
             command.ExecuteNonQuery();
             conn.Close();
 
-=======
+        }
+
+        public void BorrarPersona([FromBody]Persona persona)
+        {
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+
             conn = new SqlConnection("Data Source=MELENDEZ-JEISON\\SQLEXPRESS;Initial Catalog=Proyecto1;Integrated Security=True");
             conn.Open();
 
@@ -145,7 +147,7 @@ namespace Proyecto1.Services
             command.Parameters.Add(IdCedula);
             command.ExecuteNonQuery();
             conn.Close();
->>>>>>> f54da4c74268aa80f1346dcc55954139c7d5bb5a
+
         }
 
 

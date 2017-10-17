@@ -7,6 +7,23 @@
 
     <script src="../../../Scripts/angular.js"></script>
     <script src="../../../Scripts - Views/estadistica.js"></script>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: center;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
     
 </head>
 <body>
@@ -25,9 +42,9 @@
             </ul>
         </nav>
     </header>
-    <section id='main'>
+    <section id='main' ng-controller="AllController">
 
-        <div  ng-controller="AllController">
+        <div >
             <center>
                 <h1>Productos mas vendidos por el sistema</h1>
                 <table>
@@ -37,12 +54,41 @@
                     </tr>
                     <tr ng-repeat="x in AllValue">
                         <td>{{ x.Nombre }}</td>
-                        <td>{{ x.Cantdad }}</td>
+                        <td>{{ x.Cantidad }}</td>
                     </tr>
                 </table>
             </center>
         </div>
-
+        <div>
+            <center>
+                <h1>Productos mas vendidos por la empresa</h1>
+                <table>
+                    <tr>
+                        <td>MEDICAMENTO</td>
+                        <td>CANTIDAD DE VENTAS</td>
+                    </tr>
+                    <tr ng-repeat="x in cantidadesValue">
+                        <td>{{ x.Nombre }}</td>
+                        <td>{{ x.Cantidad }}</td>
+                    </tr>
+                </table>
+            </center>
+        </div>
+        <div>
+            <center>
+                <h1>Ventas por empresa</h1>
+                <table>
+                    <tr>
+                        <td>MEDICAMENTO</td>
+                        <td>CANTIDAD DE VENTAS</td>
+                    </tr>
+                    <tr ng-repeat="x in ventasValue">
+                        <td>{{ x.Nombre }}</td>
+                        <td>{{ x.Venta }}</td>
+                    </tr>
+                </table>
+            </center>
+        </div>
     </section>
 
 </body>

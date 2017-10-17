@@ -319,7 +319,7 @@ namespace Proyecto1.Services
             conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
             conn.Open();
 
-            command = new SqlCommand("SELECT Sucursal.IdSucursal FROM Persona INNER JOIN PersonaxSucursal ON Persona.IdCedula=PersonaxSucursal.IdCedula INNER JOIN Sucursal ON Sucursal.IdSucursal=PersonaxSucursal.IdSucursal WHERE Persona.LogicDelete!=1 AND Persona.IdCedula=" + id.ToString(), conn);
+            command = new SqlCommand("SELECT Sucursal.IdSucursal FROM Sucursal WHERE LogicDelete!=1 AND Administrador=" + id.ToString(), conn);
 
             read = command.ExecuteReader();
 

@@ -32,8 +32,7 @@ namespace Proyecto1.Services
                 ListProductos.Add(pro);
 
             }
-
-            command.ExecuteNonQuery();
+            
             conn.Close();
             return ListProductos;
 
@@ -61,8 +60,7 @@ namespace Proyecto1.Services
                 ListProductos.Add(pro);
 
             }
-
-            command.ExecuteNonQuery();
+            
             conn.Close();
             return ListProductos;
 
@@ -90,8 +88,7 @@ namespace Proyecto1.Services
                 ListProductos.Add(pro);
 
             }
-
-            command.ExecuteNonQuery();
+            
             conn.Close();
             return ListProductos;
 

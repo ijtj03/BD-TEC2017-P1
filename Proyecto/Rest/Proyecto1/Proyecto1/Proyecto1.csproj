@@ -167,6 +167,7 @@
     <Content Include="Scripts - Views\AddReceta.js" />
     <Content Include="Scripts - Views\EditPerfil.js" />
     <Content Include="Scripts - Views\Enfermedades.js" />
+    <Content Include="Scripts - Views\estadistica.js" />
     <Content Include="Scripts - Views\GestionClientesAgregar.js" />
     <Content Include="Scripts - Views\GestionEmpleado.js" />
     <Content Include="Scripts - Views\GestionMedicamento.js" />
@@ -1004,6 +1005,8 @@
     <Compile Include="Classes\Persona.cs" />
     <Compile Include="Classes\PersonaXRol.cs" />
     <Compile Include="Classes\PersonaxSucursal.cs" />
+    <Compile Include="Classes\ProductosVentas.cs" />
+    <Compile Include="Classes\ProductoxVenta.cs" />
     <Compile Include="Classes\Receta.cs" />
     <Compile Include="Classes\Rol.cs" />
     <Compile Include="Classes\Sucursal.cs" />
@@ -1011,6 +1014,7 @@
     <Compile Include="Controllers\EmpresaController.cs" />
     <Compile Include="Controllers\EnfermedadController.cs" />
     <Compile Include="Controllers\EnfermedadxPersonaController.cs" />
+    <Compile Include="Controllers\EstadisticaController.cs" />
     <Compile Include="Controllers\MedicamentoController.cs" />
     <Compile Include="Controllers\MedicamentoxCasaFarmaceuticaController.cs" />
     <Compile Include="Controllers\MedicamentoxRecetaController.cs" />
@@ -1027,6 +1031,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\EstadisticaService.cs" />
     <Compile Include="Services\MedicamentoxRecetaService.cs" />
     <Compile Include="Services\PersonaxRolService.cs" />
     <Compile Include="Services\RecetaService.cs" />

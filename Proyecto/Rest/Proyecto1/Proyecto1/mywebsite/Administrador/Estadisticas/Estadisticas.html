@@ -1,9 +1,13 @@
 ﻿<!DOCTYPE html>
-<html>
+<html ng-app="Estadistica">
 <head>
     <meta charset="utf-8" />
     <title>Estadisticas</title>
     <link rel='stylesheet' href='/mywebsite/css/styles.css'>
+
+    <script src="../../../Scripts/angular.js"></script>
+    <script src="../../../Scripts - Views/estadistica.js"></script>
+    
 </head>
 <body>
     <header>
@@ -21,5 +25,27 @@
             </ul>
         </nav>
     </header>
+    <section id='main'>
+
+        <div  ng-controller="AllController">
+            <center>
+                <h1>Productos mas vendidos por el sistema</h1>
+                <table>
+                    <tr>
+                        <td>MEDICAMENTO</td>
+                        <td>CANTIDAD DE VENTAS</td>
+                    </tr>
+                    <tr ng-repeat="x in AllValue">
+                        <td>{{ x.Nombre }}</td>
+                        <td>{{ x.Cantdad }}</td>
+                    </tr>
+                </table>
+            </center>
+        </div>
+
+    </section>
+
 </body>
+
+
 </html>

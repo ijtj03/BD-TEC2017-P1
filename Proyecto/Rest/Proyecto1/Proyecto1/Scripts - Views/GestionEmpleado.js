@@ -158,7 +158,7 @@ GestionEmpleado.controller('ModificarContoller', function ($scope, $http, $locat
             var editSucursal = {
                 IdCedula: $scope.cedula,
                 SalarioHora: sala,
-                IdSucrsal: 1, //Number(window.localStorage.getItem("idSucursal")),
+                IdSucrsal: Number(window.localStorage.getItem("idSucursal")),
             };
             console.log(editUsuario)
             console.log(editSucursal)

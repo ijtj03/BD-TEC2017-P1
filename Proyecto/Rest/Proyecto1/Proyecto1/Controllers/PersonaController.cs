@@ -53,7 +53,15 @@ namespace Proyecto1.Controllers
             con.DeletePersona(cedula);
         }
 
+        [HttpPut]
+        [Route("EliminarEmpleadosxSucursal")]
+        public void EliminarEmpleadosxSucursal([FromBody]int id)
+        {
+            PersonaService con = new PersonaService();
+            con.EliminarEmpleadosxSucursal(id);
+        }
 
+        
         [HttpGet]
         [Route("SignInVerification")]
         public IHttpActionResult SignInVerification(int id, string contraseña)
@@ -86,6 +94,22 @@ namespace Proyecto1.Controllers
             return Ok(con.GetSucursalPersona(id));
         }
 
+        [HttpGet]
+        [Route("GetAllAdministrador")]
+        public IHttpActionResult GetAllAdministrador()
+        {
+            PersonaService con = new PersonaService();
+            return Ok(con.GetAllAdministrador());
+        }
+
+        [HttpGet]
+        [Route("GetIdPersona")]
+        public IHttpActionResult GetIdPersona(String nombre)
+        {
+            PersonaService con = new PersonaService();
+            return Ok(con.GetIdPersona(nombre));
+        }
+        
 
     }
 }

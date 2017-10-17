@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html ng-app="GestionSucursal">
 <head>
     <meta charset="utf-8" />
     <title>Gestion de Sucursales</title>
@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
     <link rel='stylesheet' href='/mywebsite/css/styles.css'>
+
+    <script src="../../../Scripts/angular.js"></script>
+    <script src="../../../Scripts - Views/GestionSucursal.js"></script>
+
 </head>
 <body>
     <div id='page'>
@@ -49,6 +53,33 @@
                     </div>
                 </center>
             </div>
+
+            <section id='registro'>
+                <form action="" method="post" ng-controller="ModificarController">
+                    <center>
+                        <h2>Modificar Sucursal</h2>
+                        Seleccione la Sucursal que desea Modificar: <select ng-model="sucursal" ng-options="x for x in sucursales"></select>
+                        <br><br>
+                        <button type="button" class="button button-primary" ng-click="buscar()">Buscar</button>
+                        <br><br>
+                        <input type="text" class='field' value="{{Datos.Nombre}}" placeholder='Nombre' id="nombre" required />
+                        <br><br>
+                        Administrador Asignado : <select ng-model="administrador" ng-options="x for x in administradores"></select>
+                        <br><br>
+                        <input type="text" class='field' value="{{Datos.Provincia}}" placeholder='Provincia' id="provincia" required />
+                        <br><br>
+                        <input type="text" class='field' value="{{Datos.Canton}}" placeholder='Canton' id="canton" required />
+                        <br><br>
+                        <input type="text" class='field' value="{{Datos.Distrito}}" placeholder='Distrito' id="distrito" required />
+                        <br><br>
+                        <input type="text" class='field' value="{{Datos.DescripcionDireccion}}" placeholder='Direccion' id="direccion" required />
+                        <br><br>
+                        <button type="button" class="button button-primary" ng-click="modificar()">Modificar Sucursal</button>
+                    </center>
+                </form>
+            </section>
+
+
         </section>
     </div>
 </body>

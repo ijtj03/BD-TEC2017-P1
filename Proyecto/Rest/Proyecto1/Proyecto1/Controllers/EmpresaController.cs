@@ -26,5 +26,14 @@ namespace Proyecto1.Controllers
             EmpresaService con = new EmpresaService();
             con.PostEmpresa(empresa);
         }
+
+        [HttpGet]
+        [Route("GetIdEmpresa")]
+        public IHttpActionResult GetIdEmpresa(int id)
+        {
+            EmpresaService con = new EmpresaService();
+            return Ok(con.GetIdEmpresa(id));
+        }
+       
     }
 }

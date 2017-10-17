@@ -115,6 +115,22 @@ namespace Proyecto1.Services
 
         }
 
+        public void EliminarEmpleadosxSucursal([FromBody]int id)
+        {
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+
+            /**command = new SqlCommand("UPDATE PS SET PS.IdSucursal = -1 FROM Persona AS P INNER JOIN PersonaxSucursal AS PS ON P.IdCedula = PS.IdCedula INNER JOIN Sucursal AS S ON S.IdSucursal = PS.IdSucursal INNER JOIN Empresa AS E ON E.IdEmpresa = S.IdEmpresa WHERE S.IdSucursal=" + id.ToString(), conn);
+            command.ExecuteNonQuery();*/
+            command = new SqlCommand("UPDATE P SET P.LogicDelete = 1 FROM Persona AS P INNER JOIN PersonaxSucursal AS PS ON P.IdCedula = PS.IdCedula INNER JOIN Sucursal AS S ON S.IdSucursal = PS.IdSucursal INNER JOIN Empresa AS E ON E.IdEmpresa = S.IdEmpresa WHERE S.IdSucursal =" + id.ToString(), conn);
+            command.ExecuteNonQuery();
+            conn.Close();
+
+        }
+
 
         public void PostPersona([FromBody] Persona persona)
         {
@@ -300,6 +316,50 @@ namespace Proyecto1.Services
 
         }
 
+        public List<String> GetAllAdministrador()
+        {
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+            SqlDataReader read;
+
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+            command = new SqlCommand("SELECT P.Nombre FROM Persona AS P INNER JOIN PersonaxRol AS PR ON  P.IdCedula = PR.IdCedula INNER JOIN Rol AS R ON PR.IdRol = R.IdRol WHERE R.Nombre = 'Administrador' and P.LogicDelete = 0", conn);
+            read = command.ExecuteReader();
+
+            List<String> ListPersonas = new List<String>();
+            while (read.Read())
+            {
+                String Nombre = read["Nombre"].ToString();
+                ListPersonas.Add(Nombre);
+
+            }
+            read.Close();
+            conn.Close();
+            return ListPersonas;
+        }
+
+        public int GetIdPersona(String nombre)
+        {
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+            SqlDataReader read;
+
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+            command = new SqlCommand("SELECT IdCedula FROM Persona WHERE LogicDelete = 0 and Nombre ='"+ nombre+"'", conn);
+            read = command.ExecuteReader();
+
+            int cedula = -1;
+            while (read.Read())
+            {
+                cedula = Convert.ToInt32(read["IdCedula"]);
+
+            }
+            read.Close();
+            conn.Close();
+            return cedula;
+        }
 
 
     }

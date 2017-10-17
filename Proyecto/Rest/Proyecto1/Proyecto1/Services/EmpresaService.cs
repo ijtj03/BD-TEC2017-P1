@@ -46,5 +46,23 @@ namespace Proyecto1.Services
             conn.Close();
 
         }
+
+        public int GetIdEmpresa(int id)
+        {
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+            SqlDataReader read;
+            Console.WriteLine("Numero de sucursal"+ id);
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+            command = new SqlCommand("SELECT E.IdEmpresa FROM Sucursal AS S INNER JOIN Empresa AS E ON S.IdEmpresa = E.IdEmpresa WHERE E.LogicDelete = 0 and S.LogicDelete = 0 and S.IdSucursal="+ id.ToString() , conn);
+            read = command.ExecuteReader();
+            int IDE = -1;
+            while (read.Read())
+            {
+                IDE = Convert.ToInt32(read["IdEmpresa"]);
+            }
+            return IDE;
+        }
     }
 }

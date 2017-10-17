@@ -10,9 +10,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
     <link rel='stylesheet' href='/mywebsite/css/styles.css'>
 
-    <script src="/Scripts/angular.js"></script>
-    <script src="/Scripts/angular-route.js"></script>
-    <script src="/Scripts - Views/GestionSucursal.js"></script>
+    <script src="../../../Scripts/angular.js"></script>
+    <script src="../../../Scripts - Views/GestionSucursal.js"></script>
 
 </head>
 <body>
@@ -59,21 +58,18 @@
                 <form action="" method="post" ng-controller="GestionSucursalController">
                     <center>
                         <h2>Agregar Sucursal</h2>
-                        <input type="number" class='field' value='' placeholder='Id de empresa de la nueva sucursal' name='txtIdEmpresa' ng-model="IdEmpresa" required />
-                        <br><br>
                         <input type="text" class='field' value='' placeholder='Nombre' name='txtnombre' ng-model="nombre" required />
                         <br><br>
-                        <input type="number" class='field' value='' placeholder='Administrador Asignado' name='txtAdministrador' ng-model="IdAdministrador" required />
+                        Administrador Asignado : <select ng-model="administrador" ng-options="x for x in administradores"></select>
                         <br><br>
-                        <input type="text" class='field' value='' placeholder='Provincia' name='txtprovincia' ng-model="provincia" required />
+                        <input type="text" class='field' value='' placeholder='Provincia'  ng-model="provincia" required />
                         <br><br>
-                        <input type="text" class='field' value='' placeholder='Canton' name='txtcanton' ng-model="canton" required />
+                        <input type="text" class='field' value='' placeholder='Canton'  ng-model="canton" required />
                         <br><br>
-                        <input type="text" class='field' value='' placeholder='Distrito' name='txtdistrito' ng-model="distrito" required />
+                        <input type="text" class='field' value='' placeholder='Distrito'  ng-model="distrito" required />
                         <br><br>
-                        <input type="text" class='field' value='' placeholder='Direccion' name='txtdir' ng-model="direccion" required />
+                        <input type="text" class='field' value='' placeholder='Direccion'  ng-model="direccion" required />
                         <br><br>
-
                         <button type="button" class="button button-primary" ng-click="agregar()">Agregar</button>
                     </center>
                 </form>

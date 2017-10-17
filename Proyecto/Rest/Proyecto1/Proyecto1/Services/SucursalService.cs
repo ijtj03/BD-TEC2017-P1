@@ -43,6 +43,71 @@ namespace Proyecto1.Services
             return ListSucursales;
         }
 
+        public List<String> GetAllNombreSucursales(int id)
+        {
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+            SqlDataReader read;
+
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+            command = new SqlCommand("SELECT S.Nombre FROM Sucursal AS S INNER JOIN Empresa AS E ON S.IdEmpresa = E.IdEmpresa WHERE E.LogicDelete = 0 and S.LogicDelete = 0 and S.IdEmpresa=" + id.ToString(), conn);
+            read = command.ExecuteReader();
+
+            List<String> ListSucursales = new List<String>();
+            while (read.Read())
+            {
+                String Nombre = read["Nombre"].ToString();
+                ListSucursales.Add(Nombre);
+
+            }
+            read.Close();
+            conn.Close();
+            return ListSucursales;
+        }
+
+        public int GetIdSucursal(String nombre)
+        {
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+            SqlDataReader read;
+
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+            command = new SqlCommand("SELECT IdSucursal FROM Sucursal WHERE LogicDelete = 0 and Nombre ='" + nombre + "'", conn);
+            read = command.ExecuteReader();
+
+            int idSucursal = -1;
+            while (read.Read())
+            {
+                idSucursal = Convert.ToInt32(read["IdSucursal"]);
+
+            }
+            read.Close();
+            conn.Close();
+            return idSucursal;
+        }
+
+        public int GetLastSucursalId()
+        {
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+            SqlDataReader read;
+
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+            command = new SqlCommand("select max(Sucursal.IdSucursal) as LastId from Sucursal where LogicDelete = 0", conn);
+            read = command.ExecuteReader();
+            int ans = -1;
+            while (read.Read())
+            {
+                ans = Convert.ToInt32(read["LastId"]);
+            }
+            read.Close();
+            conn.Close();
+            return ans;
+        }
+
         public Sucursal GetSucursal(int IdSucursal)
         {
             System.Data.SqlClient.SqlConnection conn;
@@ -115,6 +180,24 @@ namespace Proyecto1.Services
 
             conn.Close();
 
+        }
+
+        public void UpdateSucursal([FromBody] Sucursal sucursal)
+        {
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+            String comm = "Update Sucursal SET Nombre=\'" + sucursal.Nombre + "\',Administrador=\'" + sucursal.Administrador +
+                "\',DescripcionDireccion=\'" + sucursal.DescripcionDireccion + "\',Provincia=\'" + sucursal.Provincia + "\'" +
+                ",Canton=\'" + sucursal.Canton + "\',Distrito=\'" + sucursal.Distrito + "\' WHERE IdSucursal=" + sucursal.IdSucursal;
+
+
+            command = new SqlCommand(comm, conn);
+
+            command.ExecuteNonQuery();
+            conn.Close();
         }
 
 

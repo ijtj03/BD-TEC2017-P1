@@ -174,10 +174,8 @@ namespace Proyecto1.Services
             SqlParameter FechaRecojo = new SqlParameter("@FechaRecojo", System.Data.SqlDbType.Date);
             FechaRecojo.Value = pedido.FechaRecojo;
             
-            SqlParameter RecetaImg = new SqlParameter("@RecetaImg", System.Data.SqlDbType.VarChar);
-            RecetaImg.Value = pedido.RecetaImg;
             
-            command = new SqlCommand("update Pedido set FechaRecojo=@FechaRecojo,RecetaImg=@RecetaImg where IdPedido = @IdPedido", conn);
+            command = new SqlCommand("update Pedido set FechaRecojo=@FechaRecojo where IdPedido = @IdPedido", conn);
             command.Parameters.Add(IdPedido);
             command.Parameters.Add(FechaRecojo);
             command.ExecuteNonQuery();

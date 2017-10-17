@@ -13,5 +13,6 @@ namespace Proyecto1.Classes
         public string Canton { get; set; }
         public string Distrito { get; set; }
         public DateTime FechaRecojo { get; set; }
+        public string RecetaImg { get; set; }
     }
 }

@@ -115,11 +115,16 @@ namespace Proyecto1.Services
 
         }
 
+<<<<<<< HEAD
         public void EliminarEmpleadosxSucursal([FromBody]int id)
+=======
+        public void BorrarPersona([FromBody]Persona persona)
+>>>>>>> f54da4c74268aa80f1346dcc55954139c7d5bb5a
         {
             System.Data.SqlClient.SqlConnection conn;
             SqlCommand command;
 
+<<<<<<< HEAD
             conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
             conn.Open();
 
@@ -129,6 +134,18 @@ namespace Proyecto1.Services
             command.ExecuteNonQuery();
             conn.Close();
 
+=======
+            conn = new SqlConnection("Data Source=MELENDEZ-JEISON\\SQLEXPRESS;Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+
+            SqlParameter IdCedula = new SqlParameter("@IdCedula", System.Data.SqlDbType.Int);
+            IdCedula.Value = persona.IdCedula;
+
+            command = new SqlCommand("UPDATE Persona SET LogicDelete = 1  WHERE IdCedula=@IdCedula", conn);
+            command.Parameters.Add(IdCedula);
+            command.ExecuteNonQuery();
+            conn.Close();
+>>>>>>> f54da4c74268aa80f1346dcc55954139c7d5bb5a
         }
 
 
@@ -202,7 +219,7 @@ namespace Proyecto1.Services
             conn.Open();
 
             
-            command = new SqlCommand("SELECT Contraseña from Persona WHERE IdCedula="+id.ToString(), conn);
+            command = new SqlCommand("SELECT Contraseña from Persona WHERE IdCedula="+id.ToString()+" and LogicDelete=0", conn);
 
             read = command.ExecuteReader();
 

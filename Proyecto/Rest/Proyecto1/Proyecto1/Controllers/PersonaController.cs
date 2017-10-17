@@ -53,12 +53,21 @@ namespace Proyecto1.Controllers
             con.DeletePersona(cedula);
         }
 
+<<<<<<< HEAD
         [HttpPut]
         [Route("EliminarEmpleadosxSucursal")]
         public void EliminarEmpleadosxSucursal([FromBody]int id)
         {
             PersonaService con = new PersonaService();
             con.EliminarEmpleadosxSucursal(id);
+=======
+        [HttpPost]
+        [Route("DeletePersona")]
+        public void DeletePersona([FromBody] Persona persona)
+        {
+            PersonaService con = new PersonaService();
+            con.BorrarPersona(persona);
+>>>>>>> f54da4c74268aa80f1346dcc55954139c7d5bb5a
         }
 
         

@@ -115,6 +115,23 @@ namespace Proyecto1.Services
 
         }
 
+        public void BorrarPersona([FromBody]Persona persona)
+        {
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+
+            conn = new SqlConnection("Data Source=MELENDEZ-JEISON\\SQLEXPRESS;Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+
+            SqlParameter IdCedula = new SqlParameter("@IdCedula", System.Data.SqlDbType.Int);
+            IdCedula.Value = persona.IdCedula;
+
+            command = new SqlCommand("UPDATE Persona SET LogicDelete = 1  WHERE IdCedula=@IdCedula", conn);
+            command.Parameters.Add(IdCedula);
+            command.ExecuteNonQuery();
+            conn.Close();
+        }
+
 
         public void PostPersona([FromBody] Persona persona)
         {
@@ -186,7 +203,7 @@ namespace Proyecto1.Services
             conn.Open();
 
             
-            command = new SqlCommand("SELECT Contraseña from Persona WHERE IdCedula="+id.ToString(), conn);
+            command = new SqlCommand("SELECT Contraseña from Persona WHERE IdCedula="+id.ToString()+" and LogicDelete=0", conn);
 
             read = command.ExecuteReader();
 

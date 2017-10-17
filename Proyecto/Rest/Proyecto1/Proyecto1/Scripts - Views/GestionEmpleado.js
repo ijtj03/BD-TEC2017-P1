@@ -45,7 +45,7 @@ GestionEmpleado.controller('AgregarController', function ($scope, $http) {
 
                 var PXS = {
                     IdCedula: $scope.cedula,
-                    IdSucursal: 1,//Number(window.localStorage.getItem("idSucursal")),
+                    IdSucursal: Number(window.localStorage.getItem("idSucursal")),
                     SalarioHora: $scope.salario,
                 }
 

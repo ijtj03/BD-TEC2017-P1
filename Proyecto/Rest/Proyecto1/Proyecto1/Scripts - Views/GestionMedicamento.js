@@ -41,7 +41,7 @@ GestionMedicamento.controller('GestionMedicamentoController', function ($scope, 
                                 console.log(medicamentoxCasaFarmaceutica)
                                 var medicamentoxSucursal = {
                                     IdMedicamento: idData,
-                                    IdSucursal:1,// Number(window.localStorage.getItem("idSucursal")),
+                                    IdSucursal: Number(window.localStorage.getItem("idSucursal")),
                                     PrecioSucursal: $scope.pSucursal,
                                     Cantidad: $scope.cantidad,
                                 }
@@ -66,7 +66,7 @@ GestionMedicamento.controller('GestionMedicamentoController', function ($scope, 
 });
 
 GestionMedicamento.controller("EliminarController", function ($scope, $http, $location) {
-    $http.get("http://localhost:64698/api/Medicamento/GetAllNombresMedicamentosxSucursal?id=" +1)
+    $http.get("http://localhost:64698/api/Medicamento/GetAllNombresMedicamentosxSucursal?id=" + window.localStorage.getItem("idSucursal"))
         .then(function (response) {
             console.log("Getting");
             $scope.medicamentos = response.data;
@@ -93,7 +93,7 @@ GestionMedicamento.controller("EliminarController", function ($scope, $http, $lo
 
 GestionMedicamento.controller('ModificarController', function ($scope, $http, $location) {
     console.log("Buscar Usurario");
-    $http.get("http://localhost:64698/api/Medicamento/GetAllNombresMedicamentosxSucursal?id=" + 1)
+    $http.get("http://localhost:64698/api/Medicamento/GetAllNombresMedicamentosxSucursal?id=" + window.localStorage.getItem("idSucursal"))
         .then(function (response) {
             console.log("Getting");
             $scope.medicamentos = response.data;
@@ -121,7 +121,7 @@ GestionMedicamento.controller('ModificarController', function ($scope, $http, $l
 
                         var data = {
                             IdMedicamento: $scope.IDM,
-                            IdSucursal: 1,//Number(window.localStorage.getItem("idSucursal")),
+                            IdSucursal: Number(window.localStorage.getItem("idSucursal")),
                             IdCasaFarmaceutica: $scope.IdCasa,
                         }
 
@@ -164,7 +164,7 @@ GestionMedicamento.controller('ModificarController', function ($scope, $http, $l
             }
             var editMXS = {
                 IdMedicamento: $scope.IDM,
-                IdSucursal: 1,//Number(window.localStorage.getItem("idSucursal")),
+                IdSucursal: Number(window.localStorage.getItem("idSucursal")),
                 PrecioSucursal: Number(pS),
                 Cantidad: Number(cant),
             }

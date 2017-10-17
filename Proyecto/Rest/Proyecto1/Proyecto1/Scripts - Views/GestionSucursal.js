@@ -68,7 +68,7 @@ GestionSucursal.controller('GestionSucursalController', function ($scope, $http)
 });
 
 GestionSucursal.controller("EliminarController", function ($scope, $http, $location) {
-    $http.get("http://localhost:64698/api/Empresa/GetIdEmpresa?id=" + 1)//window.localStorage.getItem("idSucursal"))
+    $http.get("http://localhost:64698/api/Empresa/GetIdEmpresa?id=" + window.localStorage.getItem("idSucursal"))
         .then(function (response) {
             $scope.IDE = response.data;
             console.log($scope.IDE)
@@ -103,7 +103,7 @@ GestionSucursal.controller("EliminarController", function ($scope, $http, $locat
 });
 
 GestionSucursal.controller('ModificarController', function ($scope, $http, $location) {
-    $http.get("http://localhost:64698/api/Empresa/GetIdEmpresa?id=" + 1)//window.localStorage.getItem("idSucursal"))
+    $http.get("http://localhost:64698/api/Empresa/GetIdEmpresa?id=" + window.localStorage.getItem("idSucursal"))
         .then(function (response) {
             $scope.IDE = response.data;
             console.log($scope.IDE)

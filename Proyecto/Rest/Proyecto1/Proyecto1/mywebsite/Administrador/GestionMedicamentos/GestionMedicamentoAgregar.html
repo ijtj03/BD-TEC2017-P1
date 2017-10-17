@@ -68,7 +68,7 @@
                         <h2>Agregar</h2>
                         <input type="text" class='field' value='' placeholder='Nombre' name='txtnombre' ng-model="nombre" required />
                         <br><br>
-                        <input type="number" class='field' value='' placeholder='Casa Farmaceutica' ng-model="idCasaFarmaceutica" required />
+                        Casa Farmaceutica: <select ng-model="casa" ng-options="x for x in casas"></select>
                         <br><br>
                         <input type="number" class='field' value='' placeholder='Requiere Prescripcion' ng-model="prescripcion" required />
                         <br><br>

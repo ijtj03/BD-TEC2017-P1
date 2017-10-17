@@ -38,17 +38,46 @@ namespace Proyecto1.Services
             return ListMedicamentos;
         }
 
+        public List<String> GetAllNombresMedicamentosxSucursal(int id)
+        {
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+            SqlDataReader read;
+
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+            command = new SqlCommand("SELECT Nombre from Medicamento AS M INNER JOIN MedicamentoxSucursal AS MS ON M.IdMedicamento = MS.IdMedicamento WHERE MS.LogicDelete = 0 and MS.IdSucursal=" + id, conn);
+            read = command.ExecuteReader();
+
+            List<String> ListMedicamentos = new List<String>();
+            while (read.Read())
+            {
+                String Nombre = read["Nombre"].ToString();
+
+                ListMedicamentos.Add(Nombre);
+
+            }
+            read.Close();
+            conn.Close();
+            return ListMedicamentos;
+        }
+
         public int GetMedicamentoID(string nombre)
         {
             System.Data.SqlClient.SqlConnection conn;
             SqlCommand command;
             SqlDataReader read;
-            int id;
+            
             conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
             conn.Open();
-            command = new SqlCommand("SELECT IdMedicamento from Medicamento WHERE Nombre =" + nombre.ToString(), conn);
+            command = new SqlCommand("SELECT IdMedicamento from Medicamento WHERE Nombre ='" + nombre.ToString()+"'", conn);
             read = command.ExecuteReader();
-            id = Convert.ToInt32(read["IdMedicamento"]);
+            int id=-1;
+            while (read.Read())
+            {
+                id = Convert.ToInt32(read["IdMedicamento"]);
+
+            }
             return id;
         }
 
@@ -70,6 +99,22 @@ namespace Proyecto1.Services
             read.Close();
             conn.Close();
             return ans;
+        }
+
+        public void UpdateReceta([FromBody]Medicamento medicamento)
+        {
+            System.Data.SqlClient.SqlConnection conn;
+            SqlCommand command;
+            //conn = new SqlConnection("Data Source=MELENDEZ-JEISON\\SQLEXPRESS;Initial Catalog=Proyecto1;Integrated Security=True");
+            conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
+            conn.Open();
+            String comm = "Update Medicamento SET NecesitaReceta=" + medicamento.NecesitaReceta.ToString() + "WHERE IdMedicamento=" + medicamento.IdMedicamento.ToString();
+
+
+            command = new SqlCommand(comm, conn);
+
+            command.ExecuteNonQuery();
+            conn.Close();
         }
 
 

@@ -114,7 +114,7 @@ namespace Proyecto1.Services
 
             conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
             conn.Open();
-            command = new SqlCommand("SELECT IdRol  from Rol where  Nombre='" + nombre + "'", conn);
+            command = new SqlCommand("SELECT IdRol  from Rol where  LogicDelete = 0 and nombre='" + nombre + "'", conn);
             read = command.ExecuteReader();
             int IdRol = -1;
             while (read.Read())
@@ -133,7 +133,7 @@ namespace Proyecto1.Services
 
             conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
             conn.Open();
-            command = new SqlCommand("SELECT Nombre  from Rol where  IdRol=" + id.ToString(), conn);
+            command = new SqlCommand("SELECT Nombre  from Rol where LogicDelete=0 and  IdRol=" + id.ToString(), conn);
             read = command.ExecuteReader();
             String nombre = "";
             while (read.Read())
@@ -165,7 +165,7 @@ namespace Proyecto1.Services
 
             conn = new SqlConnection("Data Source=(local);Initial Catalog=Proyecto1;Integrated Security=True");
             conn.Open();
-            String comm = "Update Rol SET Nombre=\'" + rol.Nombre + "\',Descripcion=\'" + rol.Descripcion ;
+            String comm = "Update Rol SET Nombre='" + rol.Nombre.ToString() + "',Descripcion='" + rol.Descripcion.ToString() + "' WHERE IdRol =" + rol.IdRol.ToString() ;
 
 
             command = new SqlCommand(comm, conn);

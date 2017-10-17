@@ -73,5 +73,13 @@ namespace Proyecto1.Controllers
             con.PostRol(rol);
         }
 
+        [HttpPost]
+        [Route("UpdateRol")]
+        public void UpdateRol([FromBody] Rol rol)
+        {
+            RolService con = new RolService();
+            con.UpdateRol(rol);
+        }
+
     }
 }

@@ -28,6 +28,16 @@ namespace Proyecto1.Controllers
             con.PostMedicamento(medicamento);
         }
 
+        [HttpPost]
+        [Route("UpdateReceta")]
+        public void UpdateReceta([FromBody]Medicamento medicamento)
+        {
+            MedicamentoService con = new MedicamentoService();
+            con.UpdateReceta(medicamento);
+        }
+
+        
+
         [HttpGet]
         [Route("GetAllMedicamentosxRelacion")]
         public IHttpActionResult GetAllMedicamentosxRelacion(int id)
@@ -44,13 +54,21 @@ namespace Proyecto1.Controllers
             return Ok(con.GetMedicamentosxRelacion(idm,ids,idc));
         }
 
-        /**[HttpGet]
+        [HttpGet]
+        [Route("GetAllNombresMedicamentosxSucursal")]
+        public IHttpActionResult GetAllNombresMedicamentosxSucursal(int id)
+        {
+            MedicamentoService con = new MedicamentoService();
+            return Ok(con.GetAllNombresMedicamentosxSucursal(id));
+        }
+
+        [HttpGet]
         [Route("GetMedicamentoID")]
         public IHttpActionResult GetMedicamentoID(string nombre)
         {
             MedicamentoService con = new MedicamentoService();
             return Ok(con.GetMedicamentoID(nombre));
-        }*/
+        }
 
         [HttpGet]
         [Route("GetLastMedicamentoId")]
